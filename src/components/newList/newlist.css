@@ -1,0 +1,108 @@
+.newlist {
+    width: 100vw;
+    height: 100vh;
+    background: url(https://static.pexels.com/photos/355296/pexels-photo-355296.jpeg);
+    background-size: cover;
+    background-position: 65% center;
+}
+.add-todo {
+    width: 95%;
+    margin: 20px 2.5%;
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.4) 13%, rgba(245, 245, 213, 0.4) 60%,  rgba(245, 245, 213, 0.4), rgba(0, 0, 0, 0.4));
+    height: 40px;
+    border-radius: 2px;
+}
+.add-todo input {
+    width: 75%;
+    background: transparent;
+    height: 25px;
+    padding: 0;
+    margin: 7.5px 5px;
+    border: 0;
+    outline: none;
+}
+.add-todo button {
+    background: transparent;
+    border: transparent;
+    height: 25px;
+    margin: 7.5px 0;
+    padding: 0;
+    font-size: 15px;
+}
+.add-todo .plus-sign {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin: 7.5px 0;
+    font-size: 18px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+li {
+    display: inline-block;
+    position: relative;
+    width: 80%;
+    margin: 15px 10% 0;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 20px;
+    text-transform: capitalize;
+    border-radius: 4px;
+}
+li:nth-child(4n+1) {
+    background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+}
+li:nth-child(4n+2) {
+    background: linear-gradient(to bottom right, rgba(243, 243, 21, 0.4), rgba(255, 255, 255, 0.4));
+}
+li:nth-child(4n+3) {
+    background: linear-gradient(to bottom right, rgba(68, 240, 0, 0.4), rgba(245, 245, 213, 0.4));
+}
+li:nth-child(4n) {
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.4), rgba(203, 203, 203, 0.4));
+}
+.options { 
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block; 
+}
+
+.delete { 
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    /* display: inline-block;  */
+}
+.edit {
+}
+/*div {
+    position: relative;
+    width: 250px;
+    height: 30px;
+    border: 2px solid black;
+}
+.edit {
+    display: none;
+}
+.delete {
+    display: none;
+}
+.delete span {
+    display: none;
+}
+.delete.active span {
+    display: block;
+}
+.options {
+    display: inline-block;
+}
+.active + span {
+    display: inline-block;
+}*/
