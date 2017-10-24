@@ -15,7 +15,7 @@ export default class App extends Component {
     this.choice = this.choice.bind(this);
     this.returnToMenu = this.returnToMenu.bind(this);
   }
-  returnToMenu(bool){
+  returnToMenu(){
     this.setState({userInput: '',hideMenu: "no"})
   }
   choice(a){

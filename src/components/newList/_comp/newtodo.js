@@ -14,9 +14,11 @@ export default class NewTodo extends Component {
             var todo = {
                 name: this.refs.name.value,
                 severity: "none",
-                star: false,
+                star: {
+                    active: false,
+                },
             }
-            this.setState({newTodo: {todo}}, () => this.props.getTodo(this.state.newTodo));
+            this.setState({newTodo: todo}, () => this.props.getTodo(this.state.newTodo));
         }
         e.target.reset();
     }

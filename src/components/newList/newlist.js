@@ -14,8 +14,8 @@ export default class NewList extends Component {
         }
     }
     getTodo(todo){
-        console.log(todo);
         var todos;
+        console.log(todo);
         if (localStorage.getItem('todo') == null) {
             todos = [];
             todos.push(todo);
@@ -47,7 +47,7 @@ export default class NewList extends Component {
             );
         }
         else {
-            return <h1 style={{display: "none"}}>.</h1>
+            return null;
         }
     }
 }

@@ -11,6 +11,7 @@ export default class Menu extends Component {
     }
     submit(e){
         let choice;
+        console.log(e.target.parentNode.childNodes);
         if(e.target.classList.value === "calander"){
             choice = "cal";
         }
