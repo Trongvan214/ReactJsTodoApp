@@ -6,7 +6,7 @@ export default class ExistingList extends Component {
             return <BackToMenu onClick={this.props.return}/>
         }
         else {
-            return <h1 style={{display: "none"}}>.</h1>
+            return null;
         }
     }
 }

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
 export default class Option extends Component {
-    //first to be visble
+    optionActive(e){
+        e.target.classList.toggle('active');
+    }
     render(){
-        return (
-            <span className="options" onClick={this.props.onClick}>...</span>
-        );
+        return  <span className="options" onClick={this.optionActive}></span>
     }
 }

@@ -33,7 +33,7 @@ export default class Menu extends Component {
             )
         }
         else {
-            return <h1 style={{display: "none"}}>.</h1>
+            return null;
         }
     }
 }

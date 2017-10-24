@@ -47,11 +47,9 @@ li {
     width: 80%;
     margin: 15px 10% 0;
     height: 35px;
-    text-align: center;
-    line-height: 35px;
-    font-size: 20px;
     text-transform: capitalize;
     border-radius: 4px;
+    line-height: 35px;
 }
 li:nth-child(4n+1) {
     background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
@@ -61,48 +59,45 @@ li:nth-child(4n+2) {
 }
 li:nth-child(4n+3) {
     background: linear-gradient(to bottom right, rgba(68, 240, 0, 0.4), rgba(245, 245, 213, 0.4));
-}
+} 
 li:nth-child(4n) {
     background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.4), rgba(203, 203, 203, 0.4));
 }
+li > span:not(.options) {
+    float: left;
+}
+.name {
+    height: 100%;
+    width: auto;
+    margin: 0 10px;
+}
 .options { 
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: inline-block; 
+    float: right;
+    margin-right: 10px;
 }
-
-.delete { 
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    /* display: inline-block;  */
+.options::before {
+    content: '\2219\2219\2219';
+    font-size: 25px;
 }
-.edit {
-}
-/*div {
-    position: relative;
-    width: 250px;
-    height: 30px;
-    border: 2px solid black;
-}
-.edit {
-    display: none;
-}
-.delete {
-    display: none;
-}
-.delete span {
-    display: none;
-}
-.delete.active span {
+.active.options ~ span {
     display: block;
 }
-.options {
-    display: inline-block;
+.delete { 
+    display: none;
 }
-.active + span {
-    display: inline-block;
-}*/
+.edit {
+    display: none;
+}
+.star {
+    margin-left: 10px;
+}
+.star::before {
+    content: '\2606';
+    font-size: 25px;
+    color: rgba(6, 104, 26, 0.761);
+}
+.active.star::before {
+    content: '\2605';
+    font-size: 25px;
+    color: rgba(6, 104, 26, 0.761);
+}

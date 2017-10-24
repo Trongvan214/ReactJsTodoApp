@@ -10,7 +10,7 @@ export default class Calender extends Component {
         }
         else
         {
-            return <h1 style={{display: "none"}}>.</h1>
+            return null;
         }
     }
 }
