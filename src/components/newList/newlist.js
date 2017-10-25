@@ -15,7 +15,6 @@ export default class NewList extends Component {
     }
     getTodo(todo){
         var todos;
-        console.log(todo);
         if (localStorage.getItem('todo') == null) {
             todos = [];
             todos.push(todo);

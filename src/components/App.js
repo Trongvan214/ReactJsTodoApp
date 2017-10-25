@@ -9,18 +9,23 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      //set new list for now
       userInput: '',
-      hideMenu: "no"
+      hideMenu: false
     }
     this.choice = this.choice.bind(this);
     this.returnToMenu = this.returnToMenu.bind(this);
   }
+  componentWillMount(){
+    this.setState({userInput: "new", hideMenu: true});
+    console.log(this.state.userInput);
+  }
   returnToMenu(){
-    this.setState({userInput: '',hideMenu: "no"})
+    this.setState({userInput: '',hideMenu: false})
   }
   choice(a){
-    this.setState({userInput: a, hideMenu: "yes"});
-  }
+    this.setState({userInput: a, hideMenu: true});
+  } 
   render() {
     return (
       <div className="App">

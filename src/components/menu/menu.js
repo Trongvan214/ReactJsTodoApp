@@ -11,7 +11,6 @@ export default class Menu extends Component {
     }
     submit(e){
         let choice;
-        console.log(e.target.parentNode.childNodes);
         if(e.target.classList.value === "calander"){
             choice = "cal";
         }
@@ -24,7 +23,7 @@ export default class Menu extends Component {
         this.setState({userInput: choice},()=>this.props.choice(this.state.userInput));
     }
     render(){
-        if(this.props.hide === "no"){
+        if(!this.props.hide){
             return (
                 <div className="menu">
                     <div className="calander" onClick={this.submit}>Calander</div>

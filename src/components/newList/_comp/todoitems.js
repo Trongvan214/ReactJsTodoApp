@@ -5,31 +5,28 @@ import Option from './option';
 import Star from './star';
 
 export default class TodoItems extends Component {
-    // constructor(props){
-    //     super(props);
-    // }
-    optionActive(e,index){
+    optionActive(e, index, len){
+        //remove all option active only have 1 at a time
+        for(var i = 0;i < len;i++){   
+            if(i !== index)
+            {
+                e.target.parentNode.parentNode.childNodes[i].childNodes[2].classList.remove('active');
+            }
+        }
         e.target.classList.toggle('active');
-    }
-    editOption(){
-
-    }
-    edit(index){
-        //let todos = JSON.parse(localStorage.getItem('todo'));
-
     }
     updateStar(e,index){
+        //toggle active
         e.target.classList.toggle('active');
+        //save it in localstorage and update it
         let todos = JSON.parse(localStorage.getItem('todo'));
         todos[index].star.active = !todos[index].star.active;
         localStorage.setItem('todo', JSON.stringify(todos));
         this.props.update(todos);
     }
-    deleteTodoItem(e,index, len){
-        //remove option active from all todo
-        for(var i = 0;i < len;i++){
-            e.target.parentNode.parentNode.childNodes[i].childNodes[2].classList.remove('active');
-        }
+    deleteTodoItem(e, index, len){
+        //remove this element active class
+        e.target.parentNode.childNodes[2].classList.remove('active');
         //take out todo at that index
         let todos = JSON.parse(localStorage.getItem('todo'));
         todos.splice(index, 1);
@@ -44,8 +41,8 @@ export default class TodoItems extends Component {
                     <li key={index}>
                         <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star.active}/>
                         <span className="name">{eachTodo.name}</span>
-                        <Option onClick={(e)=>this.optionActive(e,index)} />
-                        <Edit onClick={()=>this.editOption}/>
+                        <Option onClick={(e)=>this.optionActive(e,index,arr.length)} />
+                        <Edit />
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>
                 )
