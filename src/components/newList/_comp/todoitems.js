@@ -30,7 +30,7 @@ export default class TodoItems extends Component {
                     <li key={index}>
                         <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star.active}/>
                         <span className="name">{eachTodo.name}</span>
-                        <Edit />
+                        <Edit name={eachTodo.name}/>
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>
                 )

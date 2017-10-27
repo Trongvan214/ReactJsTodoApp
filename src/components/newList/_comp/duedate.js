@@ -50,14 +50,14 @@ export default class DueDate extends Component {
             return <span key={index}>{value.substring(0,1)}</span> //s m t w 
         });
         return (
-            <div id="calendar-container">
-                <span id="calendar-month-backward" onClick={()=>this.decreaseMonth()}>&lsaquo;</span>
-                <span id="calendar-month-forward" onClick={()=>this.increaseMonth()}>&rsaquo;</span>
-                <div id="calendar-header">
-                    <span id="calendar-month-year">{`${monthName[this.state.date.month]} ${this.state.date.year}`}</span>
+            <div className="calendar-container">
+                <span className="calendar-month-backward" onClick={()=>this.decreaseMonth()}>&lsaquo;</span>
+                <span className="calendar-month-forward" onClick={()=>this.increaseMonth()}>&rsaquo;</span>
+                <div className="calendar-header">
+                    <span className="calendar-month-year">{`${monthName[this.state.date.month]} ${this.state.date.year}`}</span>
                 </div>
                 <div className="calendar-body">
-                    <div id="calendar-day">{days}</div>
+                    <div className="calendar-day">{days}</div>
                     <Dates date={this.state.date} returnDate={this.returnDate.bind(this)} dateInfo={dateInfo}/>
                 </div>
             </div>
