@@ -1,0 +1,37 @@
+#calendar-container{
+    width: 95%;
+    margin: 0 2.5%;
+    font-size: 20px;
+    font-family: Arial;
+    background-image: linear-gradient(#fff, #d3d3d3);
+}
+#calendar-day > span,
+#calendar-date > div {
+    display: inline-block;
+    width: calc(100% / 7);
+    height: 44px;
+    font-size: 17px;
+    text-align: center;
+    line-height: 44px;
+    border-radius: 100%;
+}
+#calendar-date > div {
+    border-radius: px;
+}
+#calendar-date > div:hover {
+    background: lightcoral;
+}
+#calendar-container>div{
+    padding: 0;
+    margin-bottom: 10px;
+}
+#calendar-month-year {
+    display: block;
+    text-align: center;
+}
+#calendar-month-backward {
+    float: left;
+}
+#calendar-month-forward {
+    float: right;
+}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import NewTodo from './_comp/newtodo';
 import TodoItems from './_comp/todoitems';
 import BackToMenu from '.././backtomenu/backtomenu';
+import NewListOption from './_comp/newlistoption';
 import './newlist.css';
 
 export default class NewList extends Component {
@@ -42,6 +43,7 @@ export default class NewList extends Component {
                     <BackToMenu onClick={this.props.return}/>
                     <NewTodo getTodo={this.getTodo}/>
                     <TodoItems todo={this.state.todo} update={this.updateTodo}/>
+                    <NewListOption />
                 </div>
             );
         }

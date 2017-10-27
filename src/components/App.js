@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NewList from './newList/newlist';
 import ExistingList from './existingList/existinglist';
-import Calender from './calender/calender';
+import Calendar from './calendar/calendar';
 import Menu from './menu/menu.js';
 import './app.css';
 
@@ -9,7 +9,6 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      //set new list for now
       userInput: '',
       hideMenu: false
     }
@@ -17,8 +16,7 @@ export default class App extends Component {
     this.returnToMenu = this.returnToMenu.bind(this);
   }
   componentWillMount(){
-    this.setState({userInput: "new", hideMenu: true});
-    console.log(this.state.userInput);
+    this.setState({userInput: "cal", hideMenu: true});
   }
   returnToMenu(){
     this.setState({userInput: '',hideMenu: false})
@@ -32,7 +30,7 @@ export default class App extends Component {
         <Menu choice={this.choice} hide={this.state.hideMenu}/>
         <NewList show={this.state.userInput} return={this.returnToMenu}/>
         <ExistingList show={this.state.userInput} return={this.returnToMenu}/>
-        <Calender show={this.state.userInput} return={this.returnToMenu}/>
+        <Calendar show={this.state.userInput} return={this.returnToMenu}/>
       </div>
     );
   }

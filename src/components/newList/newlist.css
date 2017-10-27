@@ -71,6 +71,7 @@ li > span {
     margin: 0 10px;
 }
 .option { 
+    float: right;
     margin-right: 10px;
     cursor: pointer;
 }
@@ -78,11 +79,13 @@ li > span {
     content: '\2219\2219\2219';
     font-size: 25px;
 }
-.active.option ~ span {
+.active.option ~ span.edit {
     display: inline-block;
 }
 .delete { 
-    display: none;
+    /* display: none; */
+    float: right;
+    margin-right: 15px;
     cursor: pointer;
 }
 /*-------------Edit------------*/
@@ -117,4 +120,26 @@ li > span {
     content: '\2605';
     font-size: 25px;
     color: rgba(6, 104, 26, 0.761);
+}
+
+/*------new list option -----------*/
+.newlist-menu {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 45px;
+}
+.newlist-edit, .newlist-sort {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 20px
+}
+.newlist-sort {
+    left: 20px;
+}
+.newlist-edit {
+    right: 20px;
 }
