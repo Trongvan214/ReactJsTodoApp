@@ -1,20 +1,9 @@
 import React, {Component} from 'react';
 import Edit from './edit';
 import Delete from './delete';
-import Option from './option';
 import Star from './star';
 
 export default class TodoItems extends Component {
-    optionActive(e, index, len){
-        //remove all option active only have 1 at a time
-        for(var i = 0;i < len;i++){   
-            if(i !== index)
-            {
-                e.target.parentNode.parentNode.childNodes[i].childNodes[2].classList.remove('active');
-            }
-        }
-        e.target.classList.toggle('active');
-    }
     updateStar(e,index){
         //toggle active
         e.target.classList.toggle('active');
@@ -41,7 +30,6 @@ export default class TodoItems extends Component {
                     <li key={index}>
                         <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star.active}/>
                         <span className="name">{eachTodo.name}</span>
-                        <Option onClick={(e)=>this.optionActive(e,index,arr.length)} />
                         <Edit />
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>

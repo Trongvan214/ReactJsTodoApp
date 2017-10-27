@@ -1,7 +1,6 @@
 import React from 'react';
 
 const CalBody = (props) => {
-    console.log(props);
     let dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     let monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     let d = new Date(props.date.year,props.date.month);

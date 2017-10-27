@@ -70,27 +70,18 @@ li > span {
     width: auto;
     margin: 0 10px;
 }
-.option { 
-    float: right;
-    margin-right: 10px;
-    cursor: pointer;
-}
-.option::before {
-    content: '\2219\2219\2219';
-    font-size: 25px;
-}
-.active.option ~ span.edit {
-    display: inline-block;
-}
 .delete { 
     /* display: none; */
     float: right;
     margin-right: 15px;
     cursor: pointer;
+    color: red;
+    font-size: 20px
 }
 /*-------------Edit------------*/
 .edit {
-    display: none;
+    margin-right: 15px;
+    float: right;
     cursor: pointer;
     transform: rotateY(180deg);
 }
@@ -142,4 +133,51 @@ li > span {
 }
 .newlist-edit {
     right: 20px;
+}
+
+/*------Calendar----------*/
+#calendar-container{
+    width: 55%;
+    font-size: 20px;
+    font-family: Arial;
+    background-image: linear-gradient(#fff, #d3d3d3);
+}
+.calendar-body {
+    width: 100%;
+    padding-bottom: 7px;
+}
+#calendar-day > span,
+#calendar-date > span {
+    float: left;
+    width: calc(100% / 7);
+    height: 20px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 100%;
+}
+#calendar-date, #calendar-day {
+    overflow: auto;
+    width: 95%;
+    margin: 0 2.5%;
+
+}
+#calendar-date > span.active {
+    background: lightcoral;
+}
+#calendar-month-year {
+    height: 25px;
+    display: block;
+    text-align: center;
+    font-size: 13px;
+}
+#calendar-month-backward {
+    margin-left: 5px;
+    float: left;
+    font-size: 17px;
+}
+#calendar-month-forward {
+    margin-right: 5px;
+    float: right;
+    font-size: 17px;
 }
