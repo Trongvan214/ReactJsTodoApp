@@ -6,6 +6,8 @@ export default class Dates extends Component {
         this.state = {
             dateActive: false,
         }
+        this.year = props.date.year;
+        this.month = props.date.month;
     }
     pickTime(e,index,value,len){
         //remove active from all others
@@ -15,33 +17,17 @@ export default class Dates extends Component {
             }
         }
         e.target.classList.toggle('active');
-        let month = this.props.date.month;
-        let year = this.props.date.year;
-        let u = new Date(year, month, value); //user time
-        let c = new Date();  //curr time
-        let cDate = c.getDate();
-        let cMonth = c.getMonth();
-        let cYear = c.getFullYear();
-        let time = u.toDateString();
-        let hoursLeft = Math.floor(((u.getTime() - c.getTime())/1000/60/60)); //hours differnt from user pick to curr
-        if(u.toDateString() === new Date(cYear, cMonth, cDate).toDateString()){
-            time<0? time = hoursLeft+" hours late" : time = hoursLeft+" hours left";
-        }
-        else if(u.toDateString() === new Date(cYear, cMonth, cDate-1).toDateString()){
-            time = "Yesterday";
-        } 
-        else if(u.toDateString() === new Date(cYear, cMonth, cDate+1).toDateString()){
-            time = "Tommmorow";
-        }
-        this.props.returnDate(time);
+        let u = new Date(this.year, this.month, value); //user time
+        this.props.returnDate(u.toDateString());
     }
 
     render(){
-        //when to place the date
-        let freeSpace = this.props.dateInfo.free;
-        let totalDays = this.props.dateInfo.total;
+        let dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        let firstDay = new Date(this.year,this.month,1).toDateString().substring(0,3) //exp: Mon
+        let totalDays = new Date(this.year,this.month+1, 0).getDate();    //exp: 30
+        let freeSpace = dayName.indexOf(firstDay);
         //make a arr of nth element with that's empty
-        let arrDate = new Array(totalDays+freeSpace).fill();
+        let arrDate = Array(totalDays+freeSpace).fill();
         var dates = arrDate.map((v,i,a)=>{
             let value = i+1-freeSpace;
             if(i<freeSpace){
