@@ -21,11 +21,15 @@ export default class Edit extends Component {
         if(!this.state.exit){
             return (
                 <div className="edit-menu">
+                    <span className="todo-name">{this.props.name}</span>
                     <div className="due-date">
                         <span className="due-date-symbol" role="img" aria-label="cal">&#x1F4C5;</span>
                         <span className="due-date-text">Due Date {this.state.pickedDate}</span>
                         <span className="due-date-button">&#9660;</span>
                         <DueDate getDate={this.getDate.bind(this)} />
+                    </div>
+                    <div className="due-time">
+
                     </div>
                     <div className="sub-task">
                         <span className="sub-task-symbol">&#43;</span>

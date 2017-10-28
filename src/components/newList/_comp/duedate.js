@@ -6,14 +6,25 @@ export default class DueDate extends Component {
         super(props);
         this.state = {
             date: {
-                month: '',
                 year: '',
-            }
+                month: '',
+                date: '',
+            },
+            searchBox: this.refs.searchBox,
         }
+        this.calSearch = this.calSearch.bind(this);
     }
+    //set the state before mounting
     componentWillMount(){
         let d = new Date();
-        this.setState({date: {month: d.getMonth(), year: d.getFullYear()}})
+        this.setState({date: {year: d.getFullYear(), month: d.getMonth(), date: d.getDate()}});
+    }
+    calSearch(){
+        let searchReg = new RegExp(/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/);
+        if(searchReg.test(this.refs.calSearchBox.value)){
+            let d = this.refs.calSearchBox.value.split('/');
+            this.setState({date: {year: d[2], month: d[1]-1, date: d[0]}});
+        }
     }
     returnDate(dateString){
         this.props.getDate(dateString);
@@ -42,6 +53,7 @@ export default class DueDate extends Component {
         let firstDay = new Date(this.state.date.year,this.state.date.month,1).toDateString().substring(0,3) //exp: Mon
         let totalDays = new Date(this.state.date.year,this.state.date.month+1, 0).getDate();    //exp: 30
         let freeSpace = dayName.indexOf(firstDay);
+        let curr = this.state.date.date+"/"+(this.state.date.month+1)+"/"+this.state.date.year;
         let dateInfo = {
             total: totalDays,
             free: freeSpace
@@ -51,6 +63,7 @@ export default class DueDate extends Component {
         });
         return (
             <div className="calendar-container">
+                <input className="calendar-search" type="text" defaultValue={curr} onChange={this.calSearch} ref="calSearchBox" placeholder="08/23/2020"/>
                 <span className="calendar-month-backward" onClick={()=>this.decreaseMonth()}>&lsaquo;</span>
                 <span className="calendar-month-forward" onClick={()=>this.increaseMonth()}>&rsaquo;</span>
                 <div className="calendar-header">

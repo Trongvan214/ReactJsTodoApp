@@ -19,31 +19,23 @@ export default class Dates extends Component {
         let year = this.props.date.year;
         let u = new Date(year, month, value); //user time
         let c = new Date();  //curr time
-        let midC = new Date(c.getFullYear(), c.getMonth(), c.getDate()+1).setHours(0,0,0,0); // curr time midnight time (UNIX Timestamp)
-        // let midY = new Date(c.getFullYear(), c.getMonth(), c.getDate()).setHours(0,0,0,0); //curr time yester midnight time (UNIX Timestamp)
-        let hoursFromCurr = (u.getTime() - c.getTime())/1000/60/60; //hours differnt from user pick to curr
-        let hourTillMid = (midC - c.getTime())/1000/60/60; //hours until midnight of curr time
-        // let hoursFromMid = (midY - c.getTime())/1000/60/60; //hours been since yesterday
-        let answer;
-        let diff = hoursFromCurr-hourTillMid;
-        console.log(diff);
-        if(diff >= 0){
-            answer = "Tommrow";
-            if(diff >= 24) {
-                answer = u.toDateString();
-            }
+        let cDate = c.getDate();
+        let cMonth = c.getMonth();
+        let cYear = c.getFullYear();
+        let time = u.toDateString();
+        let hoursLeft = Math.floor(((u.getTime() - c.getTime())/1000/60/60)); //hours differnt from user pick to curr
+        if(u.toDateString() === new Date(cYear, cMonth, cDate).toDateString()){
+            time<0? time = hoursLeft+" hours late" : time = hoursLeft+" hours left";
         }
-        else {
-            answer = "Today";
-            if(diff>=-47.90){
-                answer = "Yesterday";
-                if(diff>=-71){
-                    answer = u.toDateString();
-                }
-            }
+        else if(u.toDateString() === new Date(cYear, cMonth, cDate-1).toDateString()){
+            time = "Yesterday";
+        } 
+        else if(u.toDateString() === new Date(cYear, cMonth, cDate+1).toDateString()){
+            time = "Tommmorow";
         }
-        this.props.returnDate(answer);
+        this.props.returnDate(time);
     }
+
     render(){
         //when to place the date
         let freeSpace = this.props.dateInfo.free;
@@ -55,6 +47,9 @@ export default class Dates extends Component {
             if(i<freeSpace){
                 //empty spans
                 return <span key={"free"+i}></span>;
+            }
+            else if(i+1 === this.props.date.date){
+                return <span key={i} className="active" onClick={(e)=>this.pickTime(e,i,value,a.length)}>{value}</span>;
             }
             else {
                 //date count span
