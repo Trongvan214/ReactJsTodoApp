@@ -8,13 +8,6 @@ export default class Dates extends Component {
         }
     }
     pickTime(e,index,value,len){
-        //remove active from all others
-        // for(let i=0;i<len;i++){
-        //     if(i !== index){
-        //         e.target.parentNode.childNodes[i].classList.remove('active');
-        //     }
-        // }
-        // e.target.classList.toggle('active');
         //return date string back to duedate
         let u = new Date(this.props.date.year, this.props.date.month, value); //user time
         this.props.returnDate(u.toDateString());

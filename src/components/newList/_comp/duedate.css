@@ -1,0 +1,97 @@
+.due-date{ 
+    position: relative;
+    width: 95%;
+    height: 35px;
+    margin: 0 2.5%
+}
+.due-date-text-container{
+    width: 100%;
+}
+.due-date-text {
+    letter-spacing: -1px;
+}
+.due-date-symbol{
+    display: inline-block;
+    margin-right: 7px;
+}
+.due-date-button {
+    float: right;
+    margin-right: 10px;
+    font-size: 15px;
+}
+.due-date-del:before {
+    margin-right: 10px;
+    float: right;
+    content: '\2715';
+}
+/*--------------------------
+           CALENDAR 
+--------------------------*/
+.calendar-container{
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    width: 58%;
+    font-size: 20px;
+    font-family: Arial;
+    background-image: linear-gradient(#fff, #d3d3d3);
+    display: none;
+}
+.active.calendar-container {
+    display: block;
+}
+.calendar-day > span,
+.calendar-date > span {
+    float: left;
+    width: calc(100% / 7);
+    height: 23px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 23px;
+}
+.calendar-day {
+    font-weight: bold;
+}
+.calendar-date, .calendar-day {
+    overflow: auto;
+    width: 92%;
+    margin: 0 4%;
+
+}
+.calendar-date > span.active {
+    background: lightcoral;
+}
+.calendar-body {
+    width: 100%;
+    padding-bottom: 12px;
+}
+.calendar-month-year {
+    height: 25px;
+    display: block;
+    text-align: center;
+    font-size: 13px;
+}
+.calendar-month-backward {
+    margin-left: 5px;
+    float: left;
+    font-size: 17px;
+}
+.calendar-month-forward {
+    margin-right: 5px;
+    float: right;
+    font-size: 17px;
+}
+.calendar-search {
+    text-align: center;
+    box-sizing: border-box;
+    width: 90%;
+    margin: 0 5%;
+    padding: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #262626;
+    border: 1px solid rgb(93, 93, 208);
+    border-radius: 6px;
+    background: transparent;
+    outline: none;
+}

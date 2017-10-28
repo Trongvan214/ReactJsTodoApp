@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import DueDate from './duedate';
+import DueTime from './duetime';
+import './edit.css';
+
 export default class Edit extends Component {
     constructor(props){
         super(props);
@@ -19,9 +22,7 @@ export default class Edit extends Component {
                 <div className="edit-menu">
                     <span className="todo-name">{this.props.name}</span>
                     <DueDate />
-                    <div className="due-time">
-
-                    </div>
+                    <DueTime />
                     <div className="sub-task">
                         <span className="sub-task-symbol">&#43;</span>
                         <input type="text" className="sub-task-textbox" placeholder="Add a subtask" />
