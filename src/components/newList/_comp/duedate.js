@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Dates from './dates';
-import CalSearch from './calsearch';
 
 export default class DueDate extends Component {
     constructor(props){
@@ -11,11 +10,12 @@ export default class DueDate extends Component {
                 month: '',
                 date: '',
             },
-            defaultCalSearch:  '',
+            dateSearch:  '',
             monthName: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-            dateClicked: false,
+            pickedDate: '',
         }
         this.calSearch = this.calSearch.bind(this);
+        this.returnDate = this.returnDate.bind(this);
     }
     //set the state before mounting
     componentWillMount(){
@@ -27,73 +27,92 @@ export default class DueDate extends Component {
                 month: d.getMonth(), 
                 date: d.getDate()
             },
-            defaultCalSearch: s
+            dateSearch: s
         });
     }
-    calSearch(text){
+    calSearch(e){
+        this.setState({
+            dateSearch: e.target.value,
+        });
         let searchReg = new RegExp(/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/);
-        if(searchReg.test(text)){
-            let d = this.refs.calSearchBox.value.split('/');
-            this.setState({date: {year: d[2], month: d[1]-1, date: d[0]}});
+        if(searchReg.test(e.target.value)){
+            let d = e.target.value.split('/');
+            //covert to date first to avoid 12+ number
+            let a = new Date(d[2],d[1]-1,d[0]);
+            this.setState({date: {year: a.getFullYear(), month: a.getMonth(), date: a.getDate()}});
         }
     }
     returnDate(dateString){
-        let c = new Date();
-        let cYear = c.getFullYear();
-        let cMonth = c.getMonth();
-        let cDate = c.getDate()
-        let a = dateString.split(" ");
+        let d = dateString.split(" ");
         //loop through monthname and return 3 char month name
         let s = this.state.monthName.map(value=>value.substring(0,3));
-        this.setState({date: {year: a[3], month: s.indexOf(a[1]), date: a[2]}});
-        this.setState({dateClicked: true});
-        if(dateString === new Date(cYear, cMonth, cDate).toDateString()){
-            dateString = "Today";
-        }
-        else if(dateString === new Date(cYear, cMonth, cDate-1).toDateString()){
-            dateString = "Yesterday";
-        } 
-        else if(dateString === new Date(cYear, cMonth, cDate+1).toDateString()){
-            dateString = "Tommorrow";
-        }
-        this.props.getDate(dateString);
-    }
-    decreaseMonth(){
-        let t = new Date(this.state.date.year, this.state.date.month-1, this.state.date.date);
+        //covert to date first to avoid 12+ number
+        let a = new Date(d[3],s.indexOf(d[1]),d[2]);
+        let dateFormatted = a.getDate()+"/"+a.getMonth()+"/"+a.getFullYear();
+        //set the dateSearch to the date of clicked 
         this.setState({
             date: {
-                year: t.getFullYear(),
-                month: t.getMonth(),
-                date: t.getDate(),
-            }
+                year: a.getFullYear(), 
+                month: a.getMonth(), 
+                date: a.getDate(),
+            },
+            dateSearch: dateFormatted,
         });
+        //function update the due date 
+        //figure out tommrrow/yesterday/today
+        // let c = new Date();
+        // let cYear = c.getFullYear();
+        // let cMonth = c.getMonth();
+        // let cDate = c.getDate()
+        // if(dateString === new Date(cYear, cMonth, cDate).toDateString()){
+        //     dateString = "Today";
+        // }
+        // else if(dateString === new Date(cYear, cMonth, cDate-1).toDateString()){
+        //     dateString = "Yesterday";
+        // } 
+        // else if(dateString === new Date(cYear, cMonth, cDate+1).toDateString()){
+        //     dateString = "Tommorrow";
+        // }
+        // this.setState({pickedDate: dateString});
     }
-    increaseMonth(){
-        let t = new Date(this.state.date.year, this.state.date.month+1, this.state.date.date);
+    updateMonth(e,choice){
+        let year = this.state.date.year;
+        let month = this.state.date.month;
+        (choice === "increase" ) ? month+=1 : month-=1;
+        let t = new Date(year,month);
+        //this function dates all the dates
+        // this.returnDate(t.toDateString());
+        //update the dates 
         this.setState({
             date: {
                 year: t.getFullYear(),
                 month: t.getMonth(),
-                date: t.getDate(),
-            }
+                date: '',
+            },
         });
     }
     render(){
+        //day name prefixes
         let days = Array(7).fill().map((value, index) => {
             let d = "SMTWTFS"
             return <span key={index}>{d[index]}</span> //s m t w 
         });
         return (
-            <div className="calendar-container">
-                <CalSearch click={this.dateClicked} onChange={()=>this.calSearch()} date={this.state.date}/>
-                <span className="calendar-month-backward" onClick={()=>this.decreaseMonth()}>&lsaquo;</span>
-                <span className="calendar-month-forward" onClick={()=>this.increaseMonth()}>&rsaquo;</span>
-                <div className="calendar-header">
-                    <span className="calendar-month-year">{`${this.state.monthName[this.state.date.month]} ${this.state.date.year}`}</span>
-                </div>
-                <div className="calendar-body">
-                    <div className="calendar-day">{days}</div>
-                    <Dates date={this.state.date} returnDate={this.returnDate.bind(this)}/>
+            <div className="due-date">
+                <span className="due-date-symbol" role="img" aria-label="cal">&#x1F4C5;</span>
+                <span className="due-date-text">Due Date {this.state.pickedDate}</span>
+                <span className="due-date-button">&#9660;</span>
+                <div className="calendar-container">
+                    <input className="calendar-search" type="text" value={this.state.dateSearch || ''} onChange={this.calSearch}/>
+                    <span className="calendar-month-backward" onClick={(e)=>this.updateMonth(e,"decrease")}>&lsaquo;</span>
+                    <span className="calendar-month-forward" onClick={(e)=>this.updateMonth(e,"increase")}>&rsaquo;</span>
+                    <div className="calendar-header">
+                        <span className="calendar-month-year">{`${this.state.monthName[this.state.date.month]} ${this.state.date.year}`}</span>
+                    </div>
+                    <div className="calendar-body">
+                        <div className="calendar-day">{days}</div>
+                        <Dates date={this.state.date} returnDate={this.returnDate} />
+                    </div>
                 </div>
             </div>
         );

@@ -5,7 +5,6 @@ export default class Edit extends Component {
         super(props);
         this.state = {
             exit: true,
-            pickedDate: '',
         }
         this.exitEdit = this.exitEdit.bind(this);
     }
@@ -13,21 +12,13 @@ export default class Edit extends Component {
     exitEdit(){
         this.setState({exit: !this.state.exit});
     }
-    getDate(date){
-        this.setState({pickedDate: date});
-    }
     render(){
         //edit the todo
         if(!this.state.exit){
             return (
                 <div className="edit-menu">
                     <span className="todo-name">{this.props.name}</span>
-                    <div className="due-date">
-                        <span className="due-date-symbol" role="img" aria-label="cal">&#x1F4C5;</span>
-                        <span className="due-date-text">Due Date {this.state.pickedDate}</span>
-                        <span className="due-date-button">&#9660;</span>
-                        <DueDate getDate={this.getDate.bind(this)} />
-                    </div>
+                    <DueDate />
                     <div className="due-time">
 
                     </div>

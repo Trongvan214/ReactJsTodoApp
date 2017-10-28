@@ -6,25 +6,24 @@ export default class Dates extends Component {
         this.state = {
             dateActive: false,
         }
-        this.year = props.date.year;
-        this.month = props.date.month;
     }
     pickTime(e,index,value,len){
         //remove active from all others
-        for(let i=0;i<len;i++){
-            if(i !== index){
-                e.target.parentNode.childNodes[i].classList.remove('active');
-            }
-        }
-        e.target.classList.toggle('active');
-        let u = new Date(this.year, this.month, value); //user time
+        // for(let i=0;i<len;i++){
+        //     if(i !== index){
+        //         e.target.parentNode.childNodes[i].classList.remove('active');
+        //     }
+        // }
+        // e.target.classList.toggle('active');
+        //return date string back to duedate
+        let u = new Date(this.props.date.year, this.props.date.month, value); //user time
         this.props.returnDate(u.toDateString());
     }
 
     render(){
         let dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        let firstDay = new Date(this.year,this.month,1).toDateString().substring(0,3) //exp: Mon
-        let totalDays = new Date(this.year,this.month+1, 0).getDate();    //exp: 30
+        let firstDay = new Date(this.props.date.year,this.props.date.month,1).toDateString().substring(0,3) //exp: Mon
+        let totalDays = new Date(this.props.date.year,this.props.date.month+1, 0).getDate();    //exp: 30
         let freeSpace = dayName.indexOf(firstDay);
         //make a arr of nth element with that's empty
         let arrDate = Array(totalDays+freeSpace).fill();
@@ -34,7 +33,7 @@ export default class Dates extends Component {
                 //empty spans
                 return <span key={"free"+i}></span>;
             }
-            else if(i+1 === this.props.date.date){
+            else if(value === this.props.date.date){
                 return <span key={i} className="active" onClick={(e)=>this.pickTime(e,i,value,a.length)}>{value}</span>;
             }
             else {
