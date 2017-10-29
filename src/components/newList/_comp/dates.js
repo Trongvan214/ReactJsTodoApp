@@ -12,7 +12,6 @@ export default class Dates extends Component {
         let u = new Date(this.props.date.year, this.props.date.month, value); //user time
         this.props.returnDate(u.toDateString());
     }
-
     render(){
         let dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         let firstDay = new Date(this.props.date.year,this.props.date.month,1).toDateString().substring(0,3) //exp: Mon

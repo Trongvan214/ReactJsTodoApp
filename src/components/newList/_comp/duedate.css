@@ -16,7 +16,7 @@
 }
 .due-date-button {
     float: right;
-    margin-right: 10px;
+    margin-right: 7px;
     font-size: 15px;
 }
 .due-date-del:before {
@@ -30,15 +30,14 @@
 .calendar-container{
     position: absolute;
     top: 100%;
-    right: 10px;
-    width: 58%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65%;
     font-size: 20px;
     font-family: Arial;
     background-image: linear-gradient(#fff, #d3d3d3);
-    display: none;
-}
-.active.calendar-container {
     display: block;
+    z-index: 1000;
 }
 .calendar-day > span,
 .calendar-date > span {
@@ -60,6 +59,7 @@
 }
 .calendar-date > span.active {
     background: lightcoral;
+    border-radius: 3px;
 }
 .calendar-body {
     width: 100%;

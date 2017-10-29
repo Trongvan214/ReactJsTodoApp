@@ -23,6 +23,12 @@ export default class Edit extends Component {
                     <span className="todo-name">{this.props.name}</span>
                     <DueDate />
                     <DueTime />
+                    <div className="priority">
+                        <span className="priority-text"></span>
+                        <span className="priority-choices"></span>
+                        <span className="priority-choices"></span>
+                        <span className="priority-choices"></span>
+                    </div>
                     <div className="sub-task">
                         <span className="sub-task-symbol">&#43;</span>
                         <input type="text" className="sub-task-textbox" placeholder="Add a subtask" />
