@@ -12,6 +12,8 @@ export default class DueDate extends Component {
         }
         this.pageClick = this.pageClick.bind(this);
         this.getDate = this.getDate.bind(this);
+        this.mouseDownHandler = this.mouseDownHandler.bind(this);
+        this.mouseUpHandler = this.mouseUpHandler.bind(this);
     }
     //set the state before mounting
     componentWillMount(){
@@ -52,7 +54,7 @@ export default class DueDate extends Component {
     }
     render(){
         return (
-            <div className="due-date" onMouseDown={()=>this.mouseDownHandler()} onMouseUp={()=>this.mouseUpHandler()}>
+            <div className="due-date" onTouchStart={this.mouseDownHandler} onTouchEnd={this.mouseUpHandler} onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}>
                 <div className="due-date-text-container" onClick={()=>this.showCal()}>
                     <span className="due-date-symbol" role="img" aria-label="due-date">&#x1F4C5;</span>
                     <span className="due-date-text">{this.state.pickedDate}</span>

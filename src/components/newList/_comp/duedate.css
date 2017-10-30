@@ -1,8 +1,7 @@
 .due-date{ 
     position: relative;
-    width: 95%;
+    width: 100%;
     height: 35px;
-    margin: 0 2.5%
 }
 .due-date-text-container{
     width: 100%;

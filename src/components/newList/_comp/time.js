@@ -39,6 +39,8 @@ export default class Time extends Component {
         which==="min"? min = value : hour = value;
         //same formated to figure out am or pm
         let dayTime = hour<11||hour===23? "AM" : "PM";
+        //get 2 digit value for min
+        min = ("0"+min).slice(-2);
         let time = (hour%12)+1+":"+min+dayTime;
         this.props.getTime(time);
     }
