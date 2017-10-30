@@ -38,6 +38,7 @@
     background-image: linear-gradient(#fff, #d3d3d3);
     display: block;
     z-index: 1000;
+    border-radius: 10px;
 }
 .calendar-day > span,
 .calendar-date > span {
