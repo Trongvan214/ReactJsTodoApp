@@ -1,20 +1,23 @@
 .priority {
+    margin-top: 10px;
     width: 100%;
     height: 35px;
 }
-.priority-choices {
+.priority-choices0,
+.priority-choices1,
+.priority-choices2 {
     display: inline-block;
     margin: 0 10px;
     width: 30px;
     height: 30px;
     border-radius: 100%;
 }
-.priority-choices:nth-of-type(2){
+.priority-choices0 {
     background: red;
 }
-.priority-choices:nth-of-type(3) {
+.priority-choices1 {
     background: yellow;
 }
-.priority-choices:nth-of-type(4) {
+.priority-choices2 {
     background: green;
 }

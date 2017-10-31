@@ -8,11 +8,17 @@ import './newlist.css';
 export default class NewList extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            todo: [],
+        }
         this.getTodo = this.getTodo.bind(this);
         this.updateTodo = this.updateTodo.bind(this);
-        this.state = {
-            todo: JSON.parse(localStorage.getItem("todo"))
-        }
+    }
+    componentWillMount(){
+        let parseTodo = JSON.parse(localStorage.getItem("todo"));
+        this.setState({
+            todo: parseTodo,
+        })
     }
     getTodo(todo){
         var todos;

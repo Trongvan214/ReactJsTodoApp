@@ -12,11 +12,10 @@ export default class NewTodo extends Component {
         e.preventDefault();
         if(this.refs.name.value){
             var todo = {
-                name: this.refs.name.value,
-                priority: "none",
-                star: {
-                    active: false,
-                },
+                "name": this.refs.name.value,
+                "priority": "none",
+                "star": false,
+                "edit": {},
             }
             this.setState({newTodo: todo}, () => this.props.getTodo(this.state.newTodo));
         }

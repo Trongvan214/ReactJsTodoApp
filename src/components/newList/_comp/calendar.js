@@ -77,18 +77,23 @@ export default class Calendar extends Component {
         let cYear = c.getFullYear();
         let cMonth = c.getMonth();
         let cDate = c.getDate();
+        //past date is red else green 
+        let dateColor = a.getTime() > c.getTime() ? "green":"red"
         //check whether the date is past due
         // let bool = new Date(dateString).getTime < c.getTime();
         if(dateString === new Date(cYear, cMonth, cDate).toDateString()){
             dateString = "Today";
+            dateColor = "black";
         }
         else if(dateString === new Date(cYear, cMonth, cDate-1).toDateString()){
             dateString = "Yesterday";
+            dateColor = "red";
         } 
         else if(dateString === new Date(cYear, cMonth, cDate+1).toDateString()){
             dateString = "Tommorrow";
+            dateColor = "green";
         }
-        this.props.getDate("Due "+dateString);
+        this.props.getDate("Due "+dateString, dateColor);
     }
     render(){
         //day name prefixes

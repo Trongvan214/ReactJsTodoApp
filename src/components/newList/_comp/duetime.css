@@ -1,7 +1,9 @@
 .due-time { 
+    margin-top: 10px;
     position: relative;
     width: 100%;
     height: 35px;
+    cursor: pointer;
 }
 .due-time-symbol {
     margin-right: 7px;

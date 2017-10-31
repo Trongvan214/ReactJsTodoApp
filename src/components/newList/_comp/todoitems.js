@@ -9,7 +9,7 @@ export default class TodoItems extends Component {
         e.target.classList.toggle('active');
         //save it in localstorage and update it
         let todos = JSON.parse(localStorage.getItem('todo'));
-        todos[index].star.active = !todos[index].star.active;
+        todos[index].star = !todos[index].star;
         localStorage.setItem('todo', JSON.stringify(todos));
         this.props.update(todos);
     }
@@ -28,9 +28,9 @@ export default class TodoItems extends Component {
             var todos = this.props.todo.map((eachTodo,index, arr) => {
                 return (
                     <li key={index}>
-                        <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star.active}/>
+                        <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star}/>
                         <span className="name">{eachTodo.name}</span>
-                        <Edit name={eachTodo.name}/>
+                        <Edit name={eachTodo.name} info={eachTodo.edit} index={index}/>
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>
                 )
