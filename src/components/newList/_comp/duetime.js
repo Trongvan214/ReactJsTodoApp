@@ -22,7 +22,7 @@ export default class DueTime extends Component {
             this.setState({
                 showTime: false
             });
-    }
+    } 
     showTime(e){
         e.stopPropagation();
         this.setState({showTime: true});
