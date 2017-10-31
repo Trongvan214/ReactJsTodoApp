@@ -61,12 +61,12 @@ export default class Time extends Component {
             let value = i;
             let formatedValue;
             if(i<11||i===23){
-                formatedValue = (value%12)+1+"AM";
-                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime("hour",value)}>{formatedValue}</span>
+                formatedValue = (value%12)+1;
+                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime("hour",value)}>{formatedValue}<span className="time-prefix">AM</span></span>
             }
             else {
-                formatedValue = (value%12)+1+"PM";
-                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime("hour",value)}>{formatedValue}</span>
+                formatedValue = (value%12)+1;
+                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime("hour",value)}>{formatedValue}<span className="time-prefix">PM</span></span>
             }
         });
         //set the last item to the first of the array

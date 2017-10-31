@@ -11,31 +11,20 @@ export default class DueTime extends Component {
         }
         this.pageClick = this.pageClick.bind(this);
         this.getTime = this.getTime.bind(this);
-        this.mouseDownHandler = this.mouseDownHandler.bind(this);
-        this.mouseUpHandler = this.mouseUpHandler.bind(this);
     }
     //default set to next hour
     componentWillMount(){
-        window.addEventListener('mousedown', this.pageClick, false);
+        window.addEventListener('touchstart', this.pageClick, false);
+        window.addEventListener('click', this.pageClick, false);
     }
     pageClick(e){
-        e.preventDefault();
-        e.stopPropagation();
-        if (!this.onTarget) {
+            console.log('click');
             this.setState({
                 showTime: false
             });
-        }
     }
-    mouseDownHandler() {
-        this.onTarget = true;
-        console.log("down");
-    }
-    mouseUpHandler(){
-        this.onTarget = false;
-        console.log("up");
-    }
-    showTime(){
+    showTime(e){
+        e.stopPropagation();
         this.setState({showTime: true});
     }
     getTime(time){
@@ -45,7 +34,7 @@ export default class DueTime extends Component {
     }
     render(){
         return (
-            <div className="due-time" onClick={()=>this.showTime()}  onTouchStart={this.mouseDownHandler} onTouchEnd={this.mouseUpHandler} onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}>
+            <div className="due-time" onClick={(e)=>this.showTime(e)}>
                 <span className="due-time-symbol" role="img" aria-label="due-time">&#x1F550;</span>
                 <span className="due-time-text">{this.state.pickedTime}</span>
                 <Time showTime={this.state.showTime} getTime={this.getTime} />

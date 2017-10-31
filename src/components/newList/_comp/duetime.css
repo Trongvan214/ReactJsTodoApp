@@ -27,6 +27,7 @@
     font-size: 13px;
     line-height: 20px;
     text-align: center;
+    font-weight: 550;
 }
 .time-choice-min > span {
     display: inline-block;
@@ -40,4 +41,8 @@
 .time-choice-min .active {
     background: pink;
     border-radius: 4px;
+}
+.time-prefix {
+    font-size: 10px;
+    font-weight: normal;
 }

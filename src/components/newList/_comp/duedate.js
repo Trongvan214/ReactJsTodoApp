@@ -12,33 +12,26 @@ export default class DueDate extends Component {
         }
         this.pageClick = this.pageClick.bind(this);
         this.getDate = this.getDate.bind(this);
-        this.mouseDownHandler = this.mouseDownHandler.bind(this);
-        this.mouseUpHandler = this.mouseUpHandler.bind(this);
     }
     //set the state before mounting
     componentWillMount(){
-        window.addEventListener('mousedown', this.pageClick, false);
+        window.addEventListener('click', this.pageClick, false);
+        window.addEventListener('touchstart', this.pageClick, false);
     }
     pageClick(){
-    if (!this.mouseIsDownOnCalendar) {
         this.setState({
             showCal: false
         });
     }
-    }
-    mouseDownHandler() {
-        this.mouseIsDownOnCalendar = true;
-    }
-    mouseUpHandler(){
-        this.mouseIsDownOnCalendar = false;
-    }
+
     getDate(date){
         this.setState({
             pickedDate: date,
             showDeleteDate: true,
         });
     }
-    showCal(){
+    showCal(e){
+        e.stopPropagation();
         if(!this.state.showDeleteDate){
             this.setState({
                 showCal: true,
@@ -54,8 +47,8 @@ export default class DueDate extends Component {
     }
     render(){
         return (
-            <div className="due-date" onTouchStart={this.mouseDownHandler} onTouchEnd={this.mouseUpHandler} onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}>
-                <div className="due-date-text-container" onClick={()=>this.showCal()}>
+            <div className="due-date"  onClick={(e)=>this.showCal(e)}>
+                <div className="due-date-text-container">
                     <span className="due-date-symbol" role="img" aria-label="due-date">&#x1F4C5;</span>
                     <span className="due-date-text">{this.state.pickedDate}</span>
                     <span className={this.state.showDeleteDate ? "due-date-del" : " "} onClick={()=>this.clearDate()}></span>
