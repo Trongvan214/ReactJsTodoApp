@@ -17,16 +17,24 @@ export default class Calendar extends Component {
     }
     //set the state before mounting
     componentWillMount(){
-        let d = new Date();
-        let s = d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear();
-        this.setState({
-            date: {
-                year: d.getFullYear(), 
-                month: d.getMonth(), 
-                date: d.getDate()
-            },
-            dateSearch: s
-        });
+        let date = this.props.setDate;
+        if(date){
+            let d = new Date(date.year, date.month, date.date);
+            //call return date to show choice time
+            this.returnDate(d.toDateString());
+        }
+        else {
+            let d = new Date();
+            let s = d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear();
+            this.setState({
+                date: {
+                    year: d.getFullYear(), 
+                    month: d.getMonth(), 
+                    date: d.getDate()
+                },
+                dateSearch: s
+            });
+        }
     }
     updateMonth(e,choice){
         let year = this.state.date.year;
@@ -93,7 +101,13 @@ export default class Calendar extends Component {
             dateString = "Tommorrow";
             dateColor = "green";
         }
-        this.props.getDate("Due "+dateString, dateColor);
+        let rawDate = {
+            "year": a.getFullYear(), 
+            "month": a.getMonth(), 
+            "date": a.getDate(),
+            "color": dateColor,
+        }
+        this.props.getDate("Due "+dateString, dateColor, rawDate);
     }
     render(){
         //day name prefixes

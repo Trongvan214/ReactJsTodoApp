@@ -20,25 +20,24 @@ export default class Edit extends Component {
         this.getPriority = this.getPriority.bind(this);
         this.exitEdit = this.exitEdit.bind(this);
     }
+    componentDidMount(){
+        let info = this.props.info;
+        this.setState({
+            date: info.date,
+            time: info.time,
+        });
+    }
     getDate(date){
-        // let parseTodo = JSON.parse(localStorage.getItem('todo'));
-        // let target = parseTodo[this.index];
-        // let edit = {
-        //     ...edit,
-        //     "date":date,
-        // }
-        // let updated = Object.assign({}, target, edit);
-        // // localStorage.setItem('todo', updated);
-        // console.log(updated);
-        // // console.log(updated);
+        this.setState({date: date});
+        let parseTodo = JSON.parse(localStorage.getItem('todo')); 
+        parseTodo[this.index].edit.date = date;
+        localStorage.setItem('todo', JSON.stringify(parseTodo));
     }
     getTime(time){
-        // let parseTodo = JSON.parse(localStorage.getItem('todo'));
-        // //add on
-        // Object.assign({}, parseTodo[this.index].edit, {
-        //     "time": time,
-        // })
-        // console.log(parseTodo);
+        this.setState({time: time});
+        let parseTodo = JSON.parse(localStorage.getItem('todo')); 
+        parseTodo[this.index].edit.time = time;
+        localStorage.setItem('todo', JSON.stringify(parseTodo));
     }
     getPriority(which){
     }
@@ -53,8 +52,8 @@ export default class Edit extends Component {
                 <div className="edit-menu">
                     <span className="todo-name">{this.props.name}</span>
                     <div className="edit-body">
-                        <DueDate getDate={this.getDate}/>
-                        <DueTime getTime={this.getTime}/>
+                        <DueDate getDate={this.getDate} setDate={this.state.date}/>
+                        <DueTime getTime={this.getTime} setTime={this.state.time}/>
                         <Priority getPriority={this.getPriority}/>
                         <div className="sub-task">
                             <span className="sub-task-symbol">&#43;</span>

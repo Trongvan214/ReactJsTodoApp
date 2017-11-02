@@ -16,20 +16,30 @@ export default class DueDate extends Component {
         this.mouseDownHandler = this.mouseDownHandler.bind(this);
         this.mouseUpHandler = this.mouseUpHandler.bind(this);
     }
+    componentWillMount(){
+        //if it's not null
+        if(this.props.setDate){
+            this.setState({
+                color: this.props.setDate.color,
+            })
+        };
+    }
     //set the state before mounting
     componentDidMount(){
-        //set to true first to avoid set State before mounting component (warning)
-        this.clickOnTarget = true;
         window.addEventListener('mousedown', this.pageClick, false);
         window.addEventListener('touchstart', this.pageClick, false);
     }
+    //prevent warning when reemount
+    componentWillUnmount(){
+        window.removeEventListener('touchstart', this.pageClick, false);
+        window.removeEventListener('mousedown', this.pageClick, false);
+    }
     pageClick(){
-        if(this.clickOnTarget){
-            return;
+        if(!this.clickOnTarget){
+            this.setState({
+                showCal: false
+            });
         }
-        this.setState({
-            showCal: false
-        });
     }
     mouseDownHandler(){
         this.clickOnTarget = true;
@@ -37,14 +47,14 @@ export default class DueDate extends Component {
     mouseUpHandler(){
         this.clickOnTarget = false;
     }
-    displayDate(date,dateColor){
+    displayDate(date,dateColor,rawDate){
         this.setState({
             pickedDate: date,
             showDeleteDate: true,
             color: dateColor,
         });
         //give back to the edit component
-        this.props.getDate(date);
+        this.props.getDate(rawDate);
     }
     showCal(){
         this.setState({
@@ -59,6 +69,7 @@ export default class DueDate extends Component {
             showDeleteDate: false,
             color: "black",
         });
+        this.props.getDate(null);
     }
     render(){
         let chosenDateColor = {
@@ -71,7 +82,7 @@ export default class DueDate extends Component {
                     <span style={chosenDateColor} className="due-date-text">{this.state.pickedDate}</span>
                     <span className={this.state.showDeleteDate ? "date-del" : " "} onClick={(e)=>this.clearDate(e)}></span>
                 </div>
-                <Calendar showCal={this.state.showCal} getDate={this.displayDate}/>
+                <Calendar showCal={this.state.showCal} getDate={this.displayDate} setDate={this.props.setDate}/>
             </div>
         );
     }

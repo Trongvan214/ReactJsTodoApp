@@ -17,18 +17,19 @@ export default class DueTime extends Component {
     }
     //default set to next hour
     componentDidMount(){
-        //set to true first to avoid set State before mounting component (warning)
-        this.clickOnTarget = true;
         window.addEventListener('touchstart', this.pageClick, false);
         window.addEventListener('mousedown', this.pageClick, false);
     }
-    pageClick(e){
-        if(this.clickOnTarget){
-            return;
+    componentWillUnmount(){
+        window.removeEventListener('touchstart', this.pageClick, false);
+        window.removeEventListener('mousedown', this.pageClick, false);
+    }
+    pageClick(){
+        if(!this.clickOnTarget){
+            this.setState({
+                showTime: false
+            });
         }
-        this.setState({
-            showTime: false
-        });
     } 
     mouseDownHandler(){
         this.clickOnTarget = true;
@@ -39,13 +40,13 @@ export default class DueTime extends Component {
     showTime(){
         this.setState({showTime: true});
     }
-    displayTime(time){
+    displayTime(time, rawTime){
         this.setState({
             pickedTime: "At " + time,
             showDeleteTime: true,
         });
         //give back to edit commponent 
-        this.props.getTime(time);
+        this.props.getTime(rawTime);
     }
     clearTime(e){
         e.stopPropagation();
@@ -60,7 +61,7 @@ export default class DueTime extends Component {
             <div className="due-time"onClick={()=>this.showTime()} onTouchStart={this.mouseDownHandler} onTouchEnd={this.mouseUpHandler} onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}>
                 <span className="due-time-symbol" role="img" aria-label="due-time">&#x1F550;</span>
                 <span className="due-time-text">{this.state.pickedTime}</span>
-                <Time showTime={this.state.showTime} getTime={this.displayTime} />
+                <Time showTime={this.state.showTime} getTime={this.displayTime} setTime={this.props.setTime}/>
                 <span className={this.state.showDeleteTime ? "date-del" : " "} onClick={(e)=>this.clearTime(e)}></span>
             </div>
         )
