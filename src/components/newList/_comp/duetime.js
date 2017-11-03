@@ -55,6 +55,7 @@ export default class DueTime extends Component {
             pickedTime: 'Set Time',
             showDeleteTime: false,
         });
+        this.props.getTime(null);
     }
     render(){
         return (

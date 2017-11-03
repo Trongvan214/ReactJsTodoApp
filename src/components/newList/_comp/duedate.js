@@ -16,14 +16,6 @@ export default class DueDate extends Component {
         this.mouseDownHandler = this.mouseDownHandler.bind(this);
         this.mouseUpHandler = this.mouseUpHandler.bind(this);
     }
-    componentWillMount(){
-        //if it's not null
-        if(this.props.setDate){
-            this.setState({
-                color: this.props.setDate.color,
-            })
-        };
-    }
     //set the state before mounting
     componentDidMount(){
         window.addEventListener('mousedown', this.pageClick, false);

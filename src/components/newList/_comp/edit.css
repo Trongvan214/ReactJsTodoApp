@@ -1,3 +1,25 @@
+/*-------------Edit------------*/
+.edit {
+    margin-right: 15px;
+    float: right;
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+.edit-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+}
+.edit-exit {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    z-index: 1000;
+}
 .todo-name {
     padding-top: 5px;
     display: block;
@@ -7,8 +29,4 @@
 .edit-body {
     width: 92%;
     margin: 0 4%;
-}
-.edit-menu {
-    width: 100vw;
-    height: 100vh;
 }
