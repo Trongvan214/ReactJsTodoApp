@@ -32,6 +32,7 @@ export default class Edit extends Component {
             this.setState({
                 date: info.date,
                 time: info.time,
+                priority: this.props.priority,
                 note: info.note,
                 subTask: info.subTask,
             });
