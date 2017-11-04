@@ -30,7 +30,7 @@ export default class Time extends Component {
                 part2 = 5;
             }
             min = part1.toString()+part2.toString();
-            let n = new Date(t.getFullYear(),t.getMonth(),t.getDate(),t.getHours(),parseInt(min,10));
+            let n = new Date(t.getFullYear(),t.getMonth(),t.getDate(),t.getHours()-1,parseInt(min,10));
             this.setState({
                 hour: n.getHours(),
                 min: n.getMinutes(),

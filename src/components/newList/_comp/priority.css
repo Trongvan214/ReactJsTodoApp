@@ -8,9 +8,9 @@
 .priority-choices2 {
     display: inline-block;
     margin: 0 10px;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
+    width: 40px;
+    height: 15px;
+    border: 3px solid transparent;
 }
 .priority-choices0 {
     background: red;
@@ -20,4 +20,9 @@
 }
 .priority-choices2 {
     background: green;
+}
+.active.priority-choices0,
+.active.priority-choices1,
+.active.priority-choices2 {
+    border-color: white;
 }

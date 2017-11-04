@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import DueDate from './duedate';
 import DueTime from './duetime';
 import Priority from './priority';
+import SubTask from './subtask';
 import AddNote from './addnote';
 import './edit.css';
 
@@ -9,9 +10,10 @@ export default class Edit extends Component {
     constructor(props){
         super(props);
         this.state = {
-            date: null,
-            time: null,
+            date: '',
+            time: '',
             priority: '',
+            subTask: '',
             note: '',
             exit: true,
         }
@@ -20,24 +22,29 @@ export default class Edit extends Component {
         this.getTime = this.getTime.bind(this);
         this.getPriority = this.getPriority.bind(this);
         this.getNote = this.getNote.bind(this);
+        this.getSubTask = this.getSubTask.bind(this);
         this.saveInfo = this.saveInfo.bind(this);
         this.exitEdit = this.exitEdit.bind(this);
     }
     componentWillMount(){
-        console.log("called");
         let info = this.props.info;
         if(info){
             this.setState({
                 date: info.date,
                 time: info.time,
                 note: info.note,
+                subTask: info.subTask,
             });
         }
         window.removeEventListener('beforeunload', this.saveInfo);
+        //for phone to work
+        window.removeEventListener('unload', this.saveInfo);
     }
     //save when refresh or exit
     componentDidMount(){
         window.addEventListener('beforeunload', this.saveInfo);
+        //for phone to work
+        window.addEventListener('unload', this.saveInfo);
     }
     getDate(date){
         this.setState({date: date});
@@ -45,10 +52,16 @@ export default class Edit extends Component {
     getTime(time){
         this.setState({time: time});
     }
-    getPriority(which){
+    getPriority(color){
+        this.setState({priority: color});
     }
     getNote(note){
         this.setState({note: note});
+    }
+    getSubTask(updateTask){
+        this.setState({
+            subtask: updateTask,
+        });
     }
     //toggle active
     exitEdit(){
@@ -63,8 +76,16 @@ export default class Edit extends Component {
             "date": this.state.date,
             "time": this.state.time,
             "note": this.state.note,
+            "subTask": this.state.subTask,
+        });
+        let c = this.state.priority;
+        let color = c==="green"?"green":c==="red"?"red":c==="#f4d942"?"yellow":"";
+        Object.assign(target, {
+            "priority": color,
         });
         localStorage.setItem('todo', JSON.stringify(parseTodo));
+        //update the todo color
+        this.props.updateColor(color, this.index);
     }
     render(){
         //edit the todo
@@ -76,11 +97,8 @@ export default class Edit extends Component {
                         <DueDate getDate={this.getDate} setDate={this.state.date}/>
                         <DueTime getTime={this.getTime} setTime={this.state.time}/>
                         <Priority getPriority={this.getPriority}/>
-                        <div className="sub-task">
-                            <span className="sub-task-symbol">&#43;</span>
-                            <input type="text" className="sub-task-textbox" placeholder="Add a subtask" />
-                        </div>
                         <AddNote getNote={this.getNote} setNote={this.state.note}/>
+                        <SubTask getSubTask={this.getSubTask} setSubTask={this.state.subTask}/>
                         <span className="edit-exit" onClick={this.exitEdit}>&#10006;</span>
                     </div>
                 </div>

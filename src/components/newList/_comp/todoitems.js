@@ -4,6 +4,13 @@ import Delete from './delete';
 import Star from './star';
 
 export default class TodoItems extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            color: 'none',
+        }
+        this.updateColor = this.updateColor.bind(this);
+    }
     updateStar(e,index){
         //toggle active
         e.target.classList.toggle('active');
@@ -23,20 +30,25 @@ export default class TodoItems extends Component {
         //update back to the parent
         this.props.update(todos);
     }
+    updateColor(color, index){
+        let target = "item"+index;
+        this.refs[target].className = "todo-item "+ color;
+        this.render();
+    }
     render(){
         if(this.props.todo != null) {
             var todos = this.props.todo.map((eachTodo,index, arr) => {
                 return (
-                    <li key={index}>
+                    <li key={index} className={"todo-item "+eachTodo.priority} ref={"item"+index}>
                         <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star}/>
                         <span className="name">{eachTodo.name}</span>
-                        <Edit name={eachTodo.name} index={index} info={eachTodo.edit} />
+                        <Edit name={eachTodo.name} index={index} info={eachTodo.edit} updateColor={this.updateColor}/>
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>
                 )
             });
             return (
-                <ul className="todo-items">
+                <ul>
                     {todos}
                 </ul>
             );
