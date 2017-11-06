@@ -48,7 +48,7 @@ export default class TodoItems extends Component {
                 )
             });
             return (
-                <ul>
+                <ul className="todo-ul">
                     {todos}
                 </ul>
             );
