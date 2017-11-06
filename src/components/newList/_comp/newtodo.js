@@ -13,6 +13,8 @@ export default class NewTodo extends Component {
         if(this.refs.name.value){
             var todo = {
                 "name": this.refs.name.value,
+                "fDate": '',
+                "fTime": '',
                 "priority": '',
                 "star": false,
                 "edit": {

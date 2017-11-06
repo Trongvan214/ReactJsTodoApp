@@ -40,13 +40,13 @@ export default class DueTime extends Component {
     showTime(){
         this.setState({showTime: true});
     }
-    displayTime(time, rawTime){
+    displayTime(formattedTime,rawTime){
         this.setState({
-            pickedTime: "At " + time,
+            pickedTime: "At " + formattedTime,
             showDeleteTime: true,
         });
         //give back to edit commponent 
-        this.props.getTime(rawTime);
+        this.props.getTime(rawTime,formattedTime);
     }
     clearTime(e){
         e.stopPropagation();

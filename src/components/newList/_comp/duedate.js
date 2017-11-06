@@ -39,14 +39,14 @@ export default class DueDate extends Component {
     mouseUpHandler(){
         this.clickOnTarget = false;
     }
-    displayDate(date,dateColor,rawDate){
+    displayDate(formattedDate,dateColor,rawDate){
         this.setState({
-            pickedDate: date,
+            pickedDate: formattedDate,
             showDeleteDate: true,
             color: dateColor,
         });
         //give back to the edit component
-        this.props.getDate(rawDate);
+        this.props.getDate(rawDate,formattedDate);
     }
     showCal(){
         this.setState({

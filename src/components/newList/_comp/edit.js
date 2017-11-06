@@ -47,11 +47,13 @@ export default class Edit extends Component {
         //for phone to work
         window.addEventListener('unload', this.saveInfo);
     }
-    getDate(date){
-        this.setState({date: date});
+    getDate(rawDate,formattedDate){
+        this.date = formattedDate;
+        this.setState({date: rawDate});
     }
-    getTime(time){
-        this.setState({time: time});
+    getTime(rawTime,formattedTime){
+        this.time = formattedTime;
+        this.setState({time: rawTime});
     }
     getPriority(color){
         this.setState({priority: color});
@@ -82,11 +84,13 @@ export default class Edit extends Component {
         let c = this.state.priority;
         let color = c==="green"?"green":c==="red"?"red":c==="#f4d942"?"yellow":"";
         Object.assign(target, {
+            "fDate": this.date,
+            "fTime": this.time,
             "priority": color,
         });
         localStorage.setItem('todo', JSON.stringify(parseTodo));
         //update the todo color
-        this.props.updateColor(color, this.index);
+        this.props.updateColor(this.date,this.time,color, this.index);
     }
     render(){
         //edit the todo

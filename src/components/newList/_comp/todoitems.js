@@ -30,18 +30,25 @@ export default class TodoItems extends Component {
         //update back to the parent
         this.props.update(todos);
     }
-    updateColor(color, index){
-        let target = "item"+index;
-        this.refs[target].className = "todo-item "+ color;
+    updateColor(date,time,color,index){
+        this.refs["item-"+index].className = "todo-item "+ color;
+        if(date){ //when not undefined print out
+            this.refs["item-date-"+index].innerHTML = date;
+        }
+        if(time){
+            this.refs["item-time-"+index].innerHTML = time;
+        }
         this.render();
     }
     render(){
         if(this.props.todo != null) {
             var todos = this.props.todo.map((eachTodo,index, arr) => {
                 return (
-                    <li key={index} className={"todo-item "+eachTodo.priority} ref={"item"+index}>
+                    <li key={index} className={"todo-item "+eachTodo.priority} ref={"item-"+index}>
                         <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star}/>
                         <span className="name">{eachTodo.name}</span>
+                        <span className="date" ref={"item-date-"+index}>{eachTodo.fDate}</span>
+                        <span className="time" ref={"item-time-"+index}>{eachTodo.fTime}</span>
                         <Edit name={eachTodo.name} index={index} info={eachTodo.edit} updateColor={this.updateColor} priority={eachTodo.priority}/>
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>

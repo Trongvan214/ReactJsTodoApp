@@ -71,22 +71,16 @@ class Task extends Component {
         let opacityStyle = {
             "opacity": "0.6",
         }
-        let hide = {
-            "display": "none"
-        }
-        let show = {
-            "display": "inline-block"
-        }
         if(Array.isArray(this.props.tasks)){
             let task = this.props.tasks.map((v,i)=>{
                 if(v.isComplete)
                 {
                     return <li style={opacityStyle} className="sub-task-item" key={i} onClick={()=>this.taskComplete(i)}>
-                                {v.name}<span style={this.props.editMode?show:hide} onClick={(e)=>this.deleteSub(e,i)}>X</span>
+                                {v.name}<span className={this.props.editMode?"edit-show":"edit-hide"} onClick={(e)=>this.deleteSub(e,i)}>X</span>
                             </li>
                 }
                 return  <li className="sub-task-item" key={i} onClick={()=>this.taskComplete(i)}>
-                                {v.name}<span style={this.props.editMode?show:hide} onClick={(e)=>this.deleteSub(e,i)}>X</span>
+                                {v.name}<span className={this.props.editMode?"edit-show":"edit-hide"} onClick={(e)=>this.deleteSub(e,i)}>X</span>
                         </li>
             });
             return <ul>{task}</ul>
