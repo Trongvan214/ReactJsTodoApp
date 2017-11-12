@@ -90,7 +90,7 @@ export default class Edit extends Component {
         });
         localStorage.setItem('todo', JSON.stringify(parseTodo));
         //update the todo color
-        this.props.updateColor(this.date,this.time,color, this.index);
+        this.props.updateColor(this.state.date,this.state.time,color, this.index);
     }
     render(){
         //edit the todo

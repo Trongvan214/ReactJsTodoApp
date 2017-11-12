@@ -41,7 +41,7 @@ export default class DueDate extends Component {
     }
     displayDate(formattedDate,dateColor,rawDate){
         this.setState({
-            pickedDate: formattedDate,
+            pickedDate: "Due "+formattedDate,
             showDeleteDate: true,
             color: dateColor,
         });

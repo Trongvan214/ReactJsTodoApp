@@ -46,13 +46,15 @@
     margin: 0;
 }
 .todo-item {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     width: 80%;
     margin: 15px 10% 0;
     height: 35px;
     text-transform: capitalize;
     border-radius: 4px;
     line-height: 35px;
+    overflow: hidden;
     background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.4), rgba(203, 203, 203, 0.4));
 }
 .red.todo-item {
@@ -64,26 +66,53 @@
 .green.todo-item {
     background: linear-gradient(to bottom right, rgba(68, 240, 0, 0.4), rgba(245, 245, 213, 0.4));
 } 
-.todo-item > span {
+.date-info{
+    height: 35px;
+    width: 80px;
+    order: 3;
+    line-height: 100%;
+    text-align: center;
+}
+.date-info .date {
+    margin-top: 5px;
+    height: calc(50% -5px);
+    width: 100%;
     display: inline-block;
 }
+.date-info .time {
+    height: 50%;
+    width: 100%;
+    display: inline-block;
+}
+.date {
+    font-size: 10px;
+}       
+.time {
+    font-size: 10px;
+}
 .name {
+    text-align: center;
     height: 100%;
-    width: auto;
+    width: 60px;
     margin: 0 10px;
+    order: 2;
 }
 .delete { 
-    /* display: none; */
-    float: right;
-    margin-right: 15px;
+    margin: 0 15px;
     cursor: pointer;
     color: red;
-    font-size: 20px
+    font-size: 20px;
+    order: 4;
 }
-
-.star {
-    margin-left: 10px;
+.edit {
     cursor: pointer;
+    transform: rotateY(180deg);
+    order: 5;
+}
+.star {
+    margin-left: 5px;
+    cursor: pointer;
+    order: 1;
 }
 .star::before {
     content: '\2606';

@@ -1,10 +1,4 @@
 /*-------------Edit------------*/
-.edit {
-    margin-right: 15px;
-    float: right;
-    cursor: pointer;
-    transform: rotateY(180deg);
-}
 .edit-menu {
     position: absolute;
     top: 0;

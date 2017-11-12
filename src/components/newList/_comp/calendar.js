@@ -107,7 +107,7 @@ export default class Calendar extends Component {
             "date": a.getDate(),
             "color": dateColor,
         }
-        this.props.getDate("Due "+dateString, dateColor, rawDate);
+        this.props.getDate(dateString, dateColor, rawDate);
     }
     render(){
         //day name prefixes
