@@ -13,15 +13,16 @@ export default class NewTodo extends Component {
         if(this.refs.name.value){
             var todo = {
                 "name": this.refs.name.value,
-                "fDate": '',
-                "fTime": '',
                 "priority": '',
                 "star": false,
                 "edit": {
                     "date": null,
                     "time": null,
                     "note": '',
-                    "subTask": [],
+                    "subTask": {
+                        "tasks": [],
+                        "length": 0,
+                    },
                 },
             }
             this.setState({newTodo: todo}, () => this.props.getTodo(this.state.newTodo));

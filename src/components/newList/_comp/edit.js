@@ -18,6 +18,8 @@ export default class Edit extends Component {
             exit: true,
         }
         this.index = props.index;
+
+        //function binding
         this.getDate = this.getDate.bind(this);
         this.getTime = this.getTime.bind(this);
         this.getPriority = this.getPriority.bind(this);
@@ -34,9 +36,11 @@ export default class Edit extends Component {
                 time: info.time,
                 priority: this.props.priority,
                 note: info.note,
-                subTask: info.subTask,
+                subTask: info.subTask.tasks,
             });
+        
         }
+        this.subLength = info.subTask.length;
         window.removeEventListener('beforeunload', this.saveInfo);
         //for phone to work
         window.removeEventListener('unload', this.saveInfo);
@@ -48,11 +52,9 @@ export default class Edit extends Component {
         window.addEventListener('unload', this.saveInfo);
     }
     getDate(rawDate,formattedDate){
-        this.date = formattedDate;
         this.setState({date: rawDate});
     }
     getTime(rawTime,formattedTime){
-        this.time = formattedTime;
         this.setState({time: rawTime});
     }
     getPriority(color){
@@ -62,6 +64,13 @@ export default class Edit extends Component {
         this.setState({note: note});
     }
     getSubTask(updateTask){
+        this.subLength = 0;
+        updateTask.map(v=>{
+            if(!v.isComplete){
+                this.subLength+=1;
+            }
+            return v;
+        })
         this.setState({
             subtask: updateTask,
         });
@@ -79,18 +88,19 @@ export default class Edit extends Component {
             "date": this.state.date,
             "time": this.state.time,
             "note": this.state.note,
-            "subTask": this.state.subTask,
+            "subTask": {
+                tasks: this.state.subTask,
+                length: this.subLength,
+            },
         });
         let c = this.state.priority;
         let color = c==="green"?"green":c==="red"?"red":c==="#f4d942"?"yellow":"";
         Object.assign(target, {
-            "fDate": this.date,
-            "fTime": this.time,
             "priority": color,
         });
         localStorage.setItem('todo', JSON.stringify(parseTodo));
         //update the todo color
-        this.props.updateColor(this.state.date,this.state.time,color, this.index);
+        this.props.updateColor(this.state.date,this.state.time,color,this.subLength,this.index);
     }
     render(){
         //edit the todo

@@ -9,7 +9,7 @@ export default class TodoItems extends Component {
         this.state = {
             color: 'none',
         }
-        this.updateColor = this.updateColor.bind(this);
+        this.updateTodo = this.updateTodo.bind(this);
     }
     updateStar(e,index){
         //toggle active
@@ -29,19 +29,6 @@ export default class TodoItems extends Component {
         localStorage.setItem('todo', JSON.stringify(todos));
         //update back to the parent
         this.props.update(todos);
-    }
-    updateColor(date,time,color,index){
-        this.refs["item-"+index].className = "todo-item "+ color;
-        //default   
-        this.refs["item-date-"+index].innerHTML = '';
-        this.refs["item-time-"+index].innerHTML = '';
-        if(date){ //when not undefined print out
-            this.refs["item-date-"+index].innerHTML = this.updateDate(date);
-        }
-        if(time){
-            this.refs["item-time-"+index].innerHTML = this.updateTime(time);
-        }
-        this.render();
     }
     updateDate(d){
         if(d != null){
@@ -78,6 +65,43 @@ export default class TodoItems extends Component {
         }
         return ""; //return nothing
     }
+    updateTodo(date,time,color,subTaskL,index){
+        let dateBool, timeBool, subTaskLBool, formated;
+        dateBool = timeBool = subTaskLBool = false;
+        this.refs["item-"+index].className = "todo-item "+ color;
+        //default   
+        this.refs["item-date-"+index].innerHTML = '';
+        this.refs["item-time-"+index].innerHTML = '';
+        this.refs["item-sub-length-"+index].innerHTML = '';
+        if(subTaskL !== 0){
+            this.refs["item-sub-length-"+index].innerHTML = subTaskL;
+            subTaskLBool = true;
+        }
+        if(date){
+            this.refs["item-date-"+index].innerHTML = this.updateDate(date);
+            dateBool = true;
+        }
+        if(time){
+            this.refs["item-time-"+index].innerHTML = this.updateTime(time);
+            timeBool = true;
+        }
+        //choose the formated
+        if(subTaskLBool && dateBool && timeBool){
+            formated = 3;
+        }
+        else if((dateBool&&timeBool) || (dateBool&&subTaskLBool) || (subTaskLBool&&timeBool)){
+            formated = 2;
+        }
+        else if(subTaskLBool || dateBool || timeBool) {
+            formated = 1;
+        }
+        else {
+            formated = 0;
+        }
+        console.log(formated);
+        this.refs["item-format-"+index].className = "format-"+formated;
+        this.render();
+    }
     render(){
         if(this.props.todo != null) {
             var todos = this.props.todo.map((eachTodo,index, arr) => {
@@ -87,11 +111,12 @@ export default class TodoItems extends Component {
                     <li key={index} className={"todo-item "+eachTodo.priority} ref={"item-"+index}>
                         <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star}/>
                         <span className="name">{eachTodo.name}</span>
-                        <div className="date-info">
+                        <div ref={"item-format-"+index}>
                             <span className="date" ref={"item-date-"+index}>{updateD}</span>
                             <span className="time" ref={"item-time-"+index}>{updateT}</span>
+                            <span className="sub-length" ref={"item-sub-length-"+index}></span>
                         </div>
-                        <Edit name={eachTodo.name} index={index} info={eachTodo.edit} updateColor={this.updateColor} priority={eachTodo.priority}/>
+                        <Edit name={eachTodo.name} index={index} info={eachTodo.edit} updateColor={this.updateTodo} priority={eachTodo.priority}/>
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>
                 )

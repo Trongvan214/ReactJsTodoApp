@@ -66,36 +66,35 @@
 .green.todo-item {
     background: linear-gradient(to bottom right, rgba(68, 240, 0, 0.4), rgba(245, 245, 213, 0.4));
 } 
-.date-info{
-    height: 35px;
-    width: 80px;
+.format-0, .format-1, .format-2, .format-3 {
     order: 3;
-    line-height: 100%;
+    width: 90px;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.format-1 > span {
+    float: right;
+    font-size: 13px;
+    letter-spacing: -1px;
+}
+.format-2 > span {
+    line-height: calc(35px / 2);
+    display: block;
+    width: 100%;
+    height: 50%;
+    font-size: 13px;
+    letter-spacing: -1px;
     text-align: center;
 }
-.date-info .date {
-    margin-top: 5px;
-    height: calc(50% -5px);
-    width: 100%;
-    display: inline-block;
-}
-.date-info .time {
-    height: 50%;
-    width: 100%;
-    display: inline-block;
-}
-.date {
-    font-size: 10px;
-}       
-.time {
-    font-size: 10px;
-}
+
 .name {
     text-align: center;
     height: 100%;
-    width: 60px;
+    width: 45px;
     margin: 0 10px;
     order: 2;
+    overflow: hidden;
 }
 .delete { 
     margin: 0 15px;
