@@ -13,7 +13,7 @@ export default class Time extends Component {
         let time = this.props.setTime;
         if(time){
            //call function to update pickedtime display
-           this.setTime(time.min,time.hour);
+           this.setTime(time.min,time.hour-1);
         }
         else
         {
@@ -47,8 +47,9 @@ export default class Time extends Component {
         //get 2 digit value for min
         let min = ("0"+minValue).slice(-2);
         let displayTime = (hourValue%12)+1+":"+min+dayTime;
+        //add +1 here to formatted store and remember to -1
         let rawTime = {
-            "hour": hourValue,
+            "hour": hourValue+1,
             "min": parseInt(min,10),
         }
         this.props.getTime(displayTime, rawTime);

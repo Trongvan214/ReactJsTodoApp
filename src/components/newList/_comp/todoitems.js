@@ -31,7 +31,6 @@ export default class TodoItems extends Component {
         this.props.update(todos);
     }
     updateDate(d){
-        console.log(d);
         if(d){
             let userDate = new Date(d.year,d.month,d.date);
             let dateString = userDate.toDateString();
@@ -54,7 +53,6 @@ export default class TodoItems extends Component {
         
     }
     updateTime(t){
-        console.log(t);
         if(t){
             let min = t.min;
             let hour = t.hour;

@@ -42,12 +42,26 @@ export default class Edit extends Component {
                     note: info.note,
                     subTask: info.subTask.tasks,
                 }); 
-                this.subLength = info.subTask.length;
+                this.subLength = info.subTask.active;
             }
+            //have to run this to keep track of subTaskLBool
+            //the other 2 bool get called auto
+            this.getSubTask(info.subTask.tasks);
         }
     }
     componentWillMount(){
-        this.subLength = this.props.info.subTask.length;
+        let info = this.props.info;
+        if(info){
+            this.setState({
+                date: info.date,
+                time: info.time,
+                priority: this.props.priority,
+                note: info.note,
+                subTask: info.subTask.tasks,
+            }); 
+            this.subLength = info.subTask.active;
+            console.log(info.subTask.active);
+        }
         this.subTaskLBool = false;
         this.dateBool = false;
         this.timeBool = false;
@@ -69,7 +83,6 @@ export default class Edit extends Component {
         this.setState({date: rawDate});
     }
     getTime(rawTime,formattedTime){
-        console.log('time');
         this.timeBool = false;
         if(rawTime != null){
             this.timeBool = true;
@@ -107,10 +120,6 @@ export default class Edit extends Component {
     }
     //run when exit edit
     saveInfo(){
-        if(this.state.exit){
-            return;
-        }
-        console.log('save');
         let parseTodo = JSON.parse(localStorage.getItem('todo')); 
         let target = parseTodo.find((v,i)=>i===this.index);
         Object.assign(target.edit,{
@@ -136,8 +145,12 @@ export default class Edit extends Component {
         let subTaskLBool = this.subTaskLBool;
         let dateBool = this.dateBool;
         let timeBool = this.timeBool;
+        let prevFormat = this.props.format;
         if(subTaskLBool && dateBool && timeBool){
             return 3;
+        }
+        else if(((subTaskLBool===false) && (dateBool===false) && (timeBool===false)) && this.subLength === 0){
+            return 1;
         }
         else if(dateBool&&timeBool){
             return 2;
@@ -149,17 +162,11 @@ export default class Edit extends Component {
         else if(dateBool || timeBool) {
             return 1;
         }
-        else if(!(subTaskLBool && dateBool && timeBool) && this.subLength === 0){
-            return 1;
-        }
-        else
-        {
-            //return the current format 
-            return this.props.format;
+        else {
+            return prevFormat;
         }
     }
     render(){
-        console.log('render');
         //edit the todo
         if(!this.state.exit){
             return (
