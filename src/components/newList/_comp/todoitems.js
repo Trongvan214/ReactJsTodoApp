@@ -21,11 +21,11 @@ export default class TodoItems extends Component {
         this.props.update(todos);
     }
     deleteTodoItem(e, index, len){
-        //remove this element active class
-        e.target.parentNode.childNodes[2].classList.remove('active');
+        console.log(index);
         //take out todo at that index
         let todos = JSON.parse(localStorage.getItem('todo'));
         todos.splice(index, 1);
+        console.log(todos);
         localStorage.setItem('todo', JSON.stringify(todos));
         //update back to the parent
         this.props.update(todos);
@@ -65,22 +65,10 @@ export default class TodoItems extends Component {
         }
         return ""; //return nothing
     }
-    updateTodo(date,time,color,subTaskL,index,format){
-        //default   
-        this.refs["item-date-"+index].innerHTML = '';
-        this.refs["item-time-"+index].innerHTML = '';
-        this.refs["item-sub-length-"+index].innerHTML = '';
-        if(subTaskL !== 0){
-            this.refs["item-sub-length-"+index].innerHTML = "Tasks " + subTaskL;
-        }
-        if(date){
-            this.refs["item-date-"+index].innerHTML = this.updateDate(date);
-        }
-        if(time){
-            this.refs["item-time-"+index].innerHTML = this.updateTime(time);
-        }
-        this.refs["item-"+index].className = "todo-item "+ color + " format-"+format ;
-        this.render();
+    updateTodo(){
+        //re render
+        let todos = JSON.parse(localStorage.getItem('todo'));
+        this.props.update(todos);
     }
     render(){
         if(this.props.todo != null) {

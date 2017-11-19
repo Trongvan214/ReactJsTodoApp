@@ -9,14 +9,15 @@ import './edit.css';
 export default class Edit extends Component {
     constructor(props){
         super(props);
-        this.state = {
+        this.initialState = {
             date: '',
             time: '',
             priority: '',
-            subTask: '',
+            subTask: [],
             note: '',
             exit: true,
         }
+        this.state = this.initialState;
         this.index = props.index;
 
         //function binding
@@ -29,19 +30,23 @@ export default class Edit extends Component {
         this.exitEdit = this.exitEdit.bind(this);
         this.findFormat = this.findFormat.bind(this);
     }
-    componentWillMount(){
-        let info = this.props.info;
-        if(info){
-            this.setState({
-                date: info.date,
-                time: info.time,
-                priority: this.props.priority,
-                note: info.note,
-                subTask: info.subTask.tasks,
-            });
-        
+    componentDidUpdate(nextProps, nextStates){
+        if(nextProps !== this.props){
+            console.log('new');
+            let info = this.props.info;
+            if(info){
+                this.setState({
+                    date: info.date,
+                    time: info.time,
+                    priority: this.props.priority,
+                    note: info.note,
+                    subTask: info.subTask.tasks,
+                }); 
+            }
         }
-        this.subLength = info.subTask.length;
+    }
+    componentWillMount(){
+        this.subLength = this.props.info.subTask.length;
         window.removeEventListener('beforeunload', this.saveInfo);
         //for phone to work
         window.removeEventListener('unload', this.saveInfo);
@@ -53,6 +58,7 @@ export default class Edit extends Component {
         window.addEventListener('unload', this.saveInfo);
     }
     getDate(rawDate,formattedDate){
+        console.log('date');
         this.dateBool = false;
         if(rawDate != null){
             this.dateBool = true;
@@ -60,6 +66,7 @@ export default class Edit extends Component {
         this.setState({date: rawDate});
     }
     getTime(rawTime,formattedTime){
+        console.log('time');
         this.timeBool = false;
         if(rawTime != null){
             this.timeBool = true;
@@ -73,6 +80,7 @@ export default class Edit extends Component {
         this.setState({note: note});
     }
     getSubTask(updateTask){
+        console.log('sub');
         //reset to calculation the tasks again
         this.subTaskLBool = false;
         this.subLength = 0;
@@ -82,14 +90,13 @@ export default class Edit extends Component {
             }
             return v;
         })
-        console.log(this.subLength);
         //if not subtask is not 0
         if(this.subLength !== 0){
             this.subTaskLBool = true;
             console.log("true");
         }
         this.setState({
-            subtask: updateTask,
+            subTask: updateTask,
         });
     }
     //toggle active
@@ -99,6 +106,10 @@ export default class Edit extends Component {
     }
     //run when exit edit
     saveInfo(){
+        console.log('save');
+        if(this.state.exit){
+            return;
+        }
         console.log('save');
         let parseTodo = JSON.parse(localStorage.getItem('todo')); 
         let target = parseTodo.find((v,i)=>i===this.index);
@@ -119,7 +130,7 @@ export default class Edit extends Component {
         });
         localStorage.setItem('todo', JSON.stringify(parseTodo));
         //update the todo 
-        this.props.updateTodo(this.state.date,this.state.time,color,this.subLength,this.index, this.findFormat());
+        this.props.updateTodo();
     }
     findFormat(){
         let subTaskLBool = this.subTaskLBool;
@@ -145,6 +156,7 @@ export default class Edit extends Component {
         }
     }
     render(){
+        console.log('render');
         //edit the todo
         if(!this.state.exit){
             return (

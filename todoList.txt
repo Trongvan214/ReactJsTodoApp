@@ -1,0 +1,11 @@
+need to fix the problem with when deleting a todo the values gets transfer
+
+need to fix the problem with with time, storing time is not equal to the time showing 
+
+
+//new items 
+-calendar
+display notes of the nears 5 to do dates (show notes, click on to see the bigger version)
+have little dot of green/yellow/red for the day with to do on the show the todo priority else black dot
+have week days on the bottom to click
+
