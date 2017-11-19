@@ -31,7 +31,8 @@ export default class TodoItems extends Component {
         this.props.update(todos);
     }
     updateDate(d){
-        if(d != null){
+        console.log(d);
+        if(d){
             let userDate = new Date(d.year,d.month,d.date);
             let dateString = userDate.toDateString();
             let c = new Date();
@@ -53,7 +54,8 @@ export default class TodoItems extends Component {
         
     }
     updateTime(t){
-        if(t != null){
+        console.log(t);
+        if(t){
             let min = t.min;
             let hour = t.hour;
             //same formated to figure out am or pm
@@ -75,7 +77,7 @@ export default class TodoItems extends Component {
             var todos = this.props.todo.map((eachTodo,index, arr) => {
                 let updateD = this.updateDate(eachTodo.edit.date);
                 let updateT = this.updateTime(eachTodo.edit.time);
-                let updateSTL = eachTodo.edit.subTask.length===0?"":"Tasks " + eachTodo.edit.subTask.length;
+                let updateSTL = eachTodo.edit.subTask.active?"Tasks " + eachTodo.edit.subTask.active:"";
                 return (
                     <li key={index} className={"todo-item "+eachTodo.priority+" format-"+eachTodo.format} ref={"item-"+index}>
                         <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star}/>

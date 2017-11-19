@@ -22,7 +22,7 @@ export default class NewTodo extends Component {
                     "note": '',
                     "subTask": {
                         "tasks": [],
-                        "length": 0,
+                        "active": 0,
                     },
                 },
             }

@@ -30,9 +30,9 @@ export default class Edit extends Component {
         this.exitEdit = this.exitEdit.bind(this);
         this.findFormat = this.findFormat.bind(this);
     }
+    //update 
     componentDidUpdate(nextProps, nextStates){
         if(nextProps !== this.props){
-            console.log('new');
             let info = this.props.info;
             if(info){
                 this.setState({
@@ -42,11 +42,15 @@ export default class Edit extends Component {
                     note: info.note,
                     subTask: info.subTask.tasks,
                 }); 
+                this.subLength = info.subTask.length;
             }
         }
     }
     componentWillMount(){
         this.subLength = this.props.info.subTask.length;
+        this.subTaskLBool = false;
+        this.dateBool = false;
+        this.timeBool = false;
         window.removeEventListener('beforeunload', this.saveInfo);
         //for phone to work
         window.removeEventListener('unload', this.saveInfo);
@@ -58,7 +62,6 @@ export default class Edit extends Component {
         window.addEventListener('unload', this.saveInfo);
     }
     getDate(rawDate,formattedDate){
-        console.log('date');
         this.dateBool = false;
         if(rawDate != null){
             this.dateBool = true;
@@ -80,7 +83,6 @@ export default class Edit extends Component {
         this.setState({note: note});
     }
     getSubTask(updateTask){
-        console.log('sub');
         //reset to calculation the tasks again
         this.subTaskLBool = false;
         this.subLength = 0;
@@ -93,7 +95,6 @@ export default class Edit extends Component {
         //if not subtask is not 0
         if(this.subLength !== 0){
             this.subTaskLBool = true;
-            console.log("true");
         }
         this.setState({
             subTask: updateTask,
@@ -106,7 +107,6 @@ export default class Edit extends Component {
     }
     //run when exit edit
     saveInfo(){
-        console.log('save');
         if(this.state.exit){
             return;
         }
@@ -118,8 +118,8 @@ export default class Edit extends Component {
             "time": this.state.time,
             "note": this.state.note,
             "subTask": {
-                tasks: this.state.subTask,
-                length: this.subLength,
+                "tasks": this.state.subTask,
+                "active": this.subLength,
             },
         });
         let c = this.state.priority;
@@ -147,6 +147,9 @@ export default class Edit extends Component {
             return 4;
         }
         else if(dateBool || timeBool) {
+            return 1;
+        }
+        else if(!(subTaskLBool && dateBool && timeBool) && this.subLength === 0){
             return 1;
         }
         else
