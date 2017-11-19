@@ -14,6 +14,8 @@ export default class AddTask extends Component {
         this.setState({
             tasks: this.props.setSubTask,
         });
+        //a trick to get the parent to call the getSubTask
+        this.props.getSubTask(this.props.setSubTask);
     }
     handleSubmit(e){
         e.preventDefault();

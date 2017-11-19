@@ -27,6 +27,7 @@ export default class Edit extends Component {
         this.getSubTask = this.getSubTask.bind(this);
         this.saveInfo = this.saveInfo.bind(this);
         this.exitEdit = this.exitEdit.bind(this);
+        this.findFormat = this.findFormat.bind(this);
     }
     componentWillMount(){
         let info = this.props.info;
@@ -52,9 +53,17 @@ export default class Edit extends Component {
         window.addEventListener('unload', this.saveInfo);
     }
     getDate(rawDate,formattedDate){
+        this.dateBool = false;
+        if(rawDate != null){
+            this.dateBool = true;
+        }
         this.setState({date: rawDate});
     }
     getTime(rawTime,formattedTime){
+        this.timeBool = false;
+        if(rawTime != null){
+            this.timeBool = true;
+        }
         this.setState({time: rawTime});
     }
     getPriority(color){
@@ -64,6 +73,8 @@ export default class Edit extends Component {
         this.setState({note: note});
     }
     getSubTask(updateTask){
+        //reset to calculation the tasks again
+        this.subTaskLBool = false;
         this.subLength = 0;
         updateTask.map(v=>{
             if(!v.isComplete){
@@ -71,6 +82,12 @@ export default class Edit extends Component {
             }
             return v;
         })
+        console.log(this.subLength);
+        //if not subtask is not 0
+        if(this.subLength !== 0){
+            this.subTaskLBool = true;
+            console.log("true");
+        }
         this.setState({
             subtask: updateTask,
         });
@@ -82,6 +99,7 @@ export default class Edit extends Component {
     }
     //run when exit edit
     saveInfo(){
+        console.log('save');
         let parseTodo = JSON.parse(localStorage.getItem('todo')); 
         let target = parseTodo.find((v,i)=>i===this.index);
         Object.assign(target.edit,{
@@ -97,10 +115,34 @@ export default class Edit extends Component {
         let color = c==="green"?"green":c==="red"?"red":c==="#f4d942"?"yellow":"";
         Object.assign(target, {
             "priority": color,
+            "format": this.findFormat(),
         });
         localStorage.setItem('todo', JSON.stringify(parseTodo));
-        //update the todo color
-        this.props.updateColor(this.state.date,this.state.time,color,this.subLength,this.index);
+        //update the todo 
+        this.props.updateTodo(this.state.date,this.state.time,color,this.subLength,this.index, this.findFormat());
+    }
+    findFormat(){
+        let subTaskLBool = this.subTaskLBool;
+        let dateBool = this.dateBool;
+        let timeBool = this.timeBool;
+        if(subTaskLBool && dateBool && timeBool){
+            return 3;
+        }
+        else if(dateBool&&timeBool){
+            return 2;
+        }
+        //cases with sub tasks
+        else if(subTaskLBool || (dateBool&&subTaskLBool) || (subTaskLBool&&timeBool)){
+            return 4;
+        }
+        else if(dateBool || timeBool) {
+            return 1;
+        }
+        else
+        {
+            //return the current format 
+            return this.props.format;
+        }
     }
     render(){
         //edit the todo

@@ -14,6 +14,7 @@ export default class NewTodo extends Component {
             var todo = {
                 "name": this.refs.name.value,
                 "priority": '',
+                "format": 0,
                 "star": false,
                 "edit": {
                     "date": null,

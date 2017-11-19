@@ -60,46 +60,26 @@ export default class TodoItems extends Component {
             let dayTime = hour<11||hour===23? "AM" : "PM";
             //get 2 digit value for min
             min = ("0"+min).slice(-2);
-            let displayTime = (hour%12)+1+":"+min+dayTime;
+            let displayTime = hour%12+":"+min+dayTime;
             return displayTime;
         }
         return ""; //return nothing
     }
-    updateTodo(date,time,color,subTaskL,index){
-        let dateBool, timeBool, subTaskLBool, formated;
-        dateBool = timeBool = subTaskLBool = false;
-        this.refs["item-"+index].className = "todo-item "+ color;
+    updateTodo(date,time,color,subTaskL,index,format){
         //default   
         this.refs["item-date-"+index].innerHTML = '';
         this.refs["item-time-"+index].innerHTML = '';
         this.refs["item-sub-length-"+index].innerHTML = '';
         if(subTaskL !== 0){
-            this.refs["item-sub-length-"+index].innerHTML = subTaskL;
-            subTaskLBool = true;
+            this.refs["item-sub-length-"+index].innerHTML = "Tasks " + subTaskL;
         }
         if(date){
             this.refs["item-date-"+index].innerHTML = this.updateDate(date);
-            dateBool = true;
         }
         if(time){
             this.refs["item-time-"+index].innerHTML = this.updateTime(time);
-            timeBool = true;
         }
-        //choose the formated
-        if(subTaskLBool && dateBool && timeBool){
-            formated = 3;
-        }
-        else if((dateBool&&timeBool) || (dateBool&&subTaskLBool) || (subTaskLBool&&timeBool)){
-            formated = 2;
-        }
-        else if(subTaskLBool || dateBool || timeBool) {
-            formated = 1;
-        }
-        else {
-            formated = 0;
-        }
-        console.log(formated);
-        this.refs["item-format-"+index].className = "format-"+formated;
+        this.refs["item-"+index].className = "todo-item "+ color + " format-"+format ;
         this.render();
     }
     render(){
@@ -107,16 +87,24 @@ export default class TodoItems extends Component {
             var todos = this.props.todo.map((eachTodo,index, arr) => {
                 let updateD = this.updateDate(eachTodo.edit.date);
                 let updateT = this.updateTime(eachTodo.edit.time);
+                let updateSTL = eachTodo.edit.subTask.length===0?"":"Tasks " + eachTodo.edit.subTask.length;
                 return (
-                    <li key={index} className={"todo-item "+eachTodo.priority} ref={"item-"+index}>
+                    <li key={index} className={"todo-item "+eachTodo.priority+" format-"+eachTodo.format} ref={"item-"+index}>
                         <Star onClick={(e)=>this.updateStar(e,index)} active={eachTodo.star}/>
-                        <span className="name">{eachTodo.name}</span>
-                        <div ref={"item-format-"+index}>
+                        <div className="name-subtask">
+                            <span className="name">{eachTodo.name}</span>
+                            <span className="sub-length" ref={"item-sub-length-"+index}>{updateSTL}</span>
+                        </div>
+                        <div className="date-info">
                             <span className="date" ref={"item-date-"+index}>{updateD}</span>
                             <span className="time" ref={"item-time-"+index}>{updateT}</span>
-                            <span className="sub-length" ref={"item-sub-length-"+index}></span>
                         </div>
-                        <Edit name={eachTodo.name} index={index} info={eachTodo.edit} updateColor={this.updateTodo} priority={eachTodo.priority}/>
+                        <Edit   name={eachTodo.name}
+                                index={index} 
+                                info={eachTodo.edit} 
+                                updateTodo={this.updateTodo} 
+                                priority={eachTodo.priority}
+                                format={eachTodo.format} />
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>
                 )

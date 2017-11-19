@@ -66,19 +66,19 @@
 .green.todo-item {
     background: linear-gradient(to bottom right, rgba(68, 240, 0, 0.4), rgba(245, 245, 213, 0.4));
 } 
-.format-0, .format-1, .format-2, .format-3 {
+.format-0 .date-info, .format-1 .date-info, .format-2 .date-info, .format-3 .date-info, .format-4 .date-info {
     order: 3;
     width: 90px;
     height: 100%;
     overflow: hidden;
     box-sizing: border-box;
 }
-.format-1 > span {
+.format-1 .date-info span {
     float: right;
     font-size: 13px;
     letter-spacing: -1px;
 }
-.format-2 > span {
+.format-2 > .date-info span {
     line-height: calc(35px / 2);
     display: block;
     width: 100%;
@@ -87,14 +87,65 @@
     letter-spacing: -1px;
     text-align: center;
 }
-
-.name {
+.format-2 .name {
+    display: block;
+}
+.format-3 .name-subtask .name {
+    line-height: 22.5px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    height: 50%;
     text-align: center;
-    height: 100%;
-    width: 45px;
-    margin: 0 10px;
+    font-size: 15px;
+}
+.format-3 .name-subtask .sub-length {
+    line-height: 20.5px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    height: 50%;
+    text-align: center;
+    font-size: 12px;
+}
+.format-3 > .date-info span {
+    line-height: calc(35px / 2);
+    display: block;
+    width: 100%;
+    height: 50%;
+    font-size: 13px;
+    letter-spacing: -1px;
+    text-align: center;
+}
+.format-4 .name-subtask .name {
+    line-height: 22.5px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    height: 50%;
+    text-align: center;
+    font-size: 15px;
+}
+.format-4 .name-subtask .sub-length {
+    line-height: 20.5px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    height: 50%;
+    text-align: center;
+    font-size: 12px;
+}
+.format-4 .date-info span {
+   float: right;
+   font-size: 13px;
+   letter-spacing: -1px;
+}
+.name-subtask {
     order: 2;
-    overflow: hidden;
+    width: 45px;
+    text-align: center;
+    margin: 0 10px;
+    height: 100%;
 }
 .delete { 
     margin: 0 15px;
