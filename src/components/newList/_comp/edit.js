@@ -44,9 +44,10 @@ export default class Edit extends Component {
                 }); 
                 this.subLength = info.subTask.active;
             }
-            //have to run this to keep track of subTaskLBool
-            //the other 2 bool get called auto
+            //run function to figure out bools
             this.getSubTask(info.subTask.tasks);
+            this.getDate(info.date);
+            this.getTime(info.time);
         }
     }
     componentWillMount(){
