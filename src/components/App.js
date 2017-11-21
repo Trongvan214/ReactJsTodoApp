@@ -3,7 +3,6 @@ import NewList from './newList/newlist';
 import ExistingList from './existingList/existinglist';
 import Calendar from './calendar/calendar';
 import Menu from './menu/menu.js';
-import './app.css';
 
 export default class App extends Component {
   constructor(props){
@@ -16,7 +15,7 @@ export default class App extends Component {
     this.returnToMenu = this.returnToMenu.bind(this);
   }
   componentWillMount(){
-    this.setState({userInput: "new", hideMenu: true});
+    this.setState({userInput: "cal", hideMenu: true});
   }
   returnToMenu(){
     this.setState({userInput: '',hideMenu: false})
@@ -28,8 +27,8 @@ export default class App extends Component {
     return (
       <div className="App">
         <Menu choice={this.choice} hide={this.state.hideMenu}/>
-        <NewList show={this.state.userInput} return={this.returnToMenu}/>
-        <ExistingList show={this.state.userInput} return={this.returnToMenu}/>
+        <NewList show={this.state.userInput} return={this.returnToMenu} />
+        <ExistingList show={this.state.userInput} return={this.returnToMenu} />
         <Calendar show={this.state.userInput} return={this.returnToMenu}/>
       </div>
     );

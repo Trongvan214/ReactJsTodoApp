@@ -1,6 +1,4 @@
-need to fix the problem with when deleting a todo the values gets transfer
-
-need to fix the problem with with time, storing time is not equal to the time showing 
+fix problem with the todo display 12am 
 
 
 //new items 

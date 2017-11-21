@@ -61,7 +61,6 @@ export default class Edit extends Component {
                 subTask: info.subTask.tasks,
             }); 
             this.subLength = info.subTask.active;
-            console.log(info.subTask.active);
         }
         this.subTaskLBool = false;
         this.dateBool = false;
