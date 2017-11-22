@@ -1,0 +1,55 @@
+.todo-cal .red {
+    background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(255, 255, 255, 0.4)) !important;
+}
+.todo-cal .yellow {
+    background: linear-gradient(to bottom right, rgba(243, 243, 21, 0.4), rgba(255, 255, 255, 0.4)) !important;
+}
+.todo-cal .green {
+    background: linear-gradient(to bottom right, rgba(68, 240, 0, 0.4), rgba(245, 245, 213, 0.4)) !important;
+} 
+.todo-cal {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    display: inline-block;
+    width: 80%;
+    box-shadow: 1px 1px 2px rgb(191, 191, 191);
+}
+.todo-cal-header {
+    padding: 4px 0;
+    display: block;
+    text-align: center;
+    background: linear-gradient(to bottom right, rgba(191, 191, 191, 0.4), rgba(245, 245, 213, 0.4)) !important;
+}
+.todo-cal-name {
+    text-transform: capitalize;
+    font-size: 18px;
+}
+.todo-cal-body {
+    margin: 7px;
+}
+.todo-cal-date {
+    margin: 5px 0;
+}
+.todo-cal-date-symbol {
+    
+}
+.todo-cal-date-value {
+    margin-left: 5px;
+}
+.todo-cal-time {
+
+}
+.todo-cal-time-symbol {
+
+}
+.todo-cal-time-value {
+
+}
+.todo-cal-note {
+
+}
+.todo-cal-subtask {
+
+}

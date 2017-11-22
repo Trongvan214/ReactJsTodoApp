@@ -3,7 +3,7 @@ import './priority.css';
 
 export default class Priority extends Component {
     setPriority(e,i){
-        let chosenColor = i===0?"red":i===1?"#f4d942":"green";
+        let chosenColor = i===0?"red":i===1?"yellow":"green";
         this.props.getPriority(chosenColor);
         for(var j = 0; j < 3; j++){
             if(!(j===i)){

@@ -61,7 +61,7 @@
     background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
 }
 .yellow.todo-item{
-    background: linear-gradient(to bottom right, rgba(243, 243, 21, 0.4), rgba(255, 255, 255, 0.4));
+    background: linear-gradient(to bottom right, rgba(250, 250, 0, 0.4), rgba(255, 255, 255, 0.4));
 }
 .green.todo-item {
     background: linear-gradient(to bottom right, rgba(68, 240, 0, 0.4), rgba(245, 245, 213, 0.4));

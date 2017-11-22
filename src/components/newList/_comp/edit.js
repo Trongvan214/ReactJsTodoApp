@@ -90,6 +90,7 @@ export default class Edit extends Component {
         this.setState({time: rawTime});
     }
     getPriority(color){
+        console.log(color);
         this.setState({priority: color});
     }
     getNote(note){
@@ -131,10 +132,8 @@ export default class Edit extends Component {
                 "active": this.subLength,
             },
         });
-        let c = this.state.priority;
-        let color = c==="green"?"green":c==="red"?"red":c==="#f4d942"?"yellow":"";
         Object.assign(target, {
-            "priority": color,
+            "priority": this.state.priority,
             "format": this.findFormat(),
         });
         localStorage.setItem('todo', JSON.stringify(parseTodo));
