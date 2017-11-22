@@ -51,7 +51,7 @@ export default class Calendar extends Component {
             //delete the color object
             delete data.color;
             //if no time given than return 0
-            if(Object.keys(data).length !== 0){
+            if(Object.keys(data).length !== 0 && data.year){
                 for(let prop in data){
                     arr.push(data[prop]);
                 }
@@ -124,37 +124,65 @@ export default class Calendar extends Component {
     }
     render(){
         let todoCal = this.state.todo.map((v,i)=>{
-            let star = v.star?<span className="todo-cal-star">&#9733;</span>:""
-            let time = v.edit.time?
+            const star = v.star?<span className="todo-cal-star">&#9733;</span>:""
+            const Time = () => {
+                if(!v.edit.time){
+                    return null;
+                }
+                return (
                     <div className="todo-cal-time">
                         <span className="todo-cal-time-symbol" role="img" aria-label="clock">&#x1F550;</span>
                         <span className="todo-cal-time-value">{this.updateTime(v.edit.time)}</span>
                     </div>
-                    :
-                    "";
-            let date = v.edit.date?
+                );
+            }
+            const Date = () => {
+                //if date is null or undefined .. 
+                if(!v.edit.date){
+                    return null;
+                }
+                return (
                     <div className="todo-cal-date">
                         <span className="todo-cal-date-symbol" role="img" aria-label="calendar">&#x1F4C5;</span>
                         <span className="todo-cal-date-value">{this.updateDate(v.edit.date)}</span>
                     </div>
-                    :
-                    "";
-            let note = v.edit.note?
+                );
+            }
+            const Note = () => {
+                //if empty string in the note
+                if(!v.edit.note){
+                    return null;
+                }
+                return (
                     <div className="todo-cal-note">
                         <span className="todo-cal-note-symbol">&#9998;</span>
                         <span className="todo-cal-note-value">{v.edit.note}</span>
                     </div>
-                    :
-                    "";
-            let subtask = v.edit.subTask.tasks.map((v,i)=>{
-                let check = v.isComplete?<span>&#10004;</span>:"";
+                );
+            }
+            const Subtask = () => {
+                let tasks = v.edit.subTask.tasks.map((v,i)=>{
+                    let check = v.isComplete?<span>&#10004;</span>:"";
+                    return (
+                        <div className="todo-cal-subtask-task" key={i}>
+                            {check}
+                            <span>{v.name}</span>
+                        </div>
+                    )
+                });
+                if(tasks.length === 0){
+                    return null;
+                }
                 return (
-                    <div className="todo-cal-subtask-task" key={i}>
-                        {check}
-                        <span>{v.name}</span>
+                    <div className="todo-cal-subtask">
+                        <div className="todo-cal-subtask-header">
+                            <span>Subtasks:</span>
+                            <span>Completed &#10004;</span>
+                        </div>
+                        {tasks}
                     </div>
                 )
-            });
+            }
             return (
                 <div className="todo-cal" key={i}>
                     <div className={"todo-cal-header "+v.priority}>
@@ -162,12 +190,10 @@ export default class Calendar extends Component {
                         <span className="todo-cal-name">{v.name}</span>
                     </div>
                     <div className="todo-cal-body">
-                        {date}
-                        {time}
-                        {note}
-                        <div className="todo-cal-subtask">
-                            {subtask}
-                        </div>
+                        <Date />
+                        <Time />
+                        <Note />
+                        <Subtask />
                     </div>
                 </div>
             )

@@ -53,3 +53,12 @@
 .todo-cal-subtask {
 
 }
+.todo-cal-subtask-task {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 33.3%;
+    padding: 5px 0;
+}
+.todo-cal-subtask-task span {
+    display: inline-block;
+}

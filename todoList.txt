@@ -8,3 +8,6 @@ display notes of the nears 5 to do dates (show notes, click on to see the bigger
 have little dot of green/yellow/red for the day with to do on the show the todo priority else black dot
 have week days on the bottom to click
 
+
+//things can do
+calendar make a down button rather than generating all the todo
