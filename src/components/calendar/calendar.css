@@ -32,23 +32,27 @@
 .todo-cal-date {
     margin: 5px 0;
 }
-.todo-cal-date-symbol {
-    
+.todo-cal-date-symbol,
+.todo-cal-time-symbol,
+.todo-cal-note-symbol {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    margin-right: 5px;
 }
 .todo-cal-date-value {
-    margin-left: 5px;
 }
 .todo-cal-time {
-
-}
-.todo-cal-time-symbol {
 
 }
 .todo-cal-time-value {
 
 }
 .todo-cal-note {
-
+    overflow: hidden;
+}
+.todo-cal-note-value {
+    margin-left: 5px;
 }
 .todo-cal-subtask {
 
@@ -56,9 +60,16 @@
 .todo-cal-subtask-task {
     box-sizing: border-box;
     display: inline-block;
-    width: 33.3%;
-    padding: 5px 0;
+    width: 45%;
+    margin: 3px 2.5%;
+    text-align: left;
 }
-.todo-cal-subtask-task span {
+.todo-cal-subtask-task span:first-child {
     display: inline-block;
+    width: 15px;
+}
+.todo-cal-subtask-header span {
+    display: inline-block;
+    width: 45%;
+    margin: 0 2.5%;
 }

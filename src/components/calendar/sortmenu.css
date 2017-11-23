@@ -1,0 +1,129 @@
+/*----------------------------------------------
+                    Menu
+-----------------------------------------------*/
+.calendar-sort-menu {
+    display: block;
+    z-index: 50;
+    padding: 0;
+    margin: 0;
+}
+.calendar-sort-menu nav {
+    max-height: 0;
+    height: 200px;
+    display: inline-block;
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    transition: 0.3s linear;
+}
+.active nav {
+    max-height: 500px;
+}
+.calendar-sort-menu nav ul{
+    list-style: none;
+    margin: 0;
+    padding-left: 30px;
+}  
+.calendar-sort-menu nav ul li {
+    display: inline-block;
+    width: 100%;
+    height: 20px;
+    text-align: left;
+    margin: 5px 0;
+}
+.toggle-button{
+    position: relative;
+    display: inline-block;
+    height: 35px;
+    background: white;
+    z-index: 100;
+    cursor: pointer;
+    margin-bottom: -4px;
+}
+.toggle {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    width: 16px;
+    height: 19px;
+    cursor: pointer;
+    -webkit-transition: 0.3s linear;
+    transition: 0.3s linear;
+}
+.toggle span {
+    position: absolute;
+    display: block;
+    background: black;
+    width:50%;
+    height: 3px;
+    -webkit-transition: 0.3s linear;
+    transition: 0.3s linear;
+}
+.toggle span:nth-child(even) {
+    left: 50%;
+}
+.toggle span:nth-child(1),
+.toggle span:nth-child(2){
+    top: 15%;
+}
+
+.toggle span:nth-child(3),
+.toggle span:nth-child(4) 
+{
+    top: 45%;
+}
+
+.toggle span:nth-child(5),
+.toggle span:nth-child(6) 
+{
+    top: 75%;
+}
+.active .toggle span:nth-child(3) {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    opacity: 0;
+
+}
+.active .toggle span:nth-child(4) {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    opacity: 0;
+
+}
+.active .toggle span:nth-child(1) {
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+
+}
+.active .toggle span:nth-child(2) {
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+
+}
+.active .toggle span:nth-child(1) {
+    -webkit-transform: rotate(45deg) translate(55%, -65%);
+    transform: rotate(45deg) translate(55%, -65%);
+}
+.active .toggle span:nth-child(2) {
+    -webkit-transform: rotate(-45deg) translate(-55%, -65%);
+    transform: rotate(-45deg) translate(-55%, -65%);
+}
+
+.active .toggle span:nth-child(5) {
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+
+}
+.active .toggle span:nth-child(6) {
+    -webkit-transform-origin: bottom right;
+    transform-origin: bottom right;
+}
+
+.active .toggle span:nth-child(5) {
+    -webkit-transform: rotate(-45deg) translate(55%, 65%);
+    transform: rotate(-45deg) translate(55%, 65%);
+}
+.active .toggle span:nth-child(6) {
+    -webkit-transform: rotate(45deg) translate(-55%, 65%);
+    transform: rotate(45deg) translate(-55%, 65%);
+}

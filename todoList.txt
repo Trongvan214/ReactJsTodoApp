@@ -1,6 +1,5 @@
-fix problem with the todo display 12am 
 add automatic today dates when pick time first in todo
-
+finish the css for sort menu calendar
 
 //new items 
 -calendar

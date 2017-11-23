@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 // import CalBody from './_comp/calbody';
 import BackToMenu from '.././backtomenu/backtomenu';
+import SortMenu from './sortmenu';
 import './calendar.css';
 
 export default class Calendar extends Component {
@@ -15,13 +16,18 @@ export default class Calendar extends Component {
         }
         this.updateDate = this.updateDate.bind(this);
         this.updateTime = this.updateTime.bind(this);
-        this.sortTodo = this.sortTodo.bind(this);
+        this.todoSortChoice = this.todoSortChoice.bind(this);
+        this.allTodo = this.allTodo.bind(this);
+        this.datelessTodo = this.datelessTodo.bind(this);
+        this.todayTodo = this.todayTodo.bind(this);
+        this.weekTodo= this.weekTodo.bind(this);
+        this.upcomingTodo = this.upcomingTodo.bind(this);
     }
     componentWillUpdate(nextProps){
         //update the todo
         if(nextProps.show === "cal" && nextProps !== this.props){
             let parseTodo = JSON.parse(localStorage.getItem('todo')); 
-            let sortedTodo = this.sortTodo(parseTodo);
+            let sortedTodo = this.allTodo(parseTodo);
             this.setState({
                 todo: sortedTodo,
             });
@@ -35,7 +41,7 @@ export default class Calendar extends Component {
         //         year: d.getFullYear(), 
         //     }});       
         let parseTodo = JSON.parse(localStorage.getItem('todo')); 
-        let sortedTodo = this.sortTodo(parseTodo);
+        let sortedTodo = this.allTodo(parseTodo);
         this.setState({
             todo: sortedTodo,
         });
@@ -43,28 +49,28 @@ export default class Calendar extends Component {
     // setMonth(newMonth, newYear){
     //     this.setState({date: {month: newMonth, year: newYear}});
     // }
-    sortTodo(a){
-        const getUTCTime = (obj) => {
-            let arr = [];
-            //merge the objects together
-            let data = Object.assign({}, obj.edit.date, obj.edit.time);
-            //delete the color object
-            delete data.color;
-            //if no time given than return 0
-            if(Object.keys(data).length !== 0 && data.year){
-                for(let prop in data){
-                    arr.push(data[prop]);
-                }
-                return new Date(...arr).getTime();
+    getUTCTime(obj){
+        let arr = [];
+        //merge the objects together
+        let data = Object.assign({}, obj.edit.date, obj.edit.time);
+        //delete the color object
+        delete data.color;
+        //if no time given than return 0
+        if(Object.keys(data).length !== 0 && data.year){
+            for(let prop in data){
+                arr.push(data[prop]);
             }
-            return 0;
-        };
+            return new Date(...arr).getTime();
+        }
+        return 0;
+    };
+    allTodo(a){
         let temp, swap, currData, nextData, noTimeArr = [];
         do {
             swap = false;
             for(let i=0;i<a.length-1;i++){
-                currData = getUTCTime(a[i]);
-                nextData = getUTCTime(a[i+1]);
+                currData = this.getUTCTime(a[i]);
+                nextData = this.getUTCTime(a[i+1]);
                 //take out of array and put in timeless arr
                 if(currData === 0){
                     noTimeArr.push(a[i]);
@@ -86,6 +92,91 @@ export default class Calendar extends Component {
             }
         } while(swap);
         return a.concat(noTimeArr);
+    }
+    datelessTodo(a){
+        let arr = [];
+        for(let i=0;i<a.length;i++){
+            let time = this.getUTCTime(a[i]);
+            if(time === 0){
+                arr.push(a[i]);
+            }
+        }
+        return arr;
+    }
+    starTodo(a){
+        let starSort =  a.filter((v,i)=>{
+            return v.star===true;
+        });
+        //return sorted in order
+        return this.allTodo(starSort);
+    }
+    todayTodo(a){
+        let c = new Date();
+        let w = new Date(c.getFullYear(),c.getMonth(),c.getDate()).getTime();
+        let d = new Date(c.getFullYear(),c.getMonth(),c.getDate()+1).getTime();
+        let todayTodo = a.filter((v,i)=>{
+            let time = this.getUTCTime(v);
+            return w<=time&&time<=d;
+        });
+        return this.allTodo(todayTodo);
+    }
+    weekTodo(a){
+        let c = new Date();
+        let w = new Date(c.getFullYear(),c.getMonth(),c.getDate()).getTime();
+        let d = new Date(c.getFullYear(),c.getMonth(),c.getDate()+7).getTime();
+        let weekTodo = a.filter((v,i)=>{
+            let time = this.getUTCTime(v);
+            return w<=time&&time<=d;
+        });
+        return this.allTodo(weekTodo);
+    }
+    upcomingTodo(a){
+        let c = new Date();
+        let d = new Date(c.getFullYear(),c.getMonth(),c.getDate()+7).getTime();
+        let upcomingTodo = a.filter((v,i)=>{
+            let time = this.getUTCTime(v);
+            return d<=time;
+        });
+        return this.allTodo(upcomingTodo);
+    }
+    todoSortChoice(choice){
+        let parseTodo = JSON.parse(localStorage.getItem('todo')); 
+        if(choice === "all"){
+            let allTodo = this.allTodo(parseTodo);
+            this.setState({
+                todo: allTodo,
+            });
+        }
+        else if(choice === "dateless"){
+            let datelessTodo = this.datelessTodo(parseTodo);
+            this.setState({
+                todo: datelessTodo,
+            })
+        }
+        else if(choice === "star"){
+            let starTodo = this.starTodo(parseTodo);
+            this.setState({
+                todo: starTodo,
+            })
+        }
+        else if(choice === "today"){
+            let todayTodo = this.todayTodo(parseTodo);
+            this.setState({
+                todo: todayTodo,
+            })
+        }
+        else if(choice === "week"){
+            let weekTodo = this.weekTodo(parseTodo);
+            this.setState({
+                todo: weekTodo
+            })
+        }
+        else if(choice === "upcoming"){
+            let upcomingTodo = this.upcomingTodo(parseTodo);
+            this.setState({
+                todo: upcomingTodo,
+            })
+        }
     }
     updateDate(d){
         if(d){
@@ -114,10 +205,10 @@ export default class Calendar extends Component {
             let min = t.min;
             let hour = t.hour;
             //same formated to figure out am or pm
-            let dayTime = hour<11||hour===23? "AM" : "PM";
+            let dayTime = hour<11||hour===24? "AM" : "PM";
             //get 2 digit value for min
             min = ("0"+min).slice(-2);
-            let displayTime = hour%12+":"+min+dayTime;
+            let displayTime = hour===24?12+":"+min+dayTime:hour%12+":"+min+dayTime;
             return displayTime;
         }
         return ""; //return nothing
@@ -162,7 +253,7 @@ export default class Calendar extends Component {
             }
             const Subtask = () => {
                 let tasks = v.edit.subTask.tasks.map((v,i)=>{
-                    let check = v.isComplete?<span>&#10004;</span>:"";
+                    let check = v.isComplete?<span>&#10004;</span>:<span></span>;
                     return (
                         <div className="todo-cal-subtask-task" key={i}>
                             {check}
@@ -203,6 +294,7 @@ export default class Calendar extends Component {
             return (
                 <div className="calendar">
                     <BackToMenu onClick={this.props.return}/>
+                    <SortMenu choice={this.todoSortChoice}/>
                     {/* <CalBody date={this.state.date} changeMonth={this.setMonth.bind(this)}/> */}
                     {todoCal}
                </div>
