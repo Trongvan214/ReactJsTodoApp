@@ -11,6 +11,20 @@ export default class TodoItems extends Component {
         }
         this.updateTodo = this.updateTodo.bind(this);
     }
+    componentWillMount(){
+        let parseTodo = JSON.parse(localStorage.getItem('todo'));
+        for(let i=0;i<parseTodo.length;i++){
+            let todoDeleteTimer = parseTodo[i].startDeleteTimer;
+            let curr = new Date().getTime();
+            let diff = todoDeleteTimer==null?0:curr-todoDeleteTimer;
+            if(diff>172800000){
+                parseTodo.splice(i, 1);
+            }
+        }
+        localStorage.setItem('todo', JSON.stringify(parseTodo));
+        //update back to the parent
+        this.props.update(parseTodo);
+    }
     updateStar(e,index){
         //toggle active
         e.target.classList.toggle('active');
@@ -23,12 +37,11 @@ export default class TodoItems extends Component {
     deleteTodoItem(e, index, len){
         console.log(index);
         //take out todo at that index
-        let todos = JSON.parse(localStorage.getItem('todo'));
-        todos.splice(index, 1);
-        console.log(todos);
-        localStorage.setItem('todo', JSON.stringify(todos));
+        let parseTodo = JSON.parse(localStorage.getItem('todo'));
+        parseTodo.splice(index, 1);
+        localStorage.setItem('todo', JSON.stringify(parseTodo));
         //update back to the parent
-        this.props.update(todos);
+        this.props.update(parseTodo);
     }
     updateDate(d){
         if(d){

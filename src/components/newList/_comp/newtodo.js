@@ -16,6 +16,7 @@ export default class NewTodo extends Component {
                 "priority": '',
                 "format": 0,
                 "star": false,
+                "startDeleteTimer": null,
                 "edit": {
                     "date": null,
                     "time": null,

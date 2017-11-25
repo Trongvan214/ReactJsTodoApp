@@ -1,5 +1,6 @@
 add automatic today dates when pick time first in todo
-finish the css for sort menu calendar
+add automatic delete on past date todo if more than 2 days delete it
+    -have a property that hold the day it create whenever load check the see if it's been 2 days
 
 //new items 
 -calendar

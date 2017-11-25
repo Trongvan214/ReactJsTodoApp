@@ -121,6 +121,10 @@ export default class Edit extends Component {
     }
     //run when exit edit
     saveInfo(){
+        //testing for not saving when open
+        if(this.state.exit){
+            return;
+        }
         let parseTodo = JSON.parse(localStorage.getItem('todo')); 
         let target = parseTodo.find((v,i)=>i===this.index);
         Object.assign(target.edit,{
@@ -132,10 +136,22 @@ export default class Edit extends Component {
                 "active": this.subLength,
             },
         });
+        let timeArray = this.getPastDue(this.state.date,this.state.time);
+        if(timeArray < 0 && target.startDeleteTimer == null){
+            Object.assign(target, {
+                "startDeleteTimer": new Date().getTime(),
+            });
+        }
+        else if(timeArray > 0){
+            Object.assign(target, {
+                "startDeleteTimer": null,
+            });
+        }
         Object.assign(target, {
             "priority": this.state.priority,
             "format": this.findFormat(),
         });
+        console.log(target);
         localStorage.setItem('todo', JSON.stringify(parseTodo));
         //update the todo 
         this.props.updateTodo();
@@ -165,6 +181,26 @@ export default class Edit extends Component {
             return prevFormat;
         }
     }
+    getPastDue(date,time){
+        let arr = [];
+        //merge the objects together
+        let data = Object.assign({}, date, time);
+        //delete the color object
+        delete data.color;
+        let timeUTC;
+        //if no time given than return 0
+        if(Object.keys(data).length !== 0 && data.year){
+            for(let prop in data){
+                arr.push(data[prop]);
+            }
+            timeUTC = new Date(...arr).getTime();
+        }
+        else {
+            return 0;
+        }
+        let curr = new Date().getTime();
+        return timeUTC-curr;
+    };
     render(){
         //edit the todo
         if(!this.state.exit){

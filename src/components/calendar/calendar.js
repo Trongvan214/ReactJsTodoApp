@@ -135,43 +135,11 @@ export default class Calendar extends Component {
     }
     todoSortChoice(choice){
         let parseTodo = JSON.parse(localStorage.getItem('todo')); 
-        if(choice === "all"){
-            let allTodo = this.allTodo(parseTodo);
-            this.setState({
-                todo: allTodo,
-            });
-        }
-        else if(choice === "dateless"){
-            let datelessTodo = this.datelessTodo(parseTodo);
-            this.setState({
-                todo: datelessTodo,
-            })
-        }
-        else if(choice === "star"){
-            let starTodo = this.starTodo(parseTodo);
-            this.setState({
-                todo: starTodo,
-            })
-        }
-        else if(choice === "today"){
-            let todayTodo = this.todayTodo(parseTodo);
-            this.setState({
-                todo: todayTodo,
-            });
-            this.format = <span onClick={this.changeFullDateTime}>FULLDAYTIME</span>
-        }
-        else if(choice === "week"){
-            let weekTodo = this.weekTodo(parseTodo);
-            this.setState({
-                todo: weekTodo
-            })
-        }
-        else if(choice === "upcoming"){
-            let upcomingTodo = this.upcomingTodo(parseTodo);
-            this.setState({
-                todo: upcomingTodo,
-            })
-        }
+        //excute a dynamic function with the choice given
+        let updateTodo =  this[choice+"Todo"](parseTodo);
+        this.setState({
+            todo: updateTodo,
+        });
     }
     render(){
         if(this.props.show === "cal")
