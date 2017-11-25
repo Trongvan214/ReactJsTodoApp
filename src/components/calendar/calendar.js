@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 // import CalBody from './_comp/calbody';
 import BackToMenu from '.././backtomenu/backtomenu';
 import SortMenu from './sortmenu';
+import FullDayTime from './fulldaytime';
+import CalTodo from './caltodo';
 import './calendar.css';
 
 export default class Calendar extends Component {
@@ -14,14 +16,13 @@ export default class Calendar extends Component {
             },
             todo: [],
         }
-        this.updateDate = this.updateDate.bind(this);
-        this.updateTime = this.updateTime.bind(this);
         this.todoSortChoice = this.todoSortChoice.bind(this);
         this.allTodo = this.allTodo.bind(this);
         this.datelessTodo = this.datelessTodo.bind(this);
         this.todayTodo = this.todayTodo.bind(this);
         this.weekTodo= this.weekTodo.bind(this);
         this.upcomingTodo = this.upcomingTodo.bind(this);
+        // this.changeFullDateTime = this.changeFullDateTime.bind(this);
     }
     componentWillUpdate(nextProps){
         //update the todo
@@ -34,21 +35,14 @@ export default class Calendar extends Component {
         }
     }
     //remember to figure how to update without setting up first
-    componentWillMount(){
-        // let d = new Date();
-        // this.setState({date: {
-        //         month: d.getMonth(),
-        //         year: d.getFullYear(), 
-        //     }});       
+    componentWillMount(){    
+        this.format = "";
         let parseTodo = JSON.parse(localStorage.getItem('todo')); 
         let sortedTodo = this.allTodo(parseTodo);
         this.setState({
             todo: sortedTodo,
         });
     }
-    // setMonth(newMonth, newYear){
-    //     this.setState({date: {month: newMonth, year: newYear}});
-    // }
     getUTCTime(obj){
         let arr = [];
         //merge the objects together
@@ -163,7 +157,8 @@ export default class Calendar extends Component {
             let todayTodo = this.todayTodo(parseTodo);
             this.setState({
                 todo: todayTodo,
-            })
+            });
+            this.format = <span onClick={this.changeFullDateTime}>FULLDAYTIME</span>
         }
         else if(choice === "week"){
             let weekTodo = this.weekTodo(parseTodo);
@@ -178,125 +173,17 @@ export default class Calendar extends Component {
             })
         }
     }
-    updateDate(d){
-        if(d){
-            let userDate = new Date(d.year,d.month,d.date);
-            let dateString = userDate.toDateString();
-            let c = new Date();
-            let cYear = c.getFullYear();
-            let cMonth = c.getMonth();
-            let cDate = c.getDate();
-            if(dateString === new Date(cYear, cMonth, cDate).toDateString()){
-                dateString = "Today";
-            }
-            else if(dateString === new Date(cYear, cMonth, cDate-1).toDateString()){
-                dateString = "Yesterday";
-            } 
-            else if(dateString === new Date(cYear, cMonth, cDate+1).toDateString()){
-                dateString = "Tommorrow";
-            }
-            return dateString;
-        }
-        return ""; //return nothing
-        
-    }
-    updateTime(t){
-        if(t){
-            let min = t.min;
-            let hour = t.hour;
-            //same formated to figure out am or pm
-            let dayTime = hour<11||hour===24? "AM" : "PM";
-            //get 2 digit value for min
-            min = ("0"+min).slice(-2);
-            let displayTime = hour===24?12+":"+min+dayTime:hour%12+":"+min+dayTime;
-            return displayTime;
-        }
-        return ""; //return nothing
-    }
     render(){
-        let todoCal = this.state.todo.map((v,i)=>{
-            const star = v.star?<span className="todo-cal-star">&#9733;</span>:""
-            const Time = () => {
-                if(!v.edit.time){
-                    return null;
-                }
-                return (
-                    <div className="todo-cal-time">
-                        <span className="todo-cal-time-symbol" role="img" aria-label="clock">&#x1F550;</span>
-                        <span className="todo-cal-time-value">{this.updateTime(v.edit.time)}</span>
-                    </div>
-                );
-            }
-            const Date = () => {
-                //if date is null or undefined .. 
-                if(!v.edit.date){
-                    return null;
-                }
-                return (
-                    <div className="todo-cal-date">
-                        <span className="todo-cal-date-symbol" role="img" aria-label="calendar">&#x1F4C5;</span>
-                        <span className="todo-cal-date-value">{this.updateDate(v.edit.date)}</span>
-                    </div>
-                );
-            }
-            const Note = () => {
-                //if empty string in the note
-                if(!v.edit.note){
-                    return null;
-                }
-                return (
-                    <div className="todo-cal-note">
-                        <span className="todo-cal-note-symbol">&#9998;</span>
-                        <span className="todo-cal-note-value">{v.edit.note}</span>
-                    </div>
-                );
-            }
-            const Subtask = () => {
-                let tasks = v.edit.subTask.tasks.map((v,i)=>{
-                    let check = v.isComplete?<span>&#10004;</span>:<span></span>;
-                    return (
-                        <div className="todo-cal-subtask-task" key={i}>
-                            {check}
-                            <span>{v.name}</span>
-                        </div>
-                    )
-                });
-                if(tasks.length === 0){
-                    return null;
-                }
-                return (
-                    <div className="todo-cal-subtask">
-                        <div className="todo-cal-subtask-header">
-                            <span>Subtasks:</span>
-                            <span>Completed &#10004;</span>
-                        </div>
-                        {tasks}
-                    </div>
-                )
-            }
-            return (
-                <div className="todo-cal" key={i}>
-                    <div className={"todo-cal-header "+v.priority}>
-                        {star}
-                        <span className="todo-cal-name">{v.name}</span>
-                    </div>
-                    <div className="todo-cal-body">
-                        <Date />
-                        <Time />
-                        <Note />
-                        <Subtask />
-                    </div>
-                </div>
-            )
-        });
         if(this.props.show === "cal")
         {
             return (
                 <div className="calendar">
                     <BackToMenu onClick={this.props.return}/>
                     <SortMenu choice={this.todoSortChoice}/>
+                    {this.format}
                     {/* <CalBody date={this.state.date} changeMonth={this.setMonth.bind(this)}/> */}
-                    {todoCal}
+                    <CalTodo todo={this.state.todo}/>
+                    <FullDayTime />
                </div>
             )
         }
