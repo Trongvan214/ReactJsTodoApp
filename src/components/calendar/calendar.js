@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 // import CalBody from './_comp/calbody';
 import BackToMenu from '.././backtomenu/backtomenu';
 import SortMenu from './sortmenu';
-import FullDayTime from './fulldaytime';
+import FormatMenu from './formatmenu';
+import WeekFormat from './weekformat';
+import TodayFormat from './todayformat';
+import DateLessFormat from './datelessformat';
 import CalTodo from './caltodo';
 import './calendar.css';
 
@@ -10,11 +13,9 @@ export default class Calendar extends Component {
     constructor(props){
         super(props);
         this.state = {
-            date: {
-                month: '',
-                year: '',
-            },
+            todoFormat: 'all',
             todo: [],
+            formatActive: false,
         }
         this.todoSortChoice = this.todoSortChoice.bind(this);
         this.allTodo = this.allTodo.bind(this);
@@ -23,6 +24,7 @@ export default class Calendar extends Component {
         this.weekTodo= this.weekTodo.bind(this);
         this.upcomingTodo = this.upcomingTodo.bind(this);
         // this.changeFullDateTime = this.changeFullDateTime.bind(this);
+        this.formatActive = this.formatActive.bind(this);
     }
     componentWillUpdate(nextProps){
         //update the todo
@@ -138,20 +140,38 @@ export default class Calendar extends Component {
         //excute a dynamic function with the choice given
         let updateTodo =  this[choice+"Todo"](parseTodo);
         this.setState({
+            todoFormat: choice,
             todo: updateTodo,
+            formatActive: false,
         });
     }
+    formatActive(){
+        this.setState({
+            formatActive: !this.state.formatActive,
+        })
+    }
+    displayFormat(active, format){
+        if(!active){
+            return "";
+        }
+        else {
+            return format==="today"?<TodayFormat />:
+                    format==="week"?<WeekFormat />:
+                    format==="dateless"?<DateLessFormat />:"";
+        }
+    }
     render(){
+        this.format = this.displayFormat(this.state.formatActive, this.state.todoFormat);
+        console.log(this.format);
         if(this.props.show === "cal")
         {
             return (
                 <div className="calendar">
                     <BackToMenu onClick={this.props.return}/>
-                    <SortMenu choice={this.todoSortChoice}/>
+                    <SortMenu choice={this.todoSortChoice} />
+                    <FormatMenu onClick={this.formatActive} currFormat={this.state.todoFormat}/>
                     {this.format}
-                    {/* <CalBody date={this.state.date} changeMonth={this.setMonth.bind(this)}/> */}
                     <CalTodo todo={this.state.todo}/>
-                    <FullDayTime />
                </div>
             )
         }

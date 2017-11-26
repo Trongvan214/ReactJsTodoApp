@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class FullDayTime extends Component {
+export default class TodayFormat extends Component {
     render(){
         //array with time with am and pm 1-12
         let hour = Array(24).fill().map((v,i)=>{
