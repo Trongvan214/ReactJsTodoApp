@@ -144,25 +144,14 @@ export default class Calendar extends Component {
             todo: updateTodo,
             formatActive: false,
         });
+        this[choice] = updateTodo;
     }
     formatActive(){
         this.setState({
             formatActive: !this.state.formatActive,
         })
     }
-    displayFormat(active, format){
-        if(!active){
-            return "";
-        }
-        else {
-            return format==="today"?<TodayFormat />:
-                    format==="week"?<WeekFormat />:
-                    format==="dateless"?<DateLessFormat />:"";
-        }
-    }
     render(){
-        this.format = this.displayFormat(this.state.formatActive, this.state.todoFormat);
-        console.log(this.format);
         if(this.props.show === "cal")
         {
             return (
@@ -170,7 +159,9 @@ export default class Calendar extends Component {
                     <BackToMenu onClick={this.props.return}/>
                     <SortMenu choice={this.todoSortChoice} />
                     <FormatMenu onClick={this.formatActive} currFormat={this.state.todoFormat}/>
-                    {this.format}
+                    <TodayFormat format={this.state.todoFormat} todo={this.today}/>
+                    <WeekFormat format={this.state.todoFormat} todo={this.week}/>
+                    <DateLessFormat format={this.state.todoFormat} todo={this.dateless}/>
                     <CalTodo todo={this.state.todo}/>
                </div>
             )

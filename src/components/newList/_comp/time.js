@@ -66,22 +66,17 @@ export default class Time extends Component {
                 return <span key={i} onClick={()=>this.setTime(value)}>{formatedValue}</span>;
             }
         });
+        let hourArr = [12,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
         //array with time with am and pm 1-12
-        let hour = Array(24).fill().map((v,i)=>{
+        let hour = hourArr.map((v,i)=>{
             let value = i;
-            let formatedValue;
-            if(i<11||i===23){
-                formatedValue = (value%12)+1;
-                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime(undefined,value)}>{formatedValue}<span className="time-prefix">AM</span></span>
+            if(i<12){
+                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime(undefined,value)}>{i}<span className="time-prefix">AM</span></span>
             }
             else {
-                formatedValue = (value%12)+1;
-                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime(undefined,value)}>{formatedValue}<span className="time-prefix">PM</span></span>
+                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime(undefined,value)}>{i}<span className="time-prefix">PM</span></span>
             }
         });
-        //set the last item to the first of the array
-        hour.unshift(hour.pop());
-
         if(this.props.showTime){
             return (
                 <div className="time-choice-container">

@@ -2,6 +2,7 @@ add automatic today dates when pick time first in todo
 add automatic delete on past date todo if more than 2 days delete it
     -have a property that hold the day it create whenever load check the see if it's been 2 days
 
+fix the time problems with saving the right value
 //new items 
 -calendar
 display notes of the nears 5 to do dates (show notes, click on to see the bigger version)
