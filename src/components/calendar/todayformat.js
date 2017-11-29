@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './todayformat.css';
 
 export default class TodayFormat extends Component {
     constructor(props){
@@ -50,17 +51,29 @@ export default class TodayFormat extends Component {
         let finalMapArr = insertTodoIn.map((v,i)=>{
             let min = v.map((v,i)=>{
                 if(v!==-1){
-                    return <div className="min" key={i}>Here</div>;
+                    let todo = this.state.todo[v];
+                    let star = todo.star?<span>&#9733;</span>:"";
+                    return (
+                        <div className={"min "+todo.priority} key={i}>
+                            <span></span>
+                            <span className="todo">
+                                {star}
+                                <span>{todo.name}</span>    
+                            </span> 
+                        </div>
+                    )
                 }
-                return <div key={i}></div>;
+                return <div className="min" key={i}></div>;
             })
             return (
-                <div className="hour" key={i}>
-                    <span>{hourArrValue[i]}</span>
-                    {min}
+                <div className="calendar-today-format-section" key={i}>
+                    <span className="calendar-today-format-hour">{hourArrValue[i]}</span>
+                    <div className="calendar-today-format-min" key={i}>
+                        {min}
+                    </div>
                 </div>
             )
         })
-        return <div>{finalMapArr}</div>;
+        return <div className="calendar-today-format">{finalMapArr}</div>;
     }
 }
