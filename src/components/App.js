@@ -15,7 +15,7 @@ export default class App extends Component {
     this.returnToMenu = this.returnToMenu.bind(this);
   }
   componentWillMount(){
-    this.setState({userInput: "cal", hideMenu: true});
+    this.setState({userInput: "new", hideMenu: true});
   }
   returnToMenu(){
     this.setState({userInput: '',hideMenu: false})

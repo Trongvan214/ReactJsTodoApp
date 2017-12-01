@@ -12,8 +12,7 @@ export default class Time extends Component {
     componentWillMount(){
         let time = this.props.setTime;
         if(time){
-           //call function to update pickedtime display
-           this.setTime(time.min,time.hour-1);
+           this.setTime(time.min,time.hour);
         }
         else
         {
@@ -42,14 +41,12 @@ export default class Time extends Component {
             hour: hourValue,
             min: minValue,
         });
-        //same formated to figure out am or pm
-        let dayTime = hourValue<11||hourValue===23? "AM" : "PM";
-        //get 2 digit value for min
+        let dayTime = hourValue<12?"AM":"PM";
         let min = ("0"+minValue).slice(-2);
-        let displayTime = (hourValue%12)+1+":"+min+dayTime;
-        //add +1 here to formatted store and remember to -1
+        let hour = hourValue%12===0?12:hourValue%12;
+        let displayTime = hour+":"+min+dayTime;
         let rawTime = {
-            "hour": hourValue+1,
+            "hour": hourValue,
             "min": parseInt(min,10),
         }
         this.props.getTime(displayTime, rawTime);
@@ -59,23 +56,12 @@ export default class Time extends Component {
         let min =  Array(12).fill(0).map((v,i)=>{
             let value = i*5;
             let formatedValue = ":"+("0"+(value)).slice(-2);
-            if(value === this.state.min){
-                return <span key={i} className="active" onClick={()=>this.setTime(value)}>{formatedValue}</span>;
-            }
-            else {
-                return <span key={i} onClick={()=>this.setTime(value)}>{formatedValue}</span>;
-            }
+            return <span key={i} className={this.state.min===value?"active":""} onClick={()=>this.setTime(value)}>{formatedValue}</span>;
         });
-        let hourArr = [12,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
-        //array with time with am and pm 1-12
+        let hourArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
         let hour = hourArr.map((v,i)=>{
-            let value = i;
-            if(i<12){
-                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime(undefined,value)}>{i}<span className="time-prefix">AM</span></span>
-            }
-            else {
-                return <span key={i} className={this.state.hour===value?"active":" "} onClick={()=>this.setTime(undefined,value)}>{i}<span className="time-prefix">PM</span></span>
-            }
+            let value = v%12===0?12:v%12;
+            return <span key={i} className={this.state.hour===v?"active":" "} onClick={()=>this.setTime(undefined,v)}>{value}<span className="time-prefix">AM</span></span>
         });
         if(this.props.showTime){
             return (

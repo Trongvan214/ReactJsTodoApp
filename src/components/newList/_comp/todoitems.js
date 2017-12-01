@@ -67,13 +67,11 @@ export default class TodoItems extends Component {
     }
     updateTime(t){
         if(t){
-            let min = t.min;
-            let hour = t.hour;
+            let hour = t.hour%12===0?12:t.hour%12;
+            let min = ("0"+t.min).slice(-2);
             //same formated to figure out am or pm
-            let dayTime = hour<11||hour===24? "AM" : "PM";
-            //get 2 digit value for min
-            min = ("0"+min).slice(-2);
-            let displayTime = hour===24?12+":"+min+dayTime:hour%12+":"+min+dayTime;
+            let dayTime = hour<12? "AM" : "PM";
+            let displayTime = hour+":"+min+dayTime;
             return displayTime;
         }
         return ""; //return nothing
