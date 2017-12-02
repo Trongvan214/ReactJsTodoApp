@@ -27,7 +27,7 @@ export default class TodayFormat extends Component {
     }
     insertTodo(mapArr, locationArr){
         if(locationArr.length === 0){
-            return [];
+            return mapArr;
         }
         for(let i=0;i<locationArr.length;i++){
             let j = locationArr[i].hourLocation;
@@ -54,8 +54,7 @@ export default class TodayFormat extends Component {
                     let todo = this.state.todo[v];
                     let star = todo.star?<span>&#9733;</span>:"";
                     return (
-                        <div className={"min "+todo.priority} key={i}>
-                            <span></span>
+                        <div className={"min "+todo.priority+" type"+i%5} key={i}>
                             <span className="todo">
                                 {star}
                                 <span>{todo.name}</span>    
@@ -65,9 +64,12 @@ export default class TodayFormat extends Component {
                 }
                 return <div className="min" key={i}></div>;
             })
+            let hour = hourArrValue[i]%12===0?12:hourArrValue[i]%12;
+            let dayTime = i<12?"AM":"PM";
+            let hourFormat = hour+dayTime;
             return (
                 <div className="calendar-today-format-section" key={i}>
-                    <span className="calendar-today-format-hour">{hourArrValue[i]}</span>
+                    <span className="calendar-today-format-hour">{hourFormat}</span>
                     <div className="calendar-today-format-min" key={i}>
                         {min}
                     </div>

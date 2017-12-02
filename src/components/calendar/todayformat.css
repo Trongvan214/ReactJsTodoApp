@@ -1,38 +1,83 @@
 .calendar-today-format {
+    padding: 20px 0;
     max-height: 400px;
     overflow: auto;
+    border-bottom: 1px solid black;
 }
 .calendar-today-format-section {
     width: 100%;
     height: 50px;
 }
-.calendar-today-format-hour {
+.calendar-today-format-section {
     position: relative;
-    float: left;
+    width: 100%;
+    height: 50px;
+}
+/*---------Help line up with the first mark------*/
+.calendar-today-format-hour {
+    position: absolute;
+    top: -8px;
     width: 100%;
 }
-.calendar-today-format-hour::before,
-.calendar-today-format-min .min > span {
+.calendar-today-format-hour::before {
     content: "";
     position: absolute;
-    top: calc(50px / 12);
+    top: 50%;
+    transform: translateY(-50%);
     right: 0;
     height: 2px;
-    width: 90%;
+    width: 80%;
     background: black;
 }
 .calendar-today-format-min {
     list-style: none;
     margin: 0;
     padding: 0;
-    height: 50px;
 }
 .calendar-today-format-min .min {
     position: relative;
-    display: inline-block;
-    width: 100%;
+    display: block;
     height: calc(50px / 12);
 }
-.calendar-today-format-min .min > span {
-    background: red;
+.calendar-today-format-min .min .todo {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: lightgray;;
+    width: 30px;
+    height: 100%;
+    text-align: center;
+    z-index: 1000;
+}
+.calendar-today-format-min .min .todo {
+
+}
+/*-----------Types----------------*/
+.type0 .todo {
+    left: 40%;
+}
+.type1 .todo {
+    left: 50%;
+}
+.type2 .todo {
+    left: 60%
+}
+.type3 .todo {
+    left: 70%
+}
+.type4 .todo {
+    left: 80%
+}
+.type5 .todo {
+
+}
+/*-----------Color--------------*/
+.green .todo {
+    background: lightgreen !important;
+}
+.yellow .todo {
+    background: yellow !important;
+}
+.red .todo {
+    background: red !important;
 }
