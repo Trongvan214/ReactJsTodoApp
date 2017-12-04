@@ -1,33 +1,32 @@
 import React, {Component} from 'react';
 import CalTodo from './caltodo';
 
-export default class WeekFormat extends Component {
+export default class UpcomingFormat extends Component {
     constructor(props){
         super(props);
         this.state = {
             todo: [],
         }
-        this.weekTodo = this.weekTodo.bind(this);
         this.getUTCTime = this.props.utcFunction;
+        this.upcomingTodo = this.upcomingTodo.bind(this);
     }
     componentWillMount(){
-        let sorted = this.weekTodo(this.props.todo);
+        let sorted = this.upcomingTodo(this.props.todo);
         this.setState({
             todo: sorted,
         })
     }
-    weekTodo(a){
+    upcomingTodo(a){
         let c = new Date();
-        let w = new Date(c.getFullYear(),c.getMonth(),c.getDate()).getTime();
         let d = new Date(c.getFullYear(),c.getMonth(),c.getDate()+7).getTime();
-        let weekTodo = a.filter((v,i)=>{
+        let upcomingTodo = a.filter((v,i)=>{
             let time = this.getUTCTime(v);
-            return w<=time&&time<=d;
+            return d<=time;
         });
-        return weekTodo;
+        return upcomingTodo;
     }
     render(){
-        if(this.props.format !== "week") return null;
+        if(this.props.format !== "upcoming") return null;
         return <CalTodo todo={this.state.todo} />
     }
 }

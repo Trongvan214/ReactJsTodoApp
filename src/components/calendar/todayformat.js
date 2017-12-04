@@ -7,23 +7,24 @@ export default class TodayFormat extends Component {
         this.state = {
             todo: [],
         }
+        this.getUTCTime = this.props.utcFunction;
+        this.todayTodo = this.todayTodo.bind(this);
     }
-    // shouldComponentUpdate(nextProps){
-    //     if(!nextProps.todo){
-    //         return false;
-    //     }
-    //     return true;
-    // }
-    componentWillUpdate(nextProps){
-        //if null || undefined || [] than don't update
-        if(!nextProps.todo || nextProps.todo.length === 0 ){
-            return;
-        }
-        else if(nextProps.todo !== this.props.todo){
-            this.setState({
-                todo: nextProps.todo,
-            })
-        }
+    componentWillMount(){
+        let sorted = this.todayTodo(this.props.todo)
+        this.setState({
+            todo: sorted,
+        });
+    }
+    todayTodo(a){
+        let c = new Date();
+        let w = new Date(c.getFullYear(),c.getMonth(),c.getDate()).getTime();
+        let d = new Date(c.getFullYear(),c.getMonth(),c.getDate()+1).getTime();
+        let todayTodo = a.filter((v,i)=>{
+            let time = this.getUTCTime(v);
+            return w<=time&&time<=d;
+        });
+        return todayTodo;
     }
     insertTodo(mapArr, locationArr){
         if(locationArr.length === 0){

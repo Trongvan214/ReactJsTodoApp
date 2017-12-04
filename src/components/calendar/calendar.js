@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 // import CalBody from './_comp/calbody';
 import BackToMenu from '.././backtomenu/backtomenu';
 import SortMenu from './sortmenu';
-import FormatMenu from './formatmenu';
+import AllFormat from './allformat';
 import WeekFormat from './weekformat';
 import TodayFormat from './todayformat';
 import DateLessFormat from './datelessformat';
-import CalTodo from './caltodo';
+import UpcomingFormat from './upcomingformat';
+import StarFormat from './starformat';
 import './calendar.css';
 
 export default class Calendar extends Component {
@@ -15,15 +16,9 @@ export default class Calendar extends Component {
         this.state = {
             todoFormat: 'all',
             todo: [],
-            formatActive: false,
         }
         this.todoSortChoice = this.todoSortChoice.bind(this);
-        this.allTodo = this.allTodo.bind(this);
-        this.datelessTodo = this.datelessTodo.bind(this);
-        this.todayTodo = this.todayTodo.bind(this);
-        this.weekTodo= this.weekTodo.bind(this);
-        this.upcomingTodo = this.upcomingTodo.bind(this);
-        // this.changeFullDateTime = this.changeFullDateTime.bind(this);
+        this.timeSortTodo = this.timeSortTodo.bind(this);
         this.formatActive = this.formatActive.bind(this);
     }
     componentWillUpdate(nextProps){
@@ -40,11 +35,12 @@ export default class Calendar extends Component {
     componentWillMount(){    
         this.format = "";
         let parseTodo = JSON.parse(localStorage.getItem('todo')); 
-        let sortedTodo = this.allTodo(parseTodo);
+        let sortedTodo = this.timeSortTodo(parseTodo);
         this.setState({
             todo: sortedTodo,
         });
     }
+    //share function 
     getUTCTime(obj){
         let arr = [];
         //merge the objects together
@@ -60,8 +56,9 @@ export default class Calendar extends Component {
         }
         return 0;
     };
-    allTodo(a){
+    timeSortTodo(a){
         let temp, swap, currData, nextData, noTimeArr = [];
+        //bubble sort modify
         do {
             swap = false;
             for(let i=0;i<a.length-1;i++){
@@ -87,64 +84,13 @@ export default class Calendar extends Component {
                 }
             }
         } while(swap);
+        this.dateless = noTimeArr;
         return a.concat(noTimeArr);
     }
-    datelessTodo(a){
-        let arr = [];
-        for(let i=0;i<a.length;i++){
-            let time = this.getUTCTime(a[i]);
-            if(time === 0){
-                arr.push(a[i]);
-            }
-        }
-        return arr;
-    }
-    starTodo(a){
-        let starSort =  a.filter((v,i)=>{
-            return v.star===true;
-        });
-        //return sorted in order
-        return this.allTodo(starSort);
-    }
-    todayTodo(a){
-        let c = new Date();
-        let w = new Date(c.getFullYear(),c.getMonth(),c.getDate()).getTime();
-        let d = new Date(c.getFullYear(),c.getMonth(),c.getDate()+1).getTime();
-        let todayTodo = a.filter((v,i)=>{
-            let time = this.getUTCTime(v);
-            return w<=time&&time<=d;
-        });
-        return this.allTodo(todayTodo);
-    }
-    weekTodo(a){
-        let c = new Date();
-        let w = new Date(c.getFullYear(),c.getMonth(),c.getDate()).getTime();
-        let d = new Date(c.getFullYear(),c.getMonth(),c.getDate()+7).getTime();
-        let weekTodo = a.filter((v,i)=>{
-            let time = this.getUTCTime(v);
-            return w<=time&&time<=d;
-        });
-        return this.allTodo(weekTodo);
-    }
-    upcomingTodo(a){
-        let c = new Date();
-        let d = new Date(c.getFullYear(),c.getMonth(),c.getDate()+7).getTime();
-        let upcomingTodo = a.filter((v,i)=>{
-            let time = this.getUTCTime(v);
-            return d<=time;
-        });
-        return this.allTodo(upcomingTodo);
-    }
     todoSortChoice(choice){
-        let parseTodo = JSON.parse(localStorage.getItem('todo')); 
-        //excute a dynamic function with the choice given
-        let updateTodo =  this[choice+"Todo"](parseTodo);
         this.setState({
             todoFormat: choice,
-            todo: updateTodo,
-            formatActive: false,
         });
-        this[choice] = updateTodo;
     }
     formatActive(){
         this.setState({
@@ -158,11 +104,12 @@ export default class Calendar extends Component {
                 <div className="calendar">
                     <BackToMenu onClick={this.props.return}/>
                     <SortMenu choice={this.todoSortChoice} />
-                    <FormatMenu onClick={this.formatActive} currFormat={this.state.todoFormat}/>
-                    <TodayFormat format={this.state.todoFormat} todo={this.today}/>
-                    <WeekFormat format={this.state.todoFormat} todo={this.week}/>
-                    <DateLessFormat format={this.state.todoFormat} todo={this.dateless}/>
-                    <CalTodo todo={this.state.todo}/>
+                    <AllFormat format={this.state.todoFormat} todo={this.state.todo} />
+                    <DateLessFormat format={this.state.todoFormat} sortedTodo={this.dateless} />
+                    <StarFormat format={this.state.todoFormat} todo={this.state.todo} />
+                    <TodayFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime} />
+                    <WeekFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime}/>
+                    <UpcomingFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime}/>
                </div>
             )
         }
