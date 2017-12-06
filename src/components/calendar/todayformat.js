@@ -40,6 +40,8 @@ export default class TodayFormat extends Component {
     render(){
         //return null if todo format is not today
         if(this.props.format !== "today") return null;
+        //if todo empty display message
+        if(this.state.todo.length === 0) return <h1>Nothing</h1>;
         let hourArrValue = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
         let minArrValue = [0,5,10,15,20,25,30,35,40,45,50,55];
         let searchArrLocation = this.state.todo.map(v=>{

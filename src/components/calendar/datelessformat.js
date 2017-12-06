@@ -13,18 +13,9 @@ export default class DateLessFormat extends Component {
             todo: this.props.sortedTodo,
         })
     }
-    // datelessTodo(a){
-    //     let arr = [];
-    //     for(let i=0;i<a.length;i++){
-    //         let time = this.getUTCTime(a[i]);
-    //         if(time === 0){
-    //             arr.push(a[i]);
-    //         }
-    //     }
-    //     return arr;
-    // }
     render(){
         if(this.props.format !== "dateless") return null;
+        if(this.state.todo.length === 0) return <h1>Nothing</h1>;
         return <CalTodo todo={this.state.todo} />
     }
 } 

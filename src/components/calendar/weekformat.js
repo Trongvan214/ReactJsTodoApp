@@ -28,6 +28,7 @@ export default class WeekFormat extends Component {
     }
     render(){
         if(this.props.format !== "week") return null;
+        if(this.state.todo.length === 0) return <h1>Nothing</h1>;
         return <CalTodo todo={this.state.todo} />
     }
 }
