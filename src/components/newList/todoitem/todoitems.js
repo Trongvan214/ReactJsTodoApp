@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Edit from './edit';
-import Delete from './delete';
-import Star from './star';
+import Edit from './edit/edit.js';
+import Delete from './option/delete.js';
+import Star from './edit/star/star.js';
 
 export default class TodoItems extends Component {
     constructor(props){

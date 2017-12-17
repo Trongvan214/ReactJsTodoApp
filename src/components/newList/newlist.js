@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import NewTodo from './_comp/newtodo';
-import TodoItems from './_comp/todoitems';
-import BackToMenu from '.././backtomenu/backtomenu';
-import NewListOption from './_comp/newlistoption';
+import NewTodo from './newtodo/newtodo.js';
+import TodoItems from './todoitem/todoitems.js';
+import BackToMenu from '.././backtomenu/backtomenu.js';
+import NewListOption from './newlistoption/newlistoption.js';
 import './newlist.css';
 
 export default class NewList extends Component {

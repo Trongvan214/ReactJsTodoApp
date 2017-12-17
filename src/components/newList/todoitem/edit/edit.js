@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import DueDate from './duedate';
-import DueTime from './duetime';
-import Priority from './priority';
-import SubTask from './subtask';
-import AddNote from './addnote';
+import DueDate from './date/duedate';
+import DueTime from './time/duetime';
+import Priority from './priority/priority';
+import SubTask from './subtask/subtask';
+import AddNote from './note/addnote';
 import './edit.css';
 
 export default class Edit extends Component {
@@ -99,13 +99,16 @@ export default class Edit extends Component {
     getSubTask(updateTask){
         //reset to calculation the tasks again
         this.subTaskLBool = false;
-        this.subLength = 0;
-        updateTask.map(v=>{
-            if(!v.isComplete){
-                this.subLength+=1;
-            }
-            return v;
-        })
+        if(updateTask){
+            updateTask.forEach(v=>{
+                if(!v.isComplete){
+                    this.subLength+=1;
+                }
+            })
+        }
+        else {
+            this.subLength = 0;
+        }
         //if not subtask is not 0
         if(this.subLength !== 0){
             this.subTaskLBool = true;
