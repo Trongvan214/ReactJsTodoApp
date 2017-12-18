@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NewList from './newList/newlist';
-import ExistingList from './existingList/existinglist';
-import Calendar from './calendar/calendar';
+import ExistingList from './existingList/existinglist.js';
+import Calendar from './calendar/calendar.js';
 import Menu from './menu/menu.js';
 
 export default class App extends Component {

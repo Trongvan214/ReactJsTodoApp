@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 // import CalBody from './_comp/calbody';
 import BackToMenu from '.././backtomenu/backtomenu';
-import SortMenu from './sortmenu';
-import AllFormat from './allformat';
-import WeekFormat from './weekformat';
-import TodayFormat from './todayformat';
-import DateLessFormat from './datelessformat';
-import UpcomingFormat from './upcomingformat';
-import StarFormat from './starformat';
+import SortMenu from './nav/sortmenu';
+import AllFormat from './formats/allformat';
+import WeekFormat from './formats/weekformat';
+import TodayFormat from './formats/todayformat';
+import DateLessFormat from './formats/datelessformat';
+import UpcomingFormat from './formats/upcomingformat';
+import StarFormat from './formats/starformat';
 import './calendar.css';
 
 export default class Calendar extends Component {
@@ -25,7 +25,7 @@ export default class Calendar extends Component {
         //update the todo
         if(nextProps.show === "cal" && nextProps !== this.props){
             let parseTodo = JSON.parse(localStorage.getItem('todo')); 
-            let sortedTodo = this.allTodo(parseTodo);
+            let sortedTodo = this.timeSortTodo(parseTodo);
             this.setState({
                 todo: sortedTodo,
             });
