@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CalSubtask = ({task}) => {
-    if(task.length === 0 || !task){
+    if(task){
         return null;
     }
     let tasks = task.tasks.map((v,i)=>{
@@ -13,6 +13,9 @@ const CalSubtask = ({task}) => {
             </div>
         )
     });
+    if(tasks.length === 0){
+        return null;
+    }
     return (
         <div className="todo-cal-subtask">
             <div className="todo-cal-subtask-header">

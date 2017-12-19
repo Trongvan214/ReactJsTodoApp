@@ -6,55 +6,37 @@ import NewListOption from './newlistoption/newlistoption.js';
 import './newlist.css';
 
 export default class NewList extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            todo: [],
-        }
-        this.getTodo = this.getTodo.bind(this);
-        this.updateTodo = this.updateTodo.bind(this);
-    }
+    state = {todo: []};
     componentWillMount(){
         let parseTodo = JSON.parse(localStorage.getItem("todo"));
         this.setState({
             todo: parseTodo,
         })
     }
-    getTodo(todo){
+    getTodo = (todo) => {
         var todos;
-        if (localStorage.getItem('todo') == null) {
+        if (localStorage.getItem('todo') === null) {
             todos = [];
             todos.push(todo);
-            localStorage.setItem('todo', JSON.stringify(todos));
         }
         else {
             todos = JSON.parse(localStorage.getItem('todo'));
             todos.push(todo);
-            localStorage.setItem('todo', JSON.stringify(todos));
-          }
-        var parseTodo = JSON.parse(localStorage.getItem('todo'));
-        this.setState({
-            todo: parseTodo
-        });
+        }
+        localStorage.setItem('todo', JSON.stringify(todos));
+        this.setState(() => ({todo: todos}));
     }
-    updateTodo(updated){
-        this.setState({
-            todo: updated,
-        })
+    updateTodo = (updated) => {
+        this.setState(() => ({todo: updated}));
     }
     render(){
-        if(this.props.show === "new"){
-            return (
-                <div className="newlist">
-                    <BackToMenu onClick={this.props.return}/>
-                    <NewTodo getTodo={this.getTodo}/>
-                    <TodoItems todo={this.state.todo} update={this.updateTodo}/>
-                    <NewListOption />
-                </div>
-            );
-        }
-        else {
-            return null;
-        }
+        return (
+            <div className="newlist">
+                <BackToMenu/>
+                <NewTodo getTodo={this.getTodo}/>
+                <TodoItems todo={this.state.todo} update={this.updateTodo}/>
+                <NewListOption />
+            </div>
+        );
     }
 }

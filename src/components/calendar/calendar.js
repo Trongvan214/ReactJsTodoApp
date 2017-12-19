@@ -59,6 +59,9 @@ export default class Calendar extends Component {
     timeSortTodo(a){
         let temp, swap, currData, nextData, noTimeArr = [];
         //bubble sort modify
+        if(!a){
+            return [];
+        }
         do {
             swap = false;
             for(let i=0;i<a.length-1;i++){
@@ -98,24 +101,17 @@ export default class Calendar extends Component {
         })
     }
     render(){
-        if(this.props.show === "cal")
-        {
-            return (
-                <div className="calendar">
-                    <BackToMenu onClick={this.props.return}/>
-                    <SortMenu choice={this.todoSortChoice} />
-                    <AllFormat format={this.state.todoFormat} todo={this.state.todo} />
-                    <DateLessFormat format={this.state.todoFormat} sortedTodo={this.dateless} />
-                    <StarFormat format={this.state.todoFormat} todo={this.state.todo} />
-                    <TodayFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime} />
-                    <WeekFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime}/>
-                    <UpcomingFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime}/>
-               </div>
-            )
-        }
-        else
-        {
-            return null;
-        }
+        return (
+            <div className="calendar">
+                <BackToMenu/>
+                <SortMenu choice={this.todoSortChoice} />
+                <AllFormat format={this.state.todoFormat} todo={this.state.todo} />
+                <DateLessFormat format={this.state.todoFormat} sortedTodo={this.dateless} />
+                <StarFormat format={this.state.todoFormat} todo={this.state.todo} />
+                <TodayFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime} />
+                <WeekFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime}/>
+                <UpcomingFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime}/>
+            </div>
+        )
     }
 }
