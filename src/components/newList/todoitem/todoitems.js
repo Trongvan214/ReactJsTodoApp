@@ -13,12 +13,14 @@ export default class TodoItems extends Component {
     }
     componentWillMount(){
         let parseTodo = JSON.parse(localStorage.getItem('todo'));
-        for(let i=0;i<parseTodo.length;i++){
-            let todoDeleteTimer = parseTodo[i].startDeleteTimer;
-            let curr = new Date().getTime();
-            let diff = todoDeleteTimer==null?0:curr-todoDeleteTimer;
-            if(diff>172800000){
-                parseTodo.splice(i, 1);
+        if(parseTodo){
+            for(let i=0;i<parseTodo.length;i++){
+                let todoDeleteTimer = parseTodo[i].startDeleteTimer;
+                let curr = new Date().getTime();
+                let diff = todoDeleteTimer==null?0:curr-todoDeleteTimer;
+                if(diff>172800000){
+                    parseTodo.splice(i, 1);
+                }
             }
         }
         localStorage.setItem('todo', JSON.stringify(parseTodo));

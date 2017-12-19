@@ -1,14 +1,7 @@
 import React, {Component} from 'react';
 
 export default class NewTodo extends Component {
-    constructor(props){
-        super(props);
-        this.addTodo = this.addTodo.bind(this);
-        this.state = {
-            newTodo: {},
-        }
-    }
-    addTodo(e){
+    addTodo = (e) => {
         e.preventDefault();
         if(this.refs.name.value){
             var todo = {
@@ -27,7 +20,8 @@ export default class NewTodo extends Component {
                     },
                 },
             }
-            this.setState({newTodo: todo}, () => this.props.getTodo(this.state.newTodo));
+            //return back the new todo 
+            this.props.getTodo(todo);
         }
         e.target.reset();
     }
