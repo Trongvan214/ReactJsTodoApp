@@ -16,3 +16,10 @@
 .calander {
     background: lightgreen;
 }
+.new-list a,
+.existing-list a,
+.calander a {
+    color: white;
+    text-decoration: none;
+    font-size: 40px;    
+}

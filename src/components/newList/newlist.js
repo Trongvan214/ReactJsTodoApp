@@ -6,13 +6,7 @@ import NewListOption from './newlistoption/newlistoption.js';
 import './newlist.css';
 
 export default class NewList extends Component {
-    state = {todo: []};
-    componentWillMount(){
-        let parseTodo = JSON.parse(localStorage.getItem("todo"));
-        this.setState({
-            todo: parseTodo,
-        })
-    }
+    state = {todo: JSON.parse(localStorage.getItem("todo"))};
     getTodo = (todo) => {
         var todos;
         if (localStorage.getItem('todo') === null) {

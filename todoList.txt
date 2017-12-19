@@ -1,6 +1,7 @@
 add automatic today dates when pick time first in todo
 add automatic delete on past date todo if more than 2 days delete it
     -have a property that hold the day it create whenever load check the see if it's been 2 days
+add a case for todayformat when the todo doesn't have time on it (error)
 
 figure a way out to put in todo without messing up the layout of the today format   
 

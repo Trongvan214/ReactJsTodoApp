@@ -4,13 +4,7 @@ import Delete from './option/delete.js';
 import Star from './edit/star/star.js';
 
 export default class TodoItems extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            color: 'none',
-        }
-        this.updateTodo = this.updateTodo.bind(this);
-    }
+    state = {color: 'none'};
     componentWillMount(){
         let parseTodo = JSON.parse(localStorage.getItem('todo'));
         if(parseTodo){
@@ -27,7 +21,7 @@ export default class TodoItems extends Component {
         //update back to the parent
         this.props.update(parseTodo);
     }
-    updateStar(e,index){
+    updateStar = (e,index) => {
         //toggle active
         e.target.classList.toggle('active');
         //save it in localstorage and update it
@@ -36,8 +30,7 @@ export default class TodoItems extends Component {
         localStorage.setItem('todo', JSON.stringify(todos));
         this.props.update(todos);
     }
-    deleteTodoItem(e, index, len){
-        console.log(index);
+    deleteTodoItem = (e, index, len) => {
         //take out todo at that index
         let parseTodo = JSON.parse(localStorage.getItem('todo'));
         parseTodo.splice(index, 1);
@@ -45,7 +38,7 @@ export default class TodoItems extends Component {
         //update back to the parent
         this.props.update(parseTodo);
     }
-    updateDate(d){
+    updateDate = (d) => {
         if(d){
             let userDate = new Date(d.year,d.month,d.date);
             let dateString = userDate.toDateString();
@@ -67,24 +60,24 @@ export default class TodoItems extends Component {
         return ""; //return nothing
         
     }
-    updateTime(t){
+    updateTime = (t) => {
         if(t){
+            //format time
             let hour = t.hour%12===0?12:t.hour%12;
             let min = ("0"+t.min).slice(-2);
-            //same formated to figure out am or pm
             let dayTime = hour<12? "AM" : "PM";
             let displayTime = hour+":"+min+dayTime;
             return displayTime;
         }
         return ""; //return nothing
     }
-    updateTodo(){
+    updateTodo = () => {
         //re render
         let todos = JSON.parse(localStorage.getItem('todo'));
         this.props.update(todos);
     }
     render(){
-        if(this.props.todo != null) {
+        if(this.props.todo) {
             var todos = this.props.todo.map((eachTodo,index, arr) => {
                 let updateD = this.updateDate(eachTodo.edit.date);
                 let updateT = this.updateTime(eachTodo.edit.time);

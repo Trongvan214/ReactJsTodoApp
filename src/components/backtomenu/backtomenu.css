@@ -6,13 +6,15 @@
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
 }
-.back-to-menu .home-button {
+.back-to-menu  .home-button {
     color: #ffffff;
-    font-size: 30px;
-    line-height: 40px;
-    font-family: 'Yellowtail', cursive;
     padding: 0;
     margin: 0;
     background: transparent;
     border: transparent;
+    text-decoration: none;
+    font-size: 30px;
+    line-height: 40px;
+    font-family: 'Yellowtail', cursive;
+    text-decoration: none;
 }

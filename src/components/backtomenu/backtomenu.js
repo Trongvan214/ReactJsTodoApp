@@ -6,7 +6,7 @@ export default class BackToMenu extends Component {
     render(){
         return (
             <div className="back-to-menu">
-                <button type="text" className="home-button"><Link to="/">Home</Link></button>
+                <Link to="/" className="home-button">Home</Link>
             </div>
         )
     }
