@@ -26,8 +26,6 @@ export default class UpcomingFormat extends Component {
         return upcomingTodo;
     }
     render(){
-        if(this.props.format !== "upcoming") return null;
-        if(this.state.todo.length === 0) return <h1>Nothing</h1>;
         return <CalTodo todo={this.state.todo} />
     }
 }

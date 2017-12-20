@@ -23,8 +23,6 @@ export default class StarFormat extends Component {
         return starSort;
     }
     render(){
-        if(this.props.format !== "star") return null;
-        if(this.state.todo.length === 0) return <h1>Nothing</h1>;
         return <CalTodo todo={this.state.todo} />
     }
 }

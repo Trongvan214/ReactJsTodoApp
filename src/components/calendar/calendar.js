@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
+import PickedFormat from './formats/pickedformat';
 // import CalBody from './_comp/calbody';
 import BackToMenu from '.././backtomenu/backtomenu';
 import SortMenu from './nav/sortmenu';
-import AllFormat from './formats/allformat';
-import WeekFormat from './formats/weekformat';
-import TodayFormat from './formats/todayformat';
-import DateLessFormat from './formats/datelessformat';
-import UpcomingFormat from './formats/upcomingformat';
-import StarFormat from './formats/starformat';
 import './calendar.css';
 
 export default class Calendar extends Component {
@@ -105,12 +100,7 @@ export default class Calendar extends Component {
             <div className="calendar">
                 <BackToMenu/>
                 <SortMenu choice={this.todoSortChoice} />
-                <AllFormat format={this.state.todoFormat} todo={this.state.todo} />
-                <DateLessFormat format={this.state.todoFormat} sortedTodo={this.dateless} />
-                <StarFormat format={this.state.todoFormat} todo={this.state.todo} />
-                <TodayFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime} />
-                <WeekFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime}/>
-                <UpcomingFormat format={this.state.todoFormat} todo={this.state.todo} utcFunction={this.getUTCTime}/>
+                <PickedFormat todos={this.state.todo} choose={this.state.todoFormat} shareFunction={this.getUTCTime}/>
             </div>
         )
     }
