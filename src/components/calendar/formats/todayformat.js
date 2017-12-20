@@ -35,6 +35,9 @@ export default class TodayFormat extends Component {
         });
         return timeArr;
     }
+    enLargeTodos = () => {
+        
+    }
     render(){
         //return null if todo format is not today
         if(this.props.format !== "today") return null;
@@ -53,18 +56,13 @@ export default class TodayFormat extends Component {
                 //take out the time name
                 v.shift();
                 todos = v.map((value, index) => {
-                    return (
-                        <div className="todo" key={index}>
-                            <span className={"priority "+value.priority}></span>
-                            <span className="name">{value.name}</span>
-                        </div>
-                    )
+                    return <span className={"todo "+value.priority} key={index}></span>;
                 });
             }
             return (
                 <div key={i} className="calendar-today-format-time">
                     <h4>{time}</h4>
-                    <div className="calendar-today-format-todos">
+                    <div className="calendar-today-format-todos" onClick={this.enLargeTodos}>
                             {todos}
                     </div>
                 </div>
