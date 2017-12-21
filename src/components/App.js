@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'; 
-// import NewList from './newList/newlist';
-// import Calendar from './calendar/calendar.js';
+import NewList from './newList/newlist';
+import Calendar from './calendar/calendar.js';
 import Menu from './menu/menu.js';
 
 export default class App extends Component {
@@ -17,9 +17,3 @@ export default class App extends Component {
     );
   }
 }
-const Calendar = () => (
-  <h1>Calendar</h1>
-)
-const NewList = () => (
-  <h1>Newlist</h1>  
-)
