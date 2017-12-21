@@ -100,7 +100,7 @@ export default class Calendar extends Component {
             <div className="calendar">
                 <BackToMenu/>
                 <SortMenu choice={this.todoSortChoice} />
-                <PickedFormat todos={this.state.todo} choose={this.state.todoFormat} shareFunction={this.getUTCTime}/>
+                <PickedFormat todos={this.state.todo} choose={this.state.todoFormat} shareFunction={this.getUTCTime} dateless={this.dateless}/>
             </div>
         )
     }

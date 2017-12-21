@@ -7,7 +7,6 @@ export default class Menu extends Component {
         return (
             <div className="menu">
                 <div className="calander"><Link to="/calendar">Calander</Link></div>
-                <div className="existing-list"><Link to="/exist">Existing List</Link></div>
                 <div className="new-list"><Link to="/newlist">New list</Link></div>
             </div>
         )
