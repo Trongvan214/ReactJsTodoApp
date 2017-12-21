@@ -2,18 +2,14 @@ import React, {Component} from 'react';
 import Dates from './dates';
 
 export default class Calendar extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            date: {
-                year: '',
-                month: '',
-                date: '',
-            },
-            dateSearch:  '',
-            monthName: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-        }
-        this.returnDate = this.returnDate.bind(this);
+    state = {
+        date: {
+            year: '',
+            month: '',
+            date: '',
+        },
+        dateSearch:  '',
+        monthName: ['January','February','March','April','May','June','July','August','September','October','November','December'],
     }
     //set the state before mounting
     componentWillMount(){
@@ -64,7 +60,7 @@ export default class Calendar extends Component {
             this.returnDate(a.toDateString());  
         }
     }
-    returnDate(dateString){
+    returnDate = (dateString) => {
         let d = dateString.split(" ");
         //loop through monthname and return 3 char month name
         let s = this.state.monthName.map(value=>value.substring(0,3));
