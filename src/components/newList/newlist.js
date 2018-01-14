@@ -2,14 +2,16 @@ import React, {Component} from 'react';
 import NewTodo from './newtodo/newtodo.js';
 import TodoItems from './todoitem/todoitems.js';
 import BackToMenu from '.././backtomenu/backtomenu.js';
-import NewListOption from './newlistoption/newlistoption.js';
 import './newlist.css';
 
 export default class NewList extends Component {
-    state = {todo: JSON.parse(localStorage.getItem("todo"))};
+    state = {todo: []};
+    componentWillMount(){
+        this.setState(() => ({todo: JSON.parse(localStorage.getItem("todo"))}));
+    }
     getTodo = (todo) => {
         var todos;
-        if (localStorage.getItem('todo') === null) {
+        if (localStorage.getItem('todo') === null || localStorage.getItem('todo') === "null") {
             todos = [];
             todos.push(todo);
         }
@@ -29,7 +31,6 @@ export default class NewList extends Component {
                 <BackToMenu/>
                 <NewTodo getTodo={this.getTodo}/>
                 <TodoItems todo={this.state.todo} update={this.updateTodo}/>
-                <NewListOption />
             </div>
         );
     }

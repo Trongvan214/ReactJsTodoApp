@@ -27,7 +27,7 @@ export default class NewTodo extends Component {
     }
     render(){
         return (
-            <div>
+            <div className="add-todo-container">
                 <form onSubmit={this.addTodo}>
                     <div className="add-todo">
                         <span className="plus-sign">+</span>
