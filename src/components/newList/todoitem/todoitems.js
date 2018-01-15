@@ -10,12 +10,6 @@ export default class TodoItems extends Component {
         color: 'none', 
         scrollTranslate: 0,
     };
-    componentWillUpdate(nextProps, nextState){
-        let clickCount = -(this.state.scrollTranslate/50);
-        if(clickCount > 0 && parseTodo && parseTodo.length < 9){
-            this.setState((prevState) => ({scrollTranslate: prevState+50}));
-        } 
-    }
     componentWillMount(){
         let parseTodo = JSON.parse(localStorage.getItem('todo'));
         if(parseTodo){
@@ -125,7 +119,8 @@ export default class TodoItems extends Component {
                                 info={eachTodo.edit} 
                                 updateTodo={this.updateTodo} 
                                 priority={eachTodo.priority}
-                                format={eachTodo.format} />
+                                format={eachTodo.format} 
+                        />
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>
                 )

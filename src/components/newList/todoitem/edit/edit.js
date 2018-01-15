@@ -154,7 +154,6 @@ export default class Edit extends Component {
             "priority": this.state.priority,
             "format": this.findFormat(),
         });
-        console.log(target);
         localStorage.setItem('todo', JSON.stringify(parseTodo));
         //update the todo 
         this.props.updateTodo();
