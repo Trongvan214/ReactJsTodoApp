@@ -2,15 +2,50 @@
            NEWLIST 
 --------------------------*/
 .newlist {
+    position: relative;
     width: 100%;
     height: 100vh;
     background: url(https://static.pexels.com/photos/355296/pexels-photo-355296.jpeg);
     background-size: cover;
     background-position: 65% center;
 }
+.scroll-down, .scroll-up{
+    width: 100%;
+    height: 25px;
+    position: relative;
+}
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #fff;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+.add-todo-container {
+    margin: 20px 2.5% 0;
+}
+.todo-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
 .add-todo {
     width: 95%;
-    margin: 20px 2.5%;
     background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.4) 13%, rgba(245, 245, 213, 0.4) 60%,  rgba(245, 245, 213, 0.4), rgba(0, 0, 0, 0.4));
     height: 40px;
     border-radius: 2px;
@@ -40,6 +75,11 @@
     margin: 7.5px 0;
     font-size: 18px;
 }
+.todo-ul-container {
+    position: relative;
+    max-height: 450px;
+    overflow: hidden;
+}
 .todo-ul {
     max-height: 450px;
     list-style: none;
@@ -51,12 +91,11 @@
     display: flex;
     align-items: center;
     width: 80%;
-    margin: 15px 10% 0;
+    margin: 0 10% 15px;
     height: 35px;
     text-transform: capitalize;
     border-radius: 4px;
-    line-height: 35px;
-    overflow: hidden;
+    line-height: 35px;  
     background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.4), rgba(203, 203, 203, 0.4));
 }
 .red.todo-item {

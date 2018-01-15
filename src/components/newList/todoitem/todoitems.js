@@ -2,9 +2,14 @@ import React, {Component} from 'react';
 import Edit from './edit/edit.js';
 import Delete from './option/delete.js';
 import Star from './edit/star/star.js';
+import ArrowDown from './scroll_up_down/arrowdown.js';
+import ArrowUp from './scroll_up_down/arrowup.js';
 
 export default class TodoItems extends Component {
-    state = {color: 'none'};
+    state = {
+        color: 'none', 
+        scrollTranslate: 0,
+    };
     componentWillMount(){
         let parseTodo = JSON.parse(localStorage.getItem('todo'));
         if(parseTodo){
@@ -76,6 +81,22 @@ export default class TodoItems extends Component {
         let todos = JSON.parse(localStorage.getItem('todo'));
         this.props.update(todos);
     }
+
+    //functions for scrolling through todos
+    scrollDown = () => {
+        this.setState((prevState) => {
+            return {
+                scrollTranslate: prevState.scrollTranslate-50,
+            }
+        });
+    }
+    scrollUp = () => {
+        this.setState((prevState) => {
+            return {
+                scrollTranslate: prevState.scrollTranslate+50,
+            }
+        });
+    }
     render(){
         if(this.props.todo) {
             var todos = this.props.todo.map((eachTodo,index, arr) => {
@@ -98,19 +119,51 @@ export default class TodoItems extends Component {
                                 info={eachTodo.edit} 
                                 updateTodo={this.updateTodo} 
                                 priority={eachTodo.priority}
-                                format={eachTodo.format} />
+                                format={eachTodo.format} 
+                        />
                         <Delete onClick={(e)=>this.deleteTodoItem(e,index,arr.length)}/>
                     </li>
                 )
             });
+            let length = this.props.todo.length;
+            let height = length?  length * 50 : 0;
+            let clickCount = -this.state.scrollTranslate/50;
+            let transformStyles = {
+                "transform": "translateY("+this.state.scrollTranslate+"px)",
+            }
+            let widthStyles = {
+                "height": height,
+            }  
+            console.log(clickCount)
+            let showArrowDownBool = shouldDisplayArrowDown(length, clickCount);
+            let showArrowUpBool = shouldDisplayArrowUp(length, clickCount);
             return (
-                <ul className="todo-ul">
-                    {todos}
-                </ul>
-            );
+                <div className="todo-container">
+                   <ArrowUp show={showArrowUpBool} update={this.scrollUp}/>
+                   <div className="todo-ul-container" style={widthStyles}>
+                        <ul className="todo-ul" style={transformStyles}>
+                            {todos}
+                        </ul>
+                   </div>
+                    <ArrowDown show={showArrowDownBool} update={this.scrollDown}/>          
+                </div>
+            )
         }
         else {
             return null;
         }
     }
+}
+let shouldDisplayArrowDown = (length, clickCount) => {
+    if(length > 9 && length-(9+clickCount) > 0){
+        return true;
+    }
+    return false
+}
+
+let shouldDisplayArrowUp = (length, clickCount) => {
+    if(clickCount > 0){
+        return true;
+    }
+    return false;
 }

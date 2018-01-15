@@ -10,8 +10,8 @@ export default class App extends Component {
       <Router>
         <div>
           <Route exact path="/ReactJsTodoApp" component={Menu} />
-          <Route path="/ReactJsTodoApp/calendar" component={Calendar}/>
-          <Route path="/ReactJsTodoApp/newlist" component={NewList}/>
+          <Route exact path="/ReactJsTodoApp/calendar" component={Calendar}/>
+          <Route exact path="/ReactJsTodoApp/newlist" component={NewList}/>
         </div>
     </Router>
     );

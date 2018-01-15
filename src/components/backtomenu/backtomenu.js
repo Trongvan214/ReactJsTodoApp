@@ -6,7 +6,7 @@ export default class BackToMenu extends Component {
     render(){
         return (
             <div className="back-to-menu">
-                <Link to="/" className="home-button">Home</Link>
+                <Link to="/ReactJsTodoApp/" className="home-button">Home</Link>
             </div>
         )
     }

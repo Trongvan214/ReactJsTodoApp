@@ -5,10 +5,13 @@ import BackToMenu from '.././backtomenu/backtomenu.js';
 import './newlist.css';
 
 export default class NewList extends Component {
-    state = {todo: JSON.parse(localStorage.getItem("todo"))};
+    state = {todo: []};
+    componentWillMount(){
+        this.setState(() => ({todo: JSON.parse(localStorage.getItem("todo"))}));
+    }
     getTodo = (todo) => {
         var todos;
-        if (localStorage.getItem('todo') === null) {
+        if (localStorage.getItem('todo') === null || localStorage.getItem('todo') === "null") {
             todos = [];
             todos.push(todo);
         }

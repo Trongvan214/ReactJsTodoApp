@@ -1,23 +1,18 @@
 .new-list,
-.existing-list,
 .calander {
     width: 100%;
-    height: 33.3vh;
+    height: 325px;
     font-size: 50px;
     text-align: center;
-    line-height: 33.33vh;
+    line-height: 325px;
 }
 .new-list {
     background: orange;
-}
-.existing-list {
-    background: lightblue;
 }
 .calander {
     background: lightgreen;
 }
 .new-list a,
-.existing-list a,
 .calander a {
     color: white;
     text-decoration: none;
