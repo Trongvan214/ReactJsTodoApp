@@ -126,7 +126,7 @@ export default class TodoItems extends Component {
                 )
             });
             let length = this.props.todo.length;
-            let height = length?  length * 50 : 0;
+            let height = findHeight(length);
             let clickCount = -this.state.scrollTranslate/50;
             let transformStyles = {
                 "transform": "translateY("+this.state.scrollTranslate+"px)",
@@ -154,6 +154,17 @@ export default class TodoItems extends Component {
         }
     }
 }
+let findHeight = (length) => {
+    if(!length){
+        return 0;
+    }
+    else if(length < 9){
+        return length*50;
+    }
+    else {
+        return 450;
+    }
+} 
 let shouldDisplayArrowDown = (length, clickCount) => {
     if(length > 9 && length-(9+clickCount) > 0){
         return true;

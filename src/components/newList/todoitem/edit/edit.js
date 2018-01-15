@@ -120,7 +120,11 @@ export default class Edit extends Component {
     //toggle active
     exitEdit(){
         this.saveInfo();
-        this.setState({exit: !this.state.exit});
+        this.setState(prevState => {
+            return {
+                exit: !prevState.exit,
+            }
+        })
     }
     //run when exit edit
     saveInfo(){

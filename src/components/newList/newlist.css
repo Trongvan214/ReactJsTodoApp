@@ -81,6 +81,7 @@
     overflow: hidden;
 }
 .todo-ul {
+    max-height: 450px;
     list-style: none;
     padding: 0;
     margin: 0;
