@@ -5,6 +5,12 @@ import Calendar from './calendar/calendar.js';
 import Menu from './menu/menu.js';
 
 export default class App extends Component {
+  componentDidMount(){
+    window.addEventListener('scroll', noscroll);
+  }
+  componentWillMount(){
+    window.removeEventListener('scroll', noscroll);
+  }
   render() {
     return (
       <Router>
@@ -16,4 +22,7 @@ export default class App extends Component {
     </Router>
     );
   }
+}
+function noscroll() {
+  window.scrollTo( 0, 0 );
 }

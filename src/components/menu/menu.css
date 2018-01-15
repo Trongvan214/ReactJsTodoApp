@@ -1,10 +1,13 @@
+.menu {
+    height: 100%;
+}
 .new-list,
 .calander {
+    position: relative;
     width: 100%;
-    height: 325px;
+    height: 50%;
     font-size: 50px;
     text-align: center;
-    line-height: 325px;
 }
 .new-list {
     background: orange;
@@ -17,4 +20,8 @@
     color: white;
     text-decoration: none;
     font-size: 40px;    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }

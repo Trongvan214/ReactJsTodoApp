@@ -23,6 +23,6 @@ export default class calTodo extends Component {
                 </div>
             )
         });
-        return <div>{calTodo}</div>
+        return <div className="calendar-todo-container">{calTodo}</div>
     }
 }

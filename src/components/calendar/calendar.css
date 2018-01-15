@@ -1,3 +1,11 @@
+.calendar {
+    width: 100%;
+    height: 100%;
+}
+.calendar-todo-container {
+    height: 80%;
+    overflow: auto;
+}
 .todo-cal .red {
     background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(255, 255, 255, 0.4)) !important;
 }
