@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import NewTodo from './newtodo/newtodo.js';
 import TodoItems from './todoitem/todoitems.js';
 import BackToMenu from '.././backtomenu/backtomenu.js';
-import NewListOption from './newlistoption/newlistoption.js';
 import './newlist.css';
 
 export default class NewList extends Component {
@@ -32,7 +31,6 @@ export default class NewList extends Component {
                 <BackToMenu/>
                 <NewTodo getTodo={this.getTodo}/>
                 <TodoItems todo={this.state.todo} update={this.updateTodo}/>
-                <NewListOption />
             </div>
         );
     }
