@@ -98,6 +98,7 @@ export default class Edit extends Component {
     }
     getSubTask(updateTask){
         //reset to calculation the tasks again
+        this.subLength = 0;
         this.subTaskLBool = false;
         if(updateTask){
             updateTask.forEach(v=>{

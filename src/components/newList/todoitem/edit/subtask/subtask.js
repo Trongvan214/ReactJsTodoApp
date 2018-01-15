@@ -11,7 +11,6 @@ export default class AddTask extends Component {
         this.update = this.update.bind(this);
     }
     componentWillMount(){
-        console.log(this.props.setSubtask);
         this.setState({
             tasks: this.props.setSubTask,
         });
