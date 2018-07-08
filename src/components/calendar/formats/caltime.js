@@ -9,7 +9,7 @@ export default class CalTime extends Component {
             let dayTime = hour<11||hour===24? "AM" : "PM";
             //get 2 digit value for min
             min = ("0"+min).slice(-2);
-            let displayTime = hour===24?12+":"+min+dayTime:hour%12+":"+min+dayTime;
+            let displayTime = hour===24?12+":"+min+dayTime : hour%12+":"+min+dayTime;
             return displayTime;
         }
         return ""; //return nothing

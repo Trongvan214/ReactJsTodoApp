@@ -10,14 +10,17 @@ export default class Time extends Component {
         this.setTime = this.setTime.bind(this);
     }
     componentWillMount(){
+        //if time already set 
         let time = this.props.setTime;
         if(time){
            this.setTime(time.min,time.hour);
         }
+        //use current time 
         else
         {
             let t = new Date();
-            let min = ("0"+t.getMinutes()).slice(-2); //in string form
+            //in string form
+            let min = ("0"+t.getMinutes()).slice(-2);
             let part1,part2;
             if(min[1]>5){
                 //round it up
@@ -25,17 +28,21 @@ export default class Time extends Component {
                 part2 = 0;
             }
             else{
+                //round it down
                 part1 = parseInt(min[0],10);
                 part2 = 5;
             }
+            //concatenating the 2 strings
             min = part1.toString()+part2.toString();
             let n = new Date(t.getFullYear(),t.getMonth(),t.getDate(),t.getHours()-1,parseInt(min,10));
+            //update the state
             this.setState({
                 hour: n.getHours(),
                 min: n.getMinutes(),
             });
         }
     }
+    //update the time states
     setTime(minValue = this.state.min,hourValue = this.state.hour){
         this.setState({
             hour: hourValue,

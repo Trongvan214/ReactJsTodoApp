@@ -1,0 +1,12 @@
+@import 'https://fonts.googleapis.com/css?family=Yellowtail';
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to right ,#6885EC, #997cca, #947a9a, #CB8EAB);
+    overflow: hidden;
+}
+

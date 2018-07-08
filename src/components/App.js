@@ -3,26 +3,23 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import NewList from './newList/newlist';
 import Calendar from './calendar/calendar.js';
 import Menu from './menu/menu.js';
+import './App.css';
 
 export default class App extends Component {
-  componentDidMount(){
-    window.addEventListener('scroll', noscroll);
-  }
-  componentWillMount(){
-    window.removeEventListener('scroll', noscroll);
-  }
+  // componentDidMount(){
+  //   window.addEventListener('scroll', noscroll);
+  // }
+  // componentWillMount(){
+  //   window.removeEventListener('scroll', noscroll);
+  // }
   render() {
     return (
-      <Router>
-        <div>
-          <Route exact path="/ReactJsTodoApp" component={Menu} />
-          <Route exact path="/ReactJsTodoApp/calendar" component={Calendar}/>
-          <Route exact path="/ReactJsTodoApp/newlist" component={NewList}/>
-        </div>
-    </Router>
+      <Router basename="ReactJsTodoApp">
+          <Route exact path="/" component={NewList} />
+      </Router>
     );
   }
 }
-function noscroll() {
-  window.scrollTo( 0, 0 );
-}
+// function noscroll() {
+//   window.scrollTo( 0, 0 );
+// }

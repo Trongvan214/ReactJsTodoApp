@@ -1,0 +1,98 @@
+/* layout of the todo  */
+.todo  {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 375px;
+    height: 100vh;
+    border-radius: 4px;
+    background: #FAFAFA;
+    max-height: 667px;
+    overflow: hidden;
+    box-shadow: 0 19px 50px rgba(21, 1, 53, 0.5), 
+                0 10px 30px rgba(50,50,93,.1), 
+                0 5px 15px rgba(0,0,0,.1);
+}
+@media screen and (max-width: 425px){
+    .todo {
+        width: 425px;
+        max-height: 100%;
+    }
+}
+.todo nav {
+    width: 100%;
+    height: 64px;
+    background: rgb(136, 85, 221);
+    box-shadow: 0 1px 5px rgba(21, 1, 53, 0.5);
+}
+.todo nav ul {
+    float: left;
+    list-style: none;
+    padding-left: 20px;
+    margin: 0;
+    height: 100%;
+}
+.todo nav ul li {
+    height: 100%;
+    line-height: 64px;
+}
+.todo nav ul li a {
+    color: #FAFAFA;
+    text-decoration: none;
+    font-size: 1.3em;
+}
+
+
+/* create button  */
+.create-todo-button-wrapper {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: black;
+    display: none;
+}
+@media screen and (max-width: 425px) {
+    .create-todo-button-wrapper {
+        display: block;
+    }
+}
+
+
+/* input box  */
+.nt {
+    position: relative;
+    margin: 20px auto;
+    border-radius: 4px;
+    width: 90%;
+    height: 40px;
+}
+.nt .nt-plus-sign {
+    position: absolute;
+    top: -7px;
+    left: 15px;
+    font-size: 40px;
+    color:  #a9a9a9;
+}
+.nt input {
+    text-indent: 50px;
+    font-size: 1.1em;
+    width: 100%;
+    line-height: 40px;
+    border-radius: 4px;
+    border: 2px solid #CECED4;
+    padding: 0;
+    background: #E7DEF0;
+}
+
+.nt input:focus {
+    outline: none;
+    border: 2px solid #776AA8;
+}
+
+.nt input:focus + .nt-plus-sign {
+    color: #776AA8;
+}

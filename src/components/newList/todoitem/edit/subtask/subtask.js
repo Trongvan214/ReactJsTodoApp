@@ -63,7 +63,6 @@ class Task extends Component {
     deleteSub(e,i){
         e.stopPropagation();
         let tasks = this.props.tasks;
-        console.log(tasks);
         tasks.splice(i, 1);
         this.props.update(tasks);
     }

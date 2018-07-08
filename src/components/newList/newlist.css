@@ -75,31 +75,13 @@
     margin: 7.5px 0;
     font-size: 18px;
 }
-.todo-ul {
-    height: 75%;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    overflow: auto;
-}
-.todo-item {
-    display: flex;
-    align-items: center;
-    width: 80%;
-    margin: 0 10% 15px;
-    height: 35px;
-    text-transform: capitalize;
-    border-radius: 4px;
-    line-height: 35px;  
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.4), rgba(203, 203, 203, 0.4));
-}
-.red.todo-item {
+.red.ti-item {
     background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
 }
-.yellow.todo-item{
+.yellow.ti-item{
     background: linear-gradient(to bottom right, rgba(250, 250, 0, 0.4), rgba(255, 255, 255, 0.4));
 }
-.green.todo-item {
+.green.ti-item {
     background: linear-gradient(to bottom right, rgba(68, 240, 0, 0.4), rgba(245, 245, 213, 0.4));
 } 
 .format-0 .date-info, .format-1 .date-info, .format-2 .date-info, .format-3 .date-info, .format-4 .date-info {
@@ -232,3 +214,4 @@
 .newlist-edit {
     right: 20px;
 }
+

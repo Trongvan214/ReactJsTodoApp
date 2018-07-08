@@ -1,37 +1,72 @@
 import React, {Component} from 'react';
-import NewTodo from './newtodo/newtodo.js';
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import TodoItems from './todoitem/todoitems.js';
-import BackToMenu from '.././backtomenu/backtomenu.js';
-import './newlist.css';
+import './todo.css';
 
 export default class NewList extends Component {
-    state = {todo: []};
-    componentWillMount(){
-        this.setState(() => ({todo: JSON.parse(localStorage.getItem("todo"))}));
+    constructor(props){
+        super(props);
+        this.state = {todos: []};
+        this.countID = 0;
     }
-    getTodo = (todo) => {
-        var todos;
-        if (localStorage.getItem('todo') === null || localStorage.getItem('todo') === "null") {
-            todos = [];
-            todos.push(todo);
+    componentDidMount(){
+        let todos = JSON.parse(localStorage.getItem("todo")) 
+        if(todos){
+            this.setState(() => ({todos}));
         }
-        else {
-            todos = JSON.parse(localStorage.getItem('todo'));
-            todos.push(todo);
-        }
-        localStorage.setItem('todo', JSON.stringify(todos));
-        this.setState(() => ({todo: todos}));
     }
-    updateTodo = (updated) => {
-        this.setState(() => ({todo: updated}));
+    componentDidUpdate(prevProps, prevState){  
+        //update to localstorage
+        localStorage.setItem('todo', JSON.stringify(this.state.todos));
+    }
+    addTodo = (e) => {
+        e.preventDefault();
+        if(this.refs.name.value){
+            let todo = {
+                "id": this.countID,
+                "name": this.refs.name.value,
+                "priority": '',
+                "star": false,
+                "date": null,
+                "time": null,
+                "note": '',
+                "subTasks": {
+                    "tasks": [],
+                    "active": 0,
+                },
+            }
+            let { todos } = this.state;
+            todos.push(todo);
+            this.setState(() => ({todos}));
+            this.countID++;
+        }
+        e.target.reset();
+    }
+    updateTodo = (todos) => {
+        this.setState(() => ({todos}));
     }
     render(){
         return (
-            <div className="newlist">
-                <BackToMenu/>
-                <NewTodo getTodo={this.getTodo}/>
-                <TodoItems todo={this.state.todo} update={this.updateTodo}/>
+            <div className="todo shadow">
+                <nav>
+                    <ul>
+                        <li><Link to="/calendar">Calender</Link></li>
+                    </ul>
+                </nav>
+                <div className="nt">
+                    <form onSubmit={this.addTodo}>
+                        <input type="text" ref="name" placeholder="Add a todo..."/>
+                        <span className="nt-plus-sign">+</span>
+                    </form>
+                </div>
+                <TodoItems todos={this.state.todos} update={this.updateTodo}/>
             </div>
         );
     }
 }
+
+{/* <div className="create-todo-button-wrapper">
+<span className="create-todo-button">
+</span>
+</div> */}
