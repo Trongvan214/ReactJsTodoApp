@@ -60,10 +60,12 @@ export default class DueTime extends Component {
     render(){
         return (
             <div className="due-time"onClick={()=>this.showTime()} onTouchStart={this.mouseDownHandler} onTouchEnd={this.mouseUpHandler} onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}>
-                <span className="due-time-symbol" role="img" aria-label="due-time">&#x1F550;</span>
-                <span className="due-time-text">{this.state.pickedTime}</span>
-                <Time showTime={this.state.showTime} getTime={this.displayTime} setTime={this.props.setTime}/>
-                <span className={this.state.showDeleteTime ? "date-del" : " "} onClick={(e)=>this.clearTime(e)}></span>
+                <div className="due-time-text-container">
+                    <span className="due-time-symbol" role="img" aria-label="due-time">&#x1F550;</span>
+                    <span className="due-time-text">{this.state.pickedTime}</span>
+                    <Time showTime={this.state.showTime} getTime={this.displayTime} setTime={this.props.setTime}/>
+                    <span className={this.state.showDeleteTime ? "date-del" : " "} onClick={(e)=>this.clearTime(e)}></span>
+                </div>
             </div>
         )
     }

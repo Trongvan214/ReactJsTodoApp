@@ -9,7 +9,13 @@ export default class Time extends Component {
         }
         this.setTime = this.setTime.bind(this);
     }
-    componentWillMount(){
+    componentDidUpdate(prevProps, prevState){
+        let isPropsDiff = JSON.stringify(prevProps) !== JSON.stringify(this.props);
+        if(isPropsDiff){
+            this.componentDidMount();
+        }
+    }
+    componentDidMount(){
         //if time already set 
         let time = this.props.setTime;
         if(time){

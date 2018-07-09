@@ -10,13 +10,17 @@ export default class Edit extends Component {
     state = {
         todo: {},
     }
-    componentDidUpdate(prevProps, prevStates){
-        let isInfoDiff = prevProps.editIndex !== this.props.editIndex;
-        if(isInfoDiff && this.props.editIndex === this.props.index){
-            let todo = this.props.todo;
-            this.setState({todo});
-        }
+    componentDidMount(){
+        const { todo } = this.props;
+        this.setState({todo});
     }
+    // componentDidUpdate(prevProps, prevStates){
+    //     let isInfoDiff = prevProps.editIndex !== this.props.editIndex;
+    //     if(isInfoDiff && this.props.editIndex === this.props.index){
+    //         let todo = this.props.todo;
+    //         this.setState({todo});
+    //     }
+    // }
     getDate = (date,formattedDate) => {
         this.setState({todo: { ...this.state.todo, date }});
     }
@@ -39,19 +43,26 @@ export default class Edit extends Component {
         //update the todo 
         this.props.updateTodo(this.state.todo);
     }
+    delete = (e) => {
+        this.props.deleteTodo();
+    }
+    //*reminder to fix this messy coding for edit * 
     render(){
         //edit the todo
-        if(this.props.editIndex !== this.props.index) return null;
+        const { todo } = this.state;
         return (
             <div className="edit-menu">
-                <span className="todo-name">{this.props.name}</span>
+                <div className="edit-header">
+                    <span className="edit-exit" onClick={this.exit}>&#x2039;</span>
+                    <span className="edit-name">{todo.name}</span>
+                    <span className="edit-delete glyphicon glyphicon-trash" onClick={this.delete}></span>
+                </div>
                 <div className="edit-body">
-                    <DueDate getDate={this.getDate} setDate={this.state.todo.date}/>
-                    <DueTime getTime={this.getTime} setTime={this.state.todo.time}/>
+                    <DueDate getDate={this.getDate} setDate={todo.date}/>
+                    <DueTime getTime={this.getTime} setTime={todo.time}/>
                     <Priority getPriority={this.getPriority}/>
-                    <AddNote getNote={this.getNote} setNote={this.state.todo.note}/>
-                    <SubTask getSubTask={this.getSubTask} setSubTask={this.state.todo.subTask}/>
-                    <span className="edit-exit" onClick={this.exit}>&#10006;</span>
+                    <AddNote getNote={this.getNote} setNote={todo.note}/>
+                    {/* <SubTask getSubTask={this.getSubTask} setSubTask={todo.subTasks}/> */}
                 </div>
             </div>
         )
@@ -61,25 +72,3 @@ export default class Edit extends Component {
 
 
 
-
-
-
-// if(!this.state.exit){
-//     return (
-//         <div className="edit-menu">
-//             <span className="todo-name">{this.props.name}</span>
-//             <div className="edit-body">
-//                 <DueDate getDate={this.getDate} setDate={this.state.date}/>
-//                 <DueTime getTime={this.getTime} setTime={this.state.time}/>
-//                 <Priority getPriority={this.getPriority}/>
-//                 <AddNote getNote={this.getNote} setNote={this.state.note}/>
-//                 <SubTask getSubTask={this.getSubTask} setSubTask={this.state.subTask}/>
-//                 <span className="edit-exit" onClick={this.exitEdit}>&#10006;</span>
-//             </div>
-//         </div>
-//     )
-// }
-// else {
-//     //edit button on each todo
-//     return <span className="edit" onClick={this.exitEdit}>&#9998;</span>;
-// }

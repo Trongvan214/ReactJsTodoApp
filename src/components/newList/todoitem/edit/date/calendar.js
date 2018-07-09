@@ -11,8 +11,14 @@ export default class Calendar extends Component {
         dateSearch:  '',
         monthName: ['January','February','March','April','May','June','July','August','September','October','November','December'],
     }
+    componentDidUpdate(prevProps, prevState){
+        let isPropsDiff = JSON.stringify(prevProps) !== JSON.stringify(this.props);
+        if(isPropsDiff){
+            this.componentDidMount();
+        }
+    }
     //set the state before mounting
-    componentWillMount(){
+    componentDidMount(){
         let date = this.props.setDate;
         if(date){
             let d = new Date(date.year, date.month, date.date);

@@ -1,12 +1,30 @@
-.due-time { 
-    margin-top: 10px;
+.due-time{ 
     position: relative;
     width: 100%;
-    height: 35px;
+    height: 60px;
     cursor: pointer;
 }
-.due-time-symbol {
-    margin-right: 7px;
+.due-time-text-container{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    z-index: 1000;
+}
+.due-time-text {
+    display: block; 
+    text-align: center;
+    font-size: 1.3em;
+}
+.due-time-symbol{
+    position: absolute;
+}
+.date-del:before {
+    content: '\2715';
+    position: absolute;
+    top: 2px; 
+    right: 7px;
+    font-size: 1.2em;
 }
 .time-choice-container{
     box-sizing: border-box;

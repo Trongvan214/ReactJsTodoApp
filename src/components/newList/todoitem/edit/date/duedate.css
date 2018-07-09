@@ -1,28 +1,31 @@
 .due-date{ 
     position: relative;
     width: 100%;
-    height: 35px;
+    height: 60px;
+    margin-top: 10px;
     cursor: pointer;
 }
 .due-date-text-container{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
+    z-index: 1000;
 }
 .due-date-text {
-    letter-spacing: -1px;
+    display: block; 
+    text-align: center;
+    font-size: 1.3em;
 }
 .due-date-symbol{
-    display: inline-block;
-    margin-right: 7px;
-}
-.due-date-button {
-    float: right;
-    margin-right: 7px;
-    font-size: 15px;
+    position: absolute;
 }
 .date-del:before {
-    margin-right: 10px;
-    float: right;
     content: '\2715';
+    position: absolute;
+    top: 2px; 
+    right: 7px;
+    font-size: 1.2em;
 }
 /*--------------------------
            CALENDAR 

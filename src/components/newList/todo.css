@@ -16,7 +16,7 @@
 }
 @media screen and (max-width: 425px){
     .todo {
-        width: 425px;
+        width: 100%;
         max-height: 100%;
     }
 }

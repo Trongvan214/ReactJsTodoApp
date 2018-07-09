@@ -4,8 +4,8 @@ import './todoitem.css';
 
 export default class TodoItems extends Component {
     state = {
+        editMode: false,
         editIndex: -1,
-        hi: false,
     };
     updateStar = (e,index) => {
         e.stopPropagation();
@@ -15,19 +15,31 @@ export default class TodoItems extends Component {
         todos[index].star = !todos[index].star;
         this.props.update(todos);
     }
-    deleteTodo = (index) => {
+    deleteTodo = () => {
         const { todos } = this.props;
-        todos.splice(index, 1);
+        todos.splice(this.state.editIndex, 1);
+        this.setState(() => ({
+            editIndex: -1,
+            editMode: false,
+        }));
         this.props.update(todos);
     }
     updateTodo = (todo) => {
+        console.log('in updateTodo');
         const { todos } = this.props;
         todos[this.state.editIndex] = todo;  
-        this.setState(() => ({editIndex: -1}));
+        this.setState({
+            editIndex: -1,
+            editMode: false,
+        });
         this.props.update(todos);
     }
     editTodo = (e,index) => {
-        this.setState({editIndex: index});
+        console.log('edit');
+        this.setState({
+            editIndex: index,
+            editMode: true,
+        });
     }
     render(){
         const { todos } = this.props;
@@ -41,7 +53,7 @@ export default class TodoItems extends Component {
                     ref={"item-"+index}
                     onClick={(e)=>this.editTodo(e,index)}
                 >
-                    <div className="ti-item-content">
+                    <div className={"ti-item-content " + "prior " + todo.priority} >
                         <div className="ti-name">
                             <span 
                                 className={todo.star ? " ti-star active" : "ti-star"} 
@@ -51,6 +63,11 @@ export default class TodoItems extends Component {
                         </div>
                         <div className="ti-time-info">
                             <span className="ti-time-date" ref={"item-date-"+index}>{updateDate(todo.date)}</span>
+                            {
+                                updateDate(todo.date) ?  (
+                                    <span className="ti-blank-space"></span>
+                                ) : null
+                            }
                             <span className="ti-time-time" ref={"item-time-"+index}>{updateTime(todo.time)}</span>
                         </div>
                         <span 
@@ -59,18 +76,21 @@ export default class TodoItems extends Component {
                         >
                             {todo.subTasks.active ? todo.subTasks.active : ""}
                         </span>
-                        <Edit   key={index}
-                                index={index} 
-                                todo={todo} 
-                                updateTodo={this.updateTodo} 
-                                editIndex={this.state.editIndex}
-                        />
-                        <span className="ti-delete" onClick={()=>this.deleteTodo(index)}>&#10006;</span>
                     </div>
                 </li>
             )
         });
-
+        if(this.state.editMode){
+            console.log('in edit');
+            const { todos } = this.props;
+            const { editIndex } = this.state;
+            return (
+                <Edit   todo={todos[editIndex]} 
+                        updateTodo={this.updateTodo} 
+                        deleteTodo={this.deleteTodo}
+                />
+            )
+        }
         return (
             <div className="ti">
                 <ul>

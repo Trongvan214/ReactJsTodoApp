@@ -1,12 +1,11 @@
 import React from 'react';
+import './addnote.css';
 
 const AddNote = ({setNote, getNote}) => (
     <div className="add-note">
-        <span className="add-note-symbol">&#9998;</span>
+        <h1>Add Notes:</h1>
         <textarea rows="7" 
             type="textarea" 
-            className="add-note-textbox" 
-            placeholder="Add a note.."
             value={setNote}
             onChange={(e)=>getNote(e.target.value)} />
     </div>
