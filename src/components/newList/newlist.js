@@ -51,7 +51,7 @@ export default class NewList extends Component {
             <div className="todo shadow">
                 <nav>
                     <ul>
-                        <li><Link to="/calendar">Calender</Link></li>
+                        <li><a>Todo App</a></li>
                     </ul>
                 </nav>
                 <div className="nt">

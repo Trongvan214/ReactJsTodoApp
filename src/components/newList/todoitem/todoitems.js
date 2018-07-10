@@ -70,12 +70,12 @@ export default class TodoItems extends Component {
                             }
                             <span className="ti-time-time" ref={"item-time-"+index}>{updateTime(todo.time)}</span>
                         </div>
-                        <span 
+                        {/* <span 
                             className="ti-subtask-length" 
                             ref={"item-sub-length-"+index}
                         >
                             {todo.subTasks.active ? todo.subTasks.active : ""}
-                        </span>
+                        </span> */}
                     </div>
                 </li>
             )
